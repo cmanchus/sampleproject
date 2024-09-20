@@ -16,6 +16,7 @@
 <Node guiName="Dedup" guiX="909" guiY="227" id="DEDUP" type="DEDUP"/>
 <Node guiName="Filter" guiX="691" guiY="293" id="FILTER" type="EXT_FILTER"/>
 <Node fileURL="C:/Users/Christian/OneDrive/Desktop/sample.csv" guiName="FlatFileReader" guiX="379" guiY="231" id="FLAT_FILE_READER" type="FLAT_FILE_READER"/>
+<Node guiName="JMSReader" guiX="562" guiY="385" id="JMSREADER" type="JMS_READER"/>
 <Node guiName="Partition" guiX="942" guiY="359" id="PARTITION" type="PARTITION"/>
 <Edge fromNode="FLAT_FILE_READER:0" guiBendpoints="" guiRouter="Manhattan" id="Edge0" inPort="Port 0 (in)" metadata="Metadata0" outPort="Port 0 (output)" toNode="FILTER:0"/>
 </Phase>
