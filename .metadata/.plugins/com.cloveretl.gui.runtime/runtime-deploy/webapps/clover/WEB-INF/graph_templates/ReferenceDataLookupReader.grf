@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Graph author="Salamon" created="Tue May 28 12:23:44 CEST 2024" guiVersion="6.5.0.43" id="1716892745697" licenseCode="Commercial Devel" name="ReferenceDataLookupReader" showComponentDetails="true">
+<Global>
+<Metadata id="Metadata1">
+<Record fieldDelimiter="|" name="DataManagerList" previewAttachmentCharset="UTF-8" recordDelimiter="\r\n" type="delimited">
+<Field name="value" type="variant"/>
+<Field name="label" type="string"/>
+</Record>
+</Metadata>
+<GraphParameters>
+<GraphParameter name="LOOKUP_PATH" public="true" value="[REPLACE_BY_RELATIVE_PATH]"/>
+<GraphParameterFile fileURL="workspace.prm"/>
+</GraphParameters>
+<LookupTable id="LookupTable0" lookupConfig="${LOOKUP_PATH}"/>
+<RichTextNote backgroundColor="FAF6D6" folded="false" fontSize="medium" height="413" id="Note0" textColor="444444" width="855" x="68" y="38">
+<attr name="text"><![CDATA[h3. This graph is used as base for generated mini-graphs which read entire content of lookups in Reference Data Manager
+
+Implemented in CLO-29471
+
+When actual mini-graph is generated from this template, the trash component gets replaced by 'record reader' component which sends all the records serialized to Core.
+
+Graph parameter LOOKUP_PATH must contain project-relative path to an externalized lookup.
+* The value of that parameter is replaced when graph is generated from this template.]]></attr>
+</RichTextNote>
+<Dictionary/>
+</Global>
+<Phase number="0">
+<Node caseSensitive="false" guiName="ExtSort" guiX="550" guiY="276" id="EXT_SORT" locale="en.US" sortKey="label(a)" type="EXT_SORT"/>
+<Node guiName="LookupTableReaderWriter" guiX="109" guiY="276" id="LOOKUP_TABLE_READER_WRITER" lookupTable="LookupTable0" type="LOOKUP_TABLE_READER_WRITER"/>
+<Node guiName="toVariant" guiX="361" guiY="276" id="TO_VARIANT" type="REFORMAT">
+<attr name="transform"><![CDATA[//#CTL2
+
+function integer transform() {
+	$out.0.value = $in.0.value;
+	$out.0.label = $in.0.label;
+	return ALL;
+}
+]]></attr>
+</Node>
+<Node guiName="Trash" guiX="733" guiY="276" id="TRASH" type="TRASH"/>
+<Edge fromNode="EXT_SORT:0" guiBendpoints="" guiRouter="Manhattan" id="Edge1" inPort="Port 0 (in)" outPort="Port 0 (out)" toNode="TRASH:0"/>
+<Edge fromNode="LOOKUP_TABLE_READER_WRITER:0" guiBendpoints="" guiRouter="Manhattan" id="Edge0" inPort="Port 0 (in)" outPort="Port 0 (out)" toNode="TO_VARIANT:0"/>
+<Edge fromNode="TO_VARIANT:0" guiBendpoints="" guiRouter="Manhattan" id="Edge4" inPort="Port 0 (in)" metadata="Metadata1" outPort="Port 0 (out)" toNode="EXT_SORT:0"/>
+</Phase>
+</Graph>

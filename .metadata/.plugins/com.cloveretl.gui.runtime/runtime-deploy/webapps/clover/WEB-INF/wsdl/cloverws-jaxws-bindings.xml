@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jaxws:bindings wsdlLocation="CloverServerWS.wsdl"
+    xmlns:jaxws="http://java.sun.com/xml/ns/jaxws" version="2.1"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <jaxws:bindings node="wsdl:definitions">
+        <jaxws:package name="com.cloveretl.server.api.webservice.generated" />
+    </jaxws:bindings>
+</jaxws:bindings>

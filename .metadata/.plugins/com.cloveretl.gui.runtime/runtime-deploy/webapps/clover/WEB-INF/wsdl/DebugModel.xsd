@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://server.cloveretl.com/DebugModel"
+    xmlns:tns="http://server.cloveretl.com/DebugModel"
+    xmlns:xmime="http://www.w3.org/2005/05/xmlmime">
+    
+    <complexType name="Thread">
+        <sequence>
+            <element name="runId" type="long" />
+            <element name="threadId" type="long" />
+            <element name="name" type="string" />
+            <element name="stepping" type="boolean" />
+            <element name="suspended" type="boolean" />
+        </sequence>
+    </complexType>
+
+    <complexType name="StackFrame">
+        <sequence>
+            <element name="threadId" type="long" />
+            <element name="callId" type="long" />
+            <element name="file" type="string" />
+            <element name="lineNumber" type="int" />
+            <element name="name" type="string" />
+            <element name="parameterTypes" type="string" minOccurs="0" maxOccurs="unbounded" />
+            <element name="synthetic" type="boolean" />
+            <element name="generated" type="boolean" />
+        </sequence>
+    </complexType>
+
+    <complexType name="Breakpoint">
+        <sequence>
+            <element name="lineNumber" type="int" />
+            <element name="path" type="string" />
+            <element name="enabled" type="boolean" />
+            <element name="hitCount" type="int" />
+            <element name="expression" type="string" />
+            <element name="valueChange" type="boolean" />
+        </sequence>
+    </complexType>
+
+    <complexType name="DebugEvent" abstract="true">
+        <sequence>
+            <element name="runId" type="long" />
+        </sequence>
+    </complexType>
+    
+    <complexType name="ThreadEvent" abstract="true">
+        <complexContent>
+            <extension base="tns:DebugEvent">
+                <sequence>
+                    <element name="threadId" type="long" />
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    
+    <complexType name="ThreadStartEvent">
+        <complexContent>
+            <extension base="tns:ThreadEvent" />
+        </complexContent>
+    </complexType>
+
+    <complexType name="ThreadStopEvent">
+        <complexContent>
+            <extension base="tns:ThreadEvent" />
+        </complexContent>
+    </complexType>
+    
+    <complexType name="BreakpointConditionErrorEvent">
+        <complexContent>
+            <extension base="tns:DebugEvent">
+                <sequence>
+                    <element name="breakpoint" type="tns:Breakpoint" />
+                    <element name="erroMessage" type="string" />
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="ThreadResumeEvent">
+        <complexContent>
+            <extension base="tns:ThreadEvent">
+                <sequence>
+                    <element name="steppingType" type="tns:StepType" minOccurs="0" />
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="ThreadSuspensionEvent">
+        <complexContent>
+            <extension base="tns:ThreadEvent">
+                <sequence>
+                    <element name="path" type="string" />
+                    <element name="lineNumber" type="int" />
+                    <element name="breakpoint" type="boolean" />
+                    <element name="finishedStep" type="tns:StepType" minOccurs="0" />
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    
+    <complexType name="InitEvent">
+        <complexContent>
+            <extension base="tns:DebugEvent" />
+        </complexContent>
+    </complexType>
+
+    <complexType name="StartEvent">
+        <complexContent>
+            <extension base="tns:DebugEvent" />
+        </complexContent>
+    </complexType>
+
+    <complexType name="TerminateEvent">
+        <complexContent>
+            <extension base="tns:DebugEvent" />
+        </complexContent>
+    </complexType>
+    
+    <simpleType name="StepType">
+        <restriction base="string">
+            <enumeration value="STEP_INTO" />
+            <enumeration value="STEP_OVER" />
+            <enumeration value="STEP_OUT" />
+        </restriction>
+    </simpleType>
+
+    <complexType name="Variable" abstract="true">
+        <sequence>
+            <element name="name" type="string" />
+            <element name="type" type="string" />
+            <element name="null" type="boolean" />
+            <element name="id" type="long" />
+        </sequence>
+    </complexType>
+
+    <complexType name="SimpleVariable">
+        <complexContent>
+            <extension base="tns:Variable">
+                <sequence>
+                    <element name="value" type="anySimpleType" minOccurs="0" />
+                    <element name="format" type="string" />
+                    <element name="locale" type="string" />
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    
+    <complexType name="DateVariable">
+        <complexContent>
+            <extension base="tns:SimpleVariable">
+                <sequence>
+                    <element name="timeZone" type="string" />
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="DecimalVariable">
+        <complexContent>
+            <extension base="tns:SimpleVariable">
+                <sequence>
+                    <element name="length" type="int" />
+                    <element name="scale" type="int" />
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    
+    <simpleType name="CompositeVariableType">
+        <restriction base="string">
+            <enumeration value="LIST" />
+            <enumeration value="MAP" />
+            <enumeration value="MAP_ENTRY" />
+            <enumeration value="RECORD" />
+            <enumeration value="VARIANT" />
+        </restriction>
+    </simpleType>
+
+    <complexType name="CompositeVariable">
+        <complexContent>
+            <extension base="tns:Variable">
+                <sequence>
+                    <element name="value" type="tns:Variable" minOccurs="0" maxOccurs="unbounded" />
+                    <element name="compositeType" type="tns:CompositeVariableType" />
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

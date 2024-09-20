@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration status="warn">
+	<Properties>
+		<Property name="temp_loggingDir">${sys:clover.clover.home:-${sys:java.io.tmpdir}}</Property>
+		<Property name="loggingDir">${sys:clover.logging.dir:-${temp_loggingDir}}</Property>
+		<Property name="log4j2.appender.stdout.level">off</Property>
+		
+		<Property name="patternLayout.charset">UTF-8</Property>
+		<Property name="daily.logs.policies.sizeBasedTriggeringPolicy">20 MB</Property>
+		<Property name="daily.logs.rolloverStrategy.maxFile">20</Property>
+	</Properties>
+	<Appenders>
+		<Console name="stdout" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{ABSOLUTE} %-5p: %m%n" />
+		</Console>
+		
+		<Null name="nullAppender" />
+		
+		<RollingFile
+			name="allAppender"
+			fileName="${loggingDir}/cloverlogs/all.log"
+			filePattern="${loggingDir}/cloverlogs/all.%d{yyyy-MM-dd}.%i.log.gz">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS}[%15.15t] %-5p %-3X{runId} %m%n" charset="${patternLayout.charset}" />
+			<Policies>
+			<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="${daily.logs.policies.sizeBasedTriggeringPolicy}" />
+			</Policies>
+			
+			<DefaultRolloverStrategy max="${daily.logs.rolloverStrategy.maxFile}">
+				<Delete basePath="${loggingDir}/cloverlogs">
+					 <IfFileName glob="all*.log*">
+						 <IfAccumulatedFileCount exceeds="${daily.logs.rolloverStrategy.maxFile}" />
+					 </IfFileName>
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingFile>
+		
+		<!-- The original version of the appender settings before version 6.4
+		<RollingFile name="allAppender"
+			fileName="${loggingDir}/cloverlogs/all.log"
+			filePattern="${loggingDir}/cloverlogs/all.log.%i">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS}[%15.15t] %-5p %-3X{runId} %m%n" charset="UTF-8" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="5MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+		-->
+		
+		<RollingFile
+			name="performanceAppender"
+			createOnDemand="true"
+			fileName="${loggingDir}/cloverlogs/performance.log"
+			filePattern="${loggingDir}/cloverlogs/performance.%d{yyyy-MM-dd}.%i.log.gz">
+			<PatternLayout pattern="{ %m }%n" charset="${patternLayout.charset}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="${daily.logs.policies.sizeBasedTriggeringPolicy}" />
+			</Policies>
+			<DefaultRolloverStrategy max="${daily.logs.rolloverStrategy.maxFile}">
+				<Delete basePath="${loggingDir}/cloverlogs">
+					 <IfFileName glob="performance*.log.*">
+						 <IfAccumulatedFileCount exceeds="${daily.logs.rolloverStrategy.maxFile}" />
+					 </IfFileName>
+			</Delete>
+			</DefaultRolloverStrategy>
+		</RollingFile>
+		
+		<!-- The original version of the appender settings before version 6.4
+		<RollingFile name="performanceAppender"
+			createOnDemand="true"
+			fileName="${loggingDir}/cloverlogs/performance.log"
+			filePattern="${loggingDir}/cloverlogs/performance.log.%i">
+			<PatternLayout pattern="{ %m }%n" charset="UTF-8" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+		-->
+		
+		<RollingFile name="asyncMessagingAppender"
+			fileName="${loggingDir}/cloverlogs/jgroups.log"
+			filePattern="${loggingDir}/cloverlogs/jgroups.log.%i">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS}[%15.15t] %-5p %m%n" charset="${patternLayout.charset}" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="5MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+		
+		<RollingFile name="nodeStatusAppender"
+			fileName="${loggingDir}/cloverlogs/node.log"
+			filePattern="${loggingDir}/cloverlogs/node.log.%i">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS}[%15.15t] %-5p %m%n" charset="${patternLayout.charset}" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="5MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="5" />
+		</RollingFile>
+		
+		<RollingFile name="userActionAppender"
+			fileName="${loggingDir}/cloverlogs/user-action.log"
+			filePattern="${loggingDir}/cloverlogs/user-action.log.%i">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} %X{IP} %m%n" charset="${patternLayout.charset}" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="2MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="5" />
+		</RollingFile>
+		
+		<RollingFile name="serverAuditLogAppender"
+			fileName="${loggingDir}/cloverlogs/server-audit.log"
+			filePattern="${loggingDir}/cloverlogs/server-audit.log.%i">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} %X{IP} %m%n" charset="${patternLayout.charset}" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="5MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+		
+		<RollingFile name="serverIntegrationLogAppender"
+			fileName="${loggingDir}/cloverlogs/server-integration.log"
+			filePattern="${loggingDir}/cloverlogs/server-integration.log.%i">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} %X{IP} %m%n" charset="${patternLayout.charset}" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="5MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+		
+		<RollingFile name="dataServiceAppender"
+			fileName="${loggingDir}/cloverlogs/data-service.log"
+			filePattern="${loggingDir}/cloverlogs/data-service.log.%i">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p %X{IP} %m%n" charset="${patternLayout.charset}" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="5MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+		
+		<RollingFile name="velocityAppender"
+			fileName="${loggingDir}/cloverlogs/velocity.log"
+			filePattern="${loggingDir}/cloverlogs/velocity.log.%i">
+			<ThresholdFilter level="DEBUG" />
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS}[%15.15t] %-5p %-3X{runId} %m%n" charset="${patternLayout.charset}" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="5MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+		
+		<RollingFile name="jobQueueAppender"
+			createOnDemand="true"
+			fileName="${loggingDir}/cloverlogs/job-queue.log"
+			filePattern="${loggingDir}/cloverlogs/job-queue.log.%i">
+			<PatternLayout pattern="{ %m }%n" charset="${patternLayout.charset}" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+
+		<RollingFile name="monitorAppender"
+			createOnDemand="true"
+			fileName="${loggingDir}/cloverlogs/monitor.log"
+			filePattern="${loggingDir}/cloverlogs/monitor.log.%i">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p %m%n" charset="${patternLayout.charset}" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="1MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="1" />
+		</RollingFile>
+
+		<!-- Uncomment to log Hibernate SQL queries  
+		<RollingFile name="hibernateAppender"
+			fileName="${loggingDir}/cloverlogs/hibernate.log"
+			filePattern="${loggingDir}/cloverlogs/hibernate.log.%i">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS}: %m%n%n" charset="${patternLayout.charset}" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="5MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+		-->
+		<!-- Uncomment to debug SAML communication
+		<RollingFile name="samlAppender"
+			fileName="${loggingDir}/cloverlogs/saml.log"
+			filePattern="${loggingDir}/cloverlogs/saml.log.%i">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p %X{IP} %m%n" charset="${patternLayout.charset}" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="5MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+		 -->
+
+		<!--  Uncomment to debug health state switching 
+		<RollingFile name="healthMonitorAppender"
+			fileName="${loggingDir}/cloverlogs/healthmonitor.log"
+			filePattern="${loggingDir}/cloverlogs/healthmonitor.log.%i">
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p %m%n" charset="${patternLayout.charset}" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="5MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+		-->
+		
+		<RollingFile name="dbDatasourceAppender"
+			fileName="${loggingDir}/cloverlogs/dbDatasource.log"
+			filePattern="${loggingDir}/cloverlogs/dbDatasource.log.%i"
+			createOnDemand="true">
+			<LevelRangeFilter minLevel="trace" maxLevel="trace" />
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS}[%15.15t] %-5p %m%n" charset="${patternLayout.charset}" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="5MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Logger name="com.cloveretl.commons.server.config" level="info" />
+		
+		<Logger name="com.cloveretl.server" level="info" />
+		
+		<Logger name="com.cloveretl.server.datasource.c" level="info" />
+		
+		<Logger name="com.cloveretl.server.datasource.a.b" level="info" />
+		
+		<Logger name="com.cloveretl.server.sandbox.k" level="debug" />
+		
+		<Logger name="com.cloveretl.server.facade.a.a" level="info" />
+		
+		<Logger name="org.springframework.beans" level="info" />
+		
+		<Logger name="com.cloveretl.server.m.r" level="info" />
+		
+		<Logger name="com.cloveretl.server.utils.a.c" level="info" />
+		
+		<Logger name="com.cloveretl.server.utils.a.d" level="info" />
+		
+		<Logger name="com.cloveretl.server.worker.commons.utils.io.DeferredCloseInputStream" level="info" />
+		
+		<Logger name="com.cloveretl.server.graph" level="info" />
+		
+		<Logger name="com.cloveretl.server.job.graph" level="info" />
+		
+		<Logger name="com.cloveretl.server.job.wrangler" level="info" />
+		
+		<Logger name="com.cloveretl.server.timing" level="info" />
+		
+		<Logger name="org.apache.http" level="info" />
+
+		<Logger name="org.apache.kafka" level="debug" additivity="false" /><!-- Prevent library logging in all.log. Logging is added to job logs dynamically. -->
+		
+		<Logger name="org.apache.parquet" level="info" additivity="false" /><!-- Prevent library logging in all.log. Logging is added to job logs dynamically. -->
+		
+		<Logger name="org.apache.poi" level="debug" additivity="false" /><!-- Prevent library logging in all.log. Logging is added to job logs dynamically. -->
+		
+		<Logger name="com.ddtek.xmlconverter" level="off" /><!-- Prevent edi progress library logging in all.log. -->
+		
+		<Logger name="com.cloveretl.server.g.i" level="info" />
+		
+		<Logger name="com.cloveretl.server.graph.ExecutionManager" level="info" />
+		
+		<Logger name="com.cloveretl.server.graph.LocalExecutor" level="info" />
+		
+		<Logger name="com.cloveretl.server.g.g" level="info" />
+		
+		<Logger name="com.cloveretl.server.graph.runtime.GraphPool" level="info" />
+		
+		<Logger name="com.cloveretl.server.events.ServerEventCreator" level="info" />
+		
+		<Logger name="com.cloveretl.server.events.ServerEventNotificator" level="info" />
+		
+		<Logger name="com.cloveretl.server.events.a.e" level="info" />
+		
+		<Logger name="org.springframework.scheduling.quartz.SchedulerFactoryBean" level="warn" />
+		
+		<Logger name="com.cloveretl.server.cluster.d" level="info" />
+		
+		<Logger name="com.cloveretl.server.cluster.synchronizer.Synchronizer" level="info" />
+		
+		<!-- extra logger for some important user's actions; i.e. login -->
+		<Logger name="userAction" level="info">
+			<AppenderRef ref="userActionAppender" />
+		</Logger>
+		
+		<!-- extra logger for serverFacade and JDBC proxy operations - must be enabled explicitly also by server property logging.logger.server_audit.enabled -->
+		<Logger name="serverAuditLog" level="debug" additivity="false">
+			<AppenderRef ref="serverAuditLogAppender" />
+		</Logger>
+		
+		<!-- extra logger for designer-server integration operations - must be enabled explicitly also by server property logging.logger.server_integration.enabled -->
+		<Logger name="serverIntegrationLog" level="debug" additivity="false">
+			<AppenderRef ref="serverIntegrationLogAppender" />
+		</Logger>
+		
+		<Logger name="cz.mathan.util.DbSchemaUpdate" level="info" />
+		
+		<Logger name="com.cloveretl.server.InitializationDoneServlet" level="debug" />
+		
+		<Logger name="com.cloveretl.server.cluster" level="info" />
+		
+		<Logger name="org.apache.commons.digester.Digester" level="info" />
+		
+		<Logger name="org.springframework.web.jsf" level="info" />
+		
+		<Logger name="org.springframework.web.filter.RequestContextFilter" level="info" />
+		
+		<Logger name="org.apache.commons.beanutils" level="info" />
+		
+		<Logger name="org.springframework.beans.factory.support.DefaultListableBeanFactory" level="info" />
+		
+		<!-- Uncomment to log Hibernate SQL queries
+		<Logger name="org.hibernate.SQL" level="debug">
+			<AppenderRef ref="hibernateAppender" />
+		</Logger>
+		-->
+		
+		<!-- Uncomment to debug SAML communication
+		<Logger name="com.cloveretl.server.auth.SamlServlet" level="debug" additivity="false">
+			<AppenderRef ref="samlAppender" />
+		</Logger>
+		
+		<Logger name="com.onelogin.saml2" level="debug" additivity="false">
+			<AppenderRef ref="samlAppender" />
+		</Logger>
+		-->
+		
+		<!-- Uncomment to debug health state switching 
+		<Logger name="com.cloveretl.server.healthmonitor.HealthMonitor" level="debug" additivity="false">
+			<AppenderRef ref="healthMonitorAppender" />
+		</Logger>
+		-->
+		
+		<Logger name="com.cloveretl.server.api.b.g" level="trace" />
+		
+		<Logger name="com.cloveretl.server.config.a" level="info" />
+		
+		<Logger name="com.cloveretl.server.timing.GarbageManJob" level="warn" />
+		
+		<!-- Following lines remove annoying Derby WARNing -->
+		<Logger name="org.hibernate.engine.jdbc.spi.SqlExceptionHelper" level="error" />
+		
+		<Logger name="org.hibernate.hql.ast.tree.FromElementType" level="error" />
+		
+		<!-- Suppress Tomcat's errors about non-serializable objects in sessions -->
+		<Logger name="org.apache.catalina.session.StandardManager" level="fatal" />
+		
+		<!-- Logger for logging server specific messages into job log file -->
+		<Logger name="JobLogger" level="debug" additivity="false" />
+		
+		<Logger name="org.jetel" level="debug" additivity="false">
+			<AppenderRef ref="nullAppender" /><!-- just to avoid WARNing "log4j:WARN No appenders could be found for logger", real appender is assigned dynamically -->
+		</Logger>
+		
+		<Logger name="org.jetel.data.Defaults" level="info" additivity="true">
+			<AppenderRef ref="allAppender" />
+		</Logger>
+		
+		<Logger name="org.jetel.plugin.Plugins" level="info" additivity="true">
+			<AppenderRef ref="allAppender" />
+		</Logger>
+		
+		<Logger name="org.jetel.graph.runtime.EngineInitializer" level="info" additivity="true">
+			<AppenderRef ref="allAppender" />
+		</Logger>
+		
+		<Logger name="org.jetel.graph.runtime.jmx" level="debug" additivity="true">
+			<AppenderRef ref="allAppender" level="info" />
+		</Logger>
+		
+		<Logger name="Tracking" level="debug" additivity="false">
+			<AppenderRef ref="nullAppender" />
+		</Logger>
+		 
+		<Logger name="com.cloveretl.server.cluster.events.ServerEventNotificator" level="info" />
+		
+		<Logger name="com.cloveretl.server.cluster.JGroupsAsyncMessaging" level="debug" additivity="false">
+			<AppenderRef ref="asyncMessagingAppender" />
+			<AppenderRef ref="allAppender" level="info" />
+		</Logger>
+		
+		<Logger name="com.cloveretl.server.cluster.jgroups" level="debug" additivity="false">
+			<AppenderRef ref="asyncMessagingAppender" />
+		</Logger>
+		
+		<Logger name="org.jgroups" level="debug" additivity="false">
+			<AppenderRef ref="asyncMessagingAppender" />
+		</Logger>
+		
+		<Logger name="NodeStatusLogger" level="info" additivity="false">
+			<AppenderRef ref="nodeStatusAppender" />
+		</Logger>
+		
+		<Logger name="LoadBalancerLogger" level="info" additivity="false">
+			<AppenderRef ref="nodeStatusAppender" />
+		</Logger>
+		
+		<Logger name="DataServiceLogger" level="info" additivity="false">
+			<AppenderRef ref="dataServiceAppender" />
+		</Logger>
+		
+		<Logger name="StdOutLogger" level="info" additivity="false">
+			<AppenderRef ref="stdout" />
+		</Logger>
+		
+		<Logger name="com.opensys" level="fatal" additivity="false">
+			<AppenderRef ref="nullAppender" />
+		</Logger>
+		
+		<Logger name="com.cloveretl.profiler.engine" level="fatal" additivity="false">
+			<AppenderRef ref="nullAppender" />
+		</Logger>
+		
+		<Logger name="org.apache.catalina" level="info" additivity="false">
+			<AppenderRef ref="dataServiceAppender" />
+			<AppenderRef ref="allAppender" />
+		</Logger>
+		
+		<Logger name="VelocityLogger" level="info" additivity="false">
+			<AppenderRef ref="velocityAppender" />
+		</Logger>
+		
+		<Logger name="PerformanceLogger" level="info" additivity="false">
+			<AppenderRef ref="performanceAppender" />
+		</Logger>
+
+		<Logger name="JobQueueLogger" level="info" additivity="false">
+			<AppenderRef ref="jobQueueAppender" />
+		</Logger>
+		
+		<Logger name="MonitorLogger" level="info" additivity="false">
+			<AppenderRef ref="monitorAppender" />
+		</Logger>
+		
+		<Logger name="DatasourceDbLogger" level="trace" additivity="false">
+			<AppenderRef ref="dbDatasourceAppender" />
+		</Logger>
+		
+		<Root level="info">
+			<AppenderRef ref="allAppender" level="info" />
+			<AppenderRef ref="stdout" level="${sys:log4j2.appender.stdout.level}" />
+		</Root>
+	</Loggers>
+</Configuration>

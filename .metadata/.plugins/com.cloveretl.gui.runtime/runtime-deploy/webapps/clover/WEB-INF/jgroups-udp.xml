@@ -1,0 +1,89 @@
+<config>
+	<!--  use -Djava.net.preferIPv4Stack=true to avoid problems with IPv6 (ERROR JGRP000029) -->	
+	 <com.cloveretl.server.cluster.jgroups.UDPx
+	 	message_lost="${jgroups.udpx.message_lost:0}"
+	 	 mcast_addr="${jgroups.udp.mcast_addr:228.8.8.8}"
+         mcast_port="${jgroups.udp.mcast_port:45588}"
+         tos="8"
+         ucast_recv_buf_size="5M"
+         ucast_send_buf_size="640K"
+         mcast_recv_buf_size="5M"
+         mcast_send_buf_size="640K"
+         loopback="false"
+         max_bundle_size="64K"
+         max_bundle_timeout="30"
+         ip_ttl="${jgroups.udp.ip_ttl:8}"
+         enable_diagnostics="false"
+         thread_naming_pattern="cl"
+
+         timer_type="new3"
+         timer.min_threads="4"
+         timer.max_threads="10"
+         timer.keep_alive_time="3000"
+         timer.queue_max_size="500"
+
+         thread_pool.enabled="true"
+         thread_pool.min_threads="1"
+         thread_pool.max_threads="4"
+         thread_pool.keep_alive_time="5000"
+         thread_pool.queue_enabled="false"
+         thread_pool.queue_max_size="50"
+         thread_pool.rejection_policy="run"
+
+         oob_thread_pool.enabled="true"
+         oob_thread_pool.min_threads="1"
+         oob_thread_pool.max_threads="4"
+         oob_thread_pool.keep_alive_time="5000"
+         oob_thread_pool.queue_enabled="false"
+         oob_thread_pool.queue_max_size="50"
+         oob_thread_pool.rejection_policy="run"/>	
+		
+	<PING timeout="6000" num_initial_members="3"/>
+
+	<!--
+	http://www.redhat.com/docs/manuals/jboss/jboss-eap-4.2/doc/Clustering_Guide/jbosscache-jgroups-other-merge.html 
+	 -->
+    <MERGE3 max_interval="30000"
+              min_interval="10000"
+              max_participants_in_merge="0"
+              />
+    <!-- 
+    	FD == Failure Detection 
+    	-->
+    <!-- <FD_SOCK/> -->
+    <FD timeout="60000" max_tries="6" />
+    <VERIFY_SUSPECT timeout="6000"  />
+
+    <!-- Negative AcKnowledgement - reliable multicast -->
+	<!-- required by GMS --> 
+    <com.cloveretl.server.cluster.jgroups.NAKACKx
+    			   gc_lag="${jgroups.protocol.NAKACK.gc_lag:5000}"
+                   use_mcast_xmit="false" 
+                   xmit_interval="2000"
+                   xmit_max_retransmit_requests="200"
+                   xmit_table_obsolete_member_timeout="${jgroups.protocol.NAKACK.xmit_table_obsolete_member_timeout:3600000}"
+                   max_rebroadcast_timeout="6000"
+                   discard_delivered_msgs="true"
+                   suppress_time_non_member_warnings="0" />
+    <!-- STABLE is required by NAKACK, otherwise the NAKACK would store all message instances sent -->
+    <pbcast.STABLE stability_delay="1000" desired_avg_gossip="50000"
+                   max_bytes="400000"/>
+
+	<!-- automatically JOINs the message sender when it's not in the current view -->
+    <com.cloveretl.server.cluster.jgroups.AutoReJoin />
+
+    <!-- 
+    	https://community.jboss.org/wiki/JGroupsPbcastGMS
+     	-->
+     <!-- GMS requires GET_DIGEST produced by NAKACK -->
+    <pbcast.GMS
+    		print_local_addr="true" 
+	   		join_timeout="6000"
+            view_bundling="true"
+            view_ack_collection_timeout="10000"
+            />
+    <!-- 
+    	message FRAGmentation 
+    	-->
+    <FRAG2 frag_size="60000"  />
+</config>

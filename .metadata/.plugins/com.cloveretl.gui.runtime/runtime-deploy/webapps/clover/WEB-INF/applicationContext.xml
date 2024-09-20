@@ -1,0 +1,1518 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+	default-autowire="no" >
+	
+	<context:annotation-config />
+	<context:property-placeholder />
+	
+	<import resource="applicationContext-gui.xml" />
+	
+	<bean id="configuration" class="com.cloveretl.server.config.a"
+		factory-method="getInstance" />
+	
+	<bean id="configurationManager" class="com.cloveretl.server.config.h">
+		<property name="categories">
+			<list>
+				<bean class="com.cloveretl.server.config.d" init-method="init" />
+				<bean class="com.cloveretl.server.j.b" init-method="init" />
+				<bean class="com.cloveretl.server.datasource.e" init-method="init" />
+				<bean class="com.cloveretl.server.datasource.a" init-method="init" />
+				<bean class="com.cloveretl.server.worker.ag" init-method="init" />
+				<bean class="com.cloveretl.server.sandbox.g" init-method="init" />
+				<bean class="com.cloveretl.server.e.a" init-method="init" />
+				<bean class="com.cloveretl.server.mail.b" init-method="init" />
+				<bean class="com.cloveretl.server.security.e" init-method="init" />
+				<bean class="com.cloveretl.server.cluster.b" init-method="init" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="beanCreationListener" class="com.cloveretl.server.init.InitBeanPostProcessor" init-method="init" />
+	
+	<!-- Cluster inter-node communication  -->
+	<bean id="asyncMessaging" class="${cluster.messaging.multicast.impl}" destroy-method="destroy">
+	</bean>
+
+	<bean id="clusterInfoGatherer" class="com.cloveretl.server.cluster.ClusterInfoGatherer" depends-on="configuration" >
+		<property name="clusterGroupName" value="${cluster.group.name}" />
+		<property name="nodeId" value="${cluster.node.id}" />
+		<property name="nodeHttpUrl" value="${cluster.http.url}" />
+	</bean>
+	
+	<bean id="clusterJobLoadBalancer" class="com.cloveretl.server.cluster.g" init-method="init">
+	</bean>
+
+	<bean id="clusterNodeApi" class="com.cloveretl.server.cluster.nodeapi.e">
+		<property name="lifeCycleAwareBeans" ref="lifecycleAwareBeans" />
+	</bean>
+	<bean name="clusterNodeApiExporter" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="clusterNodeApi" />
+		<property name="serviceInterface" value="com.cloveretl.server.cluster.nodeapi.g" />
+		<property name="interceptors">
+			<list>
+				<ref bean="synchronizerInvocationInterceptor" />
+			</list>
+		</property>
+	</bean>
+	<bean id="synchronizerInvocationInterceptor" class="com.cloveretl.server.cluster.synchronizer.SynchronizerInvocationInterceptor" />
+	
+	<bean id="clusterNodeAsyncExecutor" class="com.cloveretl.server.cluster.nodeapi.f" />
+	
+	<bean id="clusterDispatcher" class="com.cloveretl.server.cluster.nodeapi.b" />
+	<bean id="asyncClusterDispatcher" class="com.cloveretl.server.cluster.a" />
+	
+	<bean id="serverAuthorityProxy" class="com.cloveretl.server.g.e.m" scope="prototype" />
+
+	<bean id="classLoadersContainer" class="com.cloveretl.server.cache.ClassLoadersContainer" />
+
+	<bean id="tempFileManager" class="com.cloveretl.server.tempmgr.impl.TempFileManagerImpl">
+		<property name="tempFileAllocator">
+			<bean class="com.cloveretl.server.tempmgr.impl.DefaultTempFileAllocator" />
+		</property>
+	</bean>
+
+	<bean id="tempSpaceManager" class="com.cloveretl.server.tempmgr.impl.TempSpaceManagerImpl" />
+	
+	<bean
+		id="systemInformationManager"
+		class="com.cloveretl.server.system.c"
+		init-method="init"
+		destroy-method="dispose">
+		<property
+			name="informationProvider"
+			ref="#{systemProperties['os.name'].contains('Windows') ? 'windowsSystemInfoProvider' : 'unixSystemInfoProvider'}" />
+	</bean>
+	
+	<bean
+		id="windowsSystemInfoProvider"
+		class="com.cloveretl.server.system.f"
+		scope="prototype" />
+	
+	<bean
+		id="unixSystemInfoProvider"
+		class="com.cloveretl.server.system.e"
+		scope="prototype" />
+
+	<bean id="cpuLoadAverageCollector" class="com.cloveretl.server.commons.system.CpuLoadAverageCollector" />
+		
+	<bean id="coreMetricProvider" class="com.cloveretl.server.system.CoreMetricProviderImpl" />
+	
+	<bean id="workerMetricChannelProvider" class="com.cloveretl.server.worker.WorkerMetricChannelProvider" />
+	
+	<bean id="performanceMetricsReader" class="com.cloveretl.server.worker.f" />
+	
+	<bean id="performanceLogger" class="com.cloveretl.server.system.PerformanceLogger" />
+	
+	<bean id="performanceCollector" class="com.cloveretl.server.system.PerformanceCollector" />
+	
+	<bean id="temporalRunIdGenerator" class="com.cloveretl.server.g.e.j" />
+
+	<bean id="masterWatchdogManager" class="com.cloveretl.server.g.i" />
+
+	<bean id="serverEdgeDebugger" class="com.cloveretl.server.g.b.a" />
+
+	<bean id="viewDataSupplier" class="com.cloveretl.server.g.b.c" />
+
+	<bean id="localExecutionManager" class="com.cloveretl.server.g.g" />
+
+	<bean id="checkConfigManager" class="com.cloveretl.server.g.c" />
+
+	<bean id="metadataPropagationManager" class="com.cloveretl.server.g.j" />
+
+	<bean id="validateConnectionManager" class="com.cloveretl.server.g.n" />
+
+	<bean id="executionHelper" class="com.cloveretl.server.g.f" init-method="init" />
+	
+	<bean id="locationHelper" class="com.cloveretl.server.utils.LocationHelper" />
+
+	<bean id="classpathCollector" class="com.cloveretl.server.g.e.a" />
+
+	<bean id="executionManager" class="com.cloveretl.server.job.i">
+		<!-- Ordering matters! executionManager checks strategies in the given order. So it uses the first one which meets criteria. -->
+		<property name="registeredStrategies">
+			<list>
+				<ref bean="nodeDelegateStatusStrategy" />
+				<ref bean="transformationStatusStrategy" />
+			</list>
+		</property>
+		<property name="registeredLifeCycleStrategies">
+			<list>
+				<ref bean="nodeDelegateLifeCycleStrategy" />
+				<ref bean="dataServiceJobLifeCycleStrategy" />
+				<ref bean="transformationLifeCycleStrategy" />
+				<ref bean="wranglerJobLifeCycleStrategy" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="nodeStatusManager" class="com.cloveretl.server.cluster.m" />
+	
+	<bean id="cloverVersionInfo" class="com.cloveretl.server.CloverVersionInfo" factory-method="getInstance" />
+	
+	<bean id="propertyResolverHelper" class="com.cloveretl.server.utils.PropertyResolverHelper" />
+		
+	<bean abstract="true" id="abstractJobStatusStrategy" class="com.cloveretl.server.job.d" />
+	<bean id="nodeDelegateStatusStrategy" parent="abstractJobStatusStrategy" class="com.cloveretl.server.job.a.e" />
+	<bean id="nodeIdMessageDecorator" class="com.cloveretl.server.NodeIdMessageDecorator" />
+	
+	<bean id="transformationStatusStrategy" parent="abstractJobStatusStrategy" class="com.cloveretl.server.job.c.i" />
+
+	<bean abstract="true" id="abstractLifeCycleStrategy" class="com.cloveretl.server.job.AbstractLifeCycleStrategy" />
+	
+	<bean id="nodeDelegateLifeCycleStrategy" parent="abstractLifeCycleStrategy" class="com.cloveretl.server.job.a.b" />
+	
+	<bean id="transformationLifeCycleStrategy" parent="abstractLifeCycleStrategy" class="com.cloveretl.server.job.c.h" />
+	
+	<bean id="dataServiceJobLifeCycleStrategy" parent="transformationLifeCycleStrategy" class="com.cloveretl.server.job.c.b" />
+	
+	<bean id="wranglerJobLifeCycleStrategy" parent="abstractLifeCycleStrategy" class="com.cloveretl.server.job.wrangler.a" />
+
+	<bean id="jobExecutor" class="com.cloveretl.server.job.n">
+		
+		<!-- Ordering matters! JobExecutor checks strategies in the given order. So it uses the first one which meets criteria. -->
+		<property name="registeredStrategies">
+			<list>
+				<ref bean="nodeDelegateStartingStrategy" />
+				<ref bean="jobflowStartingStrategy" />
+				<ref bean="masterStartingStrategy" />
+				<ref bean="workerStartingStrategy" />
+				<ref bean="dataServiceJobStartingStrategy" />
+				<ref bean="graphStartingStrategy" />
+				<ref bean="wranglerJobStartingStrategy" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="jobQueue" class="com.cloveretl.server.job.d.f" init-method="init">
+		<property name="enabled" value="${jobqueue.enabled}" />
+		<property name="systemCpuLimit" value="${jobqueue.systemCpuLimit}" />
+		<property name="initialLoadStep" value="${jobqueue.initialLoadStep}" />
+		<property name="minLoadStep" value="${jobqueue.minLoadStep}" />
+		<property name="maxLoadStep" value="${jobqueue.maxLoadStep}" />
+		<property name="loadStepMultiplier" value="${jobqueue.loadStepMultiplier}" />
+		<property name="loadStepDecreaseThreshold" value="${jobqueue.loadStepDecreaseThreshold}" />
+		<property name="loadStepIncreaseThreshold" value="${jobqueue.loadStepIncreaseThreshold}" />
+		<property name="coreHeapUsageLimit" value="${jobqueue.coreHeapUsageLimit}" />
+		<property name="workerHeapUsageLimit" value="${jobqueue.workerHeapUsageLimit}" />
+		<property name="maxQueueSize" value="${jobqueue.maxQueueSize}" />
+		<property name="minSystemCpu" value="${jobqueue.minSystemCpu}" />
+		<property name="dataServiceEnabled" value="${jobqueue.dataservice.enabled}" />
+		<property name="cpuLoadDetectionToleranceDuration" value="${jobqueue.cpuLoadDetectionToleranceDuration}" />
+	</bean>
+
+	<bean id="enqueuedJob" class="com.cloveretl.server.job.d.c" scope="prototype" />
+
+	<bean id="executionFailureHandler" class="com.cloveretl.server.job.h" />
+
+	<bean abstract="true" id="abstractJobStartingStrategy" class="com.cloveretl.server.job.c" />
+
+	<bean abstract="true" id="abstractTransformationStartingStrategy" parent="abstractJobStartingStrategy"
+		class="com.cloveretl.server.job.c.a" />
+
+	<bean id="graphStartingStrategy" parent="abstractTransformationStartingStrategy" class="com.cloveretl.server.job.c.e" />
+	
+	<bean id="jobflowStartingStrategy" parent="graphStartingStrategy" class="com.cloveretl.server.job.c.f" />
+	
+	<bean id="nodeDelegateStartingStrategy" parent="abstractJobStartingStrategy" class="com.cloveretl.server.job.a.d" />
+	
+	<bean id="masterStartingStrategy" parent="abstractTransformationStartingStrategy" class="com.cloveretl.server.job.a.a" />
+	
+	<bean id="workerStartingStrategy" parent="graphStartingStrategy" class="com.cloveretl.server.job.a.f" />
+	
+	<bean id="dataServiceJobStartingStrategy" parent="graphStartingStrategy" class="com.cloveretl.server.job.c.c" />
+	
+	<bean id="wranglerJobStartingStrategy" parent="abstractJobStartingStrategy" class="com.cloveretl.server.job.wrangler.b" />
+	
+	<bean id="jobKiller" class="com.cloveretl.server.job.o">
+		<!-- Ordering matters! JobKiller checks strategies in the given order. So it uses the first one which meets criteria. -->
+		<property name="registeredStrategies">
+			<list>
+				<ref bean="wranglerKillingStrategy" />
+				<ref bean="transformationKillingStrategy" />
+			</list>
+		</property>
+	</bean>
+
+	<bean abstract="true" id="abstractJobKillingStrategy" class="com.cloveretl.server.job.b" />
+	<bean id="wranglerKillingStrategy" parent="abstractJobKillingStrategy" class="com.cloveretl.server.job.wrangler.c" />
+	<bean id="transformationKillingStrategy" parent="abstractJobKillingStrategy" class="com.cloveretl.server.job.c.g" />
+
+	<bean id="runRecordHelper" class="com.cloveretl.server.g.l">
+		<property name="graphLogPath" value="${graph.logs_path}" />
+	</bean>
+
+	<bean id="transformationAnalyser" class="com.cloveretl.server.g.a.d" />
+
+	<bean id="suspensionManager" class="com.cloveretl.server.g.e.r" />
+
+	<bean id="graphTimeoutManager" class="com.cloveretl.server.g.e.e" />
+
+	<bean id="serverConfigImportExport" class="com.cloveretl.server.config.ServerConfigurationImportExport" />
+	
+	<bean id="serverConfigReader" class="com.cloveretl.server.config.ServerConfigurationReader" />
+
+	<bean id="monitorManager" class="com.cloveretl.server.monitor.c" />
+	
+	<bean id="dashboardManager" class="com.cloveretl.server.k.b" />
+	
+	<bean id="secretManagerManager" class="com.cloveretl.server.secretmanager.b" />
+	
+	<bean id="libraryManager" class="com.cloveretl.server.library.LibraryManager" />
+	
+	<bean id="libraryRepositoryValidator" class="com.cloveretl.server.library.LibraryRepositoryValidator" />
+
+	<bean id="dataServiceJobManager" class="com.cloveretl.server.dataservice.h" init-method="init" />
+	
+	<bean id="sendTemplateEmailManager" class="com.cloveretl.server.mail.a" />
+	
+	<bean id="settingsNodeManager" class="com.cloveretl.server.l.b" />
+	
+	<bean id="settingsUserManager" class="com.cloveretl.server.l.c" />	
+
+	<bean id="dataServiceJobValidator" class="com.cloveretl.server.dataservice.i" />
+		
+	<bean id="dataServiceJobInfoLoader" class="com.cloveretl.server.dataservice.f" />
+	
+	<bean id="healthMonitor" class="com.cloveretl.server.healthmonitor.HealthMonitor" destroy-method="dispose" />
+	
+	<bean id="healthMonitorPersistence" class="com.cloveretl.server.healthmonitor.HealthMonitorPersistence" />
+	
+	<bean id="healthMonitorTaskListener" class="com.cloveretl.server.healthmonitor.HealthMonitorTaskListener" />
+	
+	<bean id="healthStatusChangedHandler" class="com.cloveretl.server.healthmonitor.HealthStatusChangedHandler" />
+	
+	<bean id="applicationConfiguration" class="com.cloveretl.server.dataservice.a.a" init-method="init" />	
+	
+	<bean id="operationDashboardConfiguration" class="com.cloveretl.server.k.c" init-method="init" />
+	
+	<bean id="invocationHistoryPropagator" class="com.cloveretl.server.healthmonitor.InvocationHistoryPropagator" />
+
+	<bean id="sslConfigManager" class="com.cloveretl.server.dataservice.security.e" />
+	
+	<bean id="sslConfigValidator" class="com.cloveretl.server.dataservice.security.g" />
+	
+	<bean id="healthConfigurationManager" class="com.cloveretl.server.healthmonitor.HealthConfigurationManager" />
+	
+	<bean id="healthConfigurationValidator" class="com.cloveretl.server.healthmonitor.HealthConfigurationValidator" />
+	
+	<bean id="httpServerManager" class="com.cloveretl.server.dataservice.security.HttpServerManager" destroy-method="dispose" />
+
+	<bean id="serverFactoryProvider" class="com.cloveretl.server.http.TomcatFactoryProvider" destroy-method="dispose" />
+	
+	<bean id="jndiHelper" class="com.cloveretl.server.worker.commons.jndi.JndiHelper" />
+
+	<bean id="restJobDispatcher" class="com.cloveretl.server.dataservice.s" />
+	
+	<bean id="securityEventManager" class="com.cloveretl.server.security.m" />
+	
+	<bean id="oAuth2Manager" class="com.cloveretl.server.oauth2.OAuth2Manager" init-method="init" />
+	
+	<bean id="secretResolver" class="com.cloveretl.server.g.e.l" />
+	
+	<bean id="workerCheckerManager" class="com.cloveretl.server.worker.a.j">
+		<property name="checkers">
+			<list>
+				<bean class="com.cloveretl.server.worker.a.i" />
+				<bean class="com.cloveretl.server.worker.a.g" />
+ 				<bean class="com.cloveretl.server.worker.a.h" />
+  				<bean class="com.cloveretl.server.worker.a.c" />
+				<bean class="com.cloveretl.server.worker.a.e" />
+				<bean class="com.cloveretl.server.worker.a.d" />
+				<bean class="com.cloveretl.server.worker.a.f" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="jobInspectorConfiguration" class="com.cloveretl.server.i.a" init-method="init" />
+	
+	<bean id="wranglerManager" class="com.cloveretl.server.wrangler.j" />
+	
+	<bean id="wranglerPersistence" class="com.cloveretl.server.wrangler.b.a" />
+	
+	<bean id="wranglerExportImport" class="com.cloveretl.server.wrangler.a.b" />
+	
+	<bean id="serverMetadataProvider" class="com.cloveretl.server.wrangler.f" />
+	
+	<bean id="dataCatalog" class="com.cloveretl.server.b.a" />
+	
+	<bean id="dataSetManager" class="com.cloveretl.server.datamanager.l" />
+	
+	<bean id="dataSetStatsCache" class="com.cloveretl.server.datamanager.q" />
+	
+	<bean id="referenceDataManager" class="com.cloveretl.server.datamanager.r" />
+	
+	<bean id="referenceDataManagerCache" class="com.cloveretl.server.datamanager.s" init-method="init" />
+	
+	<!-- event listeners -->
+
+	<bean id="eventListenerManager" class="com.cloveretl.server.events.EventListenerManager">
+		<property name="eventListenerLifecycleAwareBeans">
+			<!-- each event listener has its own lifecycle-aware beans -->
+			<map key-type="com.cloveretl.server.persistent.AbstractEventListener$EventSourceType">
+				<entry>
+					<key><value>file</value></key>
+					<ref bean="fileElLifecycleAwareBean" />
+				</entry>
+				<entry>
+					<key><value>jms</value></key>
+					<ref bean="jmsElLifecycleAwareBean" />
+				</entry>
+				<entry>
+					<key><value>kafka</value></key>
+					<ref bean="kafkaElLifecycleAwareBean" />
+				</entry>
+				<entry>
+					<key><value>jobflow</value></key>
+					<ref bean="jobflowElLifecycleAwareBean" />
+				</entry>
+				<entry>
+					<key><value>graph</value></key>
+					<ref bean="graphElLifecycleAwareBean" />
+				</entry>
+				<entry>
+					<key><value>groovy</value></key>
+					<ref bean="groovyElLifecycleAwareBean" />
+				</entry>
+				<entry>
+					<key><value>task</value></key>
+					<ref bean="taskElLifecycleAwareBean" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="genericElLifecycleAwareBean" class="com.cloveretl.server.events.listeners.lifecycle.GenericEventListenerLifecycleAware" abstract="true" />
+	
+	<bean id="fileElLifecycleAwareBean" parent="genericElLifecycleAwareBean" class="com.cloveretl.server.events.listeners.lifecycle.FileEventListenerLifecycleAware" init-method="init" destroy-method="dispose" />
+	<bean id="jmsElLifecycleAwareBean" parent="genericElLifecycleAwareBean" class="com.cloveretl.server.events.listeners.lifecycle.JmsEventListenerLifecycleAware" />
+	<bean id="kafkaElLifecycleAwareBean" parent="genericElLifecycleAwareBean" class="com.cloveretl.server.events.listeners.lifecycle.KafkaEventListenerLifecycleAware" />
+	<bean id="jobflowElLifecycleAwareBean" parent="genericElLifecycleAwareBean" class="com.cloveretl.server.events.listeners.lifecycle.JobflowEventListenerLifecycleAware" />
+	<bean id="graphElLifecycleAwareBean" parent="genericElLifecycleAwareBean" class="com.cloveretl.server.events.listeners.lifecycle.GraphEventListenerLifecycleAware" />
+	<bean id="groovyElLifecycleAwareBean" parent="genericElLifecycleAwareBean" class="com.cloveretl.server.events.listeners.lifecycle.GroovyEventListenerLifecycleAware" />
+	<bean id="taskElLifecycleAwareBean" parent="genericElLifecycleAwareBean" class="com.cloveretl.server.events.listeners.lifecycle.TaskEventListenerLifecycleAware" />
+
+	<bean id="sandboxLifecycleAware" class="com.cloveretl.server.sandbox.SandboxLifecycleAware" />
+	
+	<bean id="tempSpaceLifecycleAware" class="com.cloveretl.server.tempmgr.ServerTempSpaceLifecycleAware" />
+	
+	<bean id="scheduleLifecycleAware" class="com.cloveretl.server.scheduling.ScheduleLifecycleAware" />
+	
+	<bean id="dataServiceJobLifecycleAware" class="com.cloveretl.server.dataservice.g" />
+
+	<bean id="secretManagerValidator" class="com.cloveretl.server.secretmanager.c" />
+	
+	<bean id="secretManagerLifecycleAware" class="com.cloveretl.server.secretmanager.a" />
+	
+	<bean id="sslConfigurationLifecycleAware" class="com.cloveretl.server.dataservice.security.d" />
+
+	<bean id="healthConfigurationLifecycleAware" class="com.cloveretl.server.dataservice.n" />
+	
+	<bean id="monitorLifecycleAware" class="com.cloveretl.server.monitor.b" />
+	
+	<bean id="dashboardLifecycleAware" class="com.cloveretl.server.k.a" />
+	
+	<bean id="libraryRepositoryLifecycleAware" class="com.cloveretl.server.library.LibraryRepositoryLifecycleAware" />
+	
+	<bean id="dataSetLifecycleAware" class="com.cloveretl.server.datamanager.k" />
+
+	<util:map id="lifecycleAwareBeans">
+		<entry key="com.cloveretl.server.persistent.ServerTempSpace">
+			<ref bean="tempSpaceLifecycleAware" />
+		</entry>
+		<entry key="com.cloveretl.server.persistent.Sandbox">
+			<ref bean="sandboxLifecycleAware" />
+		</entry>
+		<entry key="com.cloveretl.server.persistent.Schedule">
+			<ref bean="scheduleLifecycleAware" />
+		</entry>
+		<entry key="com.cloveretl.server.persistent.FileEventListener">
+			<ref bean="fileElLifecycleAwareBean" />
+		</entry>
+		<entry key="com.cloveretl.server.persistent.JmsEventListener">
+			<ref bean="jmsElLifecycleAwareBean" />
+		</entry>
+		<entry key="com.cloveretl.server.persistent.KafkaEventListener">
+			<ref bean="kafkaElLifecycleAwareBean" />
+		</entry>
+		<entry key="com.cloveretl.server.persistent.JobflowEventListener">
+			<ref bean="jobflowElLifecycleAwareBean" />
+		</entry>
+		<entry key="com.cloveretl.server.persistent.GraphEventListener">
+			<ref bean="graphElLifecycleAwareBean" />
+		</entry>
+		<entry key="com.cloveretl.server.persistent.GroovyEventListener">
+			<ref bean="groovyElLifecycleAwareBean" />
+		</entry>
+		<entry key="com.cloveretl.server.persistent.TaskEventListener">
+			<ref bean="taskElLifecycleAwareBean" />
+		</entry>
+		<entry key="com.cloveretl.server.persistent.DataServiceJob">
+			<ref bean="dataServiceJobLifecycleAware" />
+		</entry>
+		<entry key="com.cloveretl.server.persistent.SslConfiguration">
+			<ref bean="sslConfigurationLifecycleAware" />
+		</entry>
+		<entry key="com.cloveretl.server.persistent.Monitor">
+			<ref bean="monitorLifecycleAware" />
+		</entry>
+		<entry key="com.cloveretl.server.persistent.Dashboard">
+			<ref bean="dashboardLifecycleAware" />
+		</entry>
+		<entry key="com.cloveretl.server.persistent.SecretManager">
+			<ref bean="secretManagerLifecycleAware" />
+		</entry>
+		<entry key="com.cloveretl.server.persistent.LibraryRepository">
+			<ref bean="libraryRepositoryLifecycleAware" />
+		</entry>
+		<entry key="com.cloveretl.server.persistent.DataSet">
+			<ref bean="dataSetLifecycleAware" />
+		</entry>
+	</util:map>
+
+	<bean id="clusterDelegatingLifecycleAware" class="com.cloveretl.server.lifecycle.cluster.ClusterDelegatingLifecycleAware">
+		<property name="localLifecycleAwareBeans" ref="lifecycleAwareBeans" />
+	</bean>
+
+	<!-- //************************************************ -->
+
+	<bean id="graphConfigManager" class="com.cloveretl.server.g.e.c" />
+	
+	<bean id="serverFacadeImpl" class="com.cloveretl.server.facade.a.a" />
+
+	<bean id="serverFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="interceptorNames">
+			<list>
+				<value>auditLogInterceptor</value>
+				<value>userAccessInterceptor</value>
+			</list>
+		</property>
+		<property name="proxyInterfaces" >
+			<list>
+				<value>com.cloveretl.server.facade.api.ServerFacade</value>
+				<value>com.cloveretl.server.facade.api.ServerFacadeInternal</value>
+			</list>
+		</property>
+		<property name="targetName" value="serverFacadeImpl" />
+	</bean>
+	<bean id="serverFacadeSupplier" class="com.cloveretl.server.facade.api.ServerFacadeSupplier" >
+		<property name="serverFacade" ref="serverFacade" />
+	</bean>
+	
+	<bean id="userAccessInterceptor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice" ref="userAccessAdvice" />
+		<property name="pointcut">
+			<bean class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+				<property name="pattern" value=".*" />
+			</bean>
+		</property>
+	</bean>
+	
+	<bean name="userAccessAdvice" class="com.cloveretl.server.aop.UserAccessAdvice" init-method="init" >
+		<property name="security" ref="security" />
+	</bean>
+
+	<bean id="clusterProxy" class="com.cloveretl.server.cluster.i" />
+	
+	<bean id="parallelClusterInvoker" class="com.cloveretl.server.cluster.nodeapi.ParallelClusterInvoker" />
+
+	<bean id="clusterConnector" class="com.cloveretl.server.cluster.c" />
+
+	<!-- Allows modifications of HTTP requests sent by Spring HTTP invoker between cluster nodes -->
+	<bean id="invokerRequestExecutor" class="com.cloveretl.server.cluster.nodeapi.i" scope="prototype" />
+
+	<bean id="synchronizer" class="com.cloveretl.server.cluster.synchronizer.Synchronizer" />
+
+	<bean id="cache" class="com.cloveretl.server.cache.Cache" />
+	
+	<bean id="serverEventStore" class="com.cloveretl.server.events.ServerEventStore" />
+	
+	<bean id="listenerEventAggregator" class="com.cloveretl.server.events.ListenerEventAggregator" />
+
+	<bean id="security" class="com.cloveretl.server.security.k">
+		<constructor-arg type="long" value="${security.session.validity}" />
+	</bean>
+	
+	<bean id="hashAlgorithmsRegistry" class="com.cloveretl.server.security.d" init-method="init"/>
+	
+	<bean id="httpAuthenticator" class="com.cloveretl.server.security.HttpAuthenticator" init-method="init" />
+	
+	<bean id="secureParamEncryptor"
+		class="com.cloveretl.server.security.j">
+		<property name="algorithm">
+			<value>${security.job_parameters.encryptor.algorithm}</value>
+		</property>
+		<property name="providerClassName">
+			<value>${security.job_parameters.encryptor.providerClassName}</value>
+		</property>
+		<property name="password">
+			<value>${security.job_parameters.encryptor.master_password_encryption.password}</value>
+		</property>
+	 </bean>
+
+	<bean id="csrfChecker" class="com.cloveretl.server.security.CsrfChecker" />
+	
+	<bean id="ldapConnector" class="com.cloveretl.server.security.f" />
+
+	<!-- licence Bean-->
+	<bean id="li" class="com.cloveretl.server.j.c" />
+
+	<bean id="sandboxManager" class="com.cloveretl.server.sandbox.i">
+		<property name="ignoredSandboxDirPatterns" value="${sandboxes.ignored.dir.patterns}" />
+	</bean>
+
+	<bean id="localSandboxManager" class="com.cloveretl.server.sandbox.c" />
+	<bean id="storageIndexer" class="com.cloveretl.server.sandbox.a.a" />
+	
+	<bean id="projectFileManager" class="com.cloveretl.server.sandbox.f" />
+	
+	<bean id="sandboxValidator" class="com.cloveretl.server.sandbox.SandboxValidator" />
+
+	<bean id="storagesInfoProvider" class="com.cloveretl.server.sandbox.StoragesInfoProvider" />
+	
+	<bean id="copyMoveService" class="com.cloveretl.server.sandbox.a" />
+
+	<bean id="virtualLocationsFolderProvider" class="com.cloveretl.server.sandbox.n" />
+
+	<bean id="scheduleManager" class="com.cloveretl.server.scheduling.b" />
+
+	<bean id="quartzManager" class="com.cloveretl.server.scheduling.QuartzManager" />
+
+	<bean id="wsJdbcDelegateImpl" class="com.cloveretl.server.wsjdbc.WebServiceJdbcDelegate"
+			destroy-method="dispose" />
+	
+	<bean id="wsJdbcHelperImpl" class="com.cloveretl.server.worker.commons.wsjdbc.WebServiceJdbcHelper"
+			destroy-method="dispose" />	
+	
+	<bean id="wsJdbcDelegate" class="com.cloveretl.server.aop.DisconnectableProxyFactoryBean">
+		<property name="proxyEnabled" value="${logging.logger.server_audit.enabled}" />
+		<property name="interceptorNames">
+			<list>
+				<value>auditLogInterceptor</value>
+			</list>
+		</property>
+		<property name="targetName" value="wsJdbcDelegateImpl" />
+		<property name="proxyTargetClass" value="true" />
+	</bean>
+
+	<bean id="auditLogInterceptor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice" ref="auditLogAdvice" />
+		<property name="pointcut">
+			<bean class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+				<property name="pattern" value=".*" />
+			</bean>
+		</property>
+	</bean>
+	
+	<bean name="auditLogAdvice" class="com.cloveretl.server.aop.AuditLogAdvice" init-method="init" >
+		<property name="configuration" ref="configuration" />
+		<property name="clusterInfoGatherer" ref="clusterInfoGatherer" />
+		<property name="security" ref="security" />
+	</bean>
+	
+	<bean id="cloverServerWs" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="interceptorNames">
+			<list>
+				<value>cloverServerWsInterceptor</value>
+			</list>
+		</property>
+		<property name="proxyInterfaces">
+			<list>
+				<value>com.cloveretl.server.api.webservice.generated.CloverServerWS</value>
+				<value>com.cloveretl.server.api.webservice.WebServiceContextAware</value>
+			</list>
+		</property>
+		<property name="targetName" value="cloverServerWsImpl" />
+	</bean>
+	
+	<bean id="cloverServerWsImpl" class="com.cloveretl.server.api.webservice.CloverServerWSImpl" />
+	
+	<bean id="cloverServerWsInterceptor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice" ref="cloverServerWsAdvice" />
+		<property name="pointcut">
+			<bean class="com.cloveretl.server.aop.TypeMethodPointcut">
+				<property name="type" value="com.cloveretl.server.api.webservice.generated.CloverServerWS" />
+			</bean>
+		</property>
+	</bean>
+	 
+	<bean name="cloverServerWsAdvice" class="com.cloveretl.server.aop.WebServiceLogAdvice" init-method="init" />
+	
+	<bean id="resourceBundleMessageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="useCodeAsDefaultMessage" value="true" />
+		<property name="basenames">
+			<list>
+				<value>com.cloveretl.server.resource.DelegatingResourceBundle</value>
+			</list>
+		</property>
+	</bean>
+
+<!-- installer -->	
+	<bean id="installerManager" class="com.cloveretl.server.InstallerManager">
+		<property name="installers">
+			<list>
+				<ref bean="basicGroupsInstaller" />
+				<ref bean="everyoneGroupInstaller" />
+				<ref bean="adminUserInstaller" />
+				<ref bean="runtimeUserInstaller" />
+				<ref bean="libraryRepositoryInstaller" />
+				<ref bean="sharedSandboxesDirectoryInstaller" />
+				<ref bean="librariesDirectoryInstaller" />
+				<ref bean="wranglerWorkspacesDirectoryInstaller" />
+				<ref bean="bundledSandboxesInstaller" />
+				<ref bean="freshBundledSandboxesInstaller" />
+				<ref bean="templatesInstaller" />
+				<ref bean="archivatorInstaller" />
+				<ref bean="dataManagerInstaller" />
+				<ref bean="sharedSandboxesInstaller" />
+				<ref bean="localSandboxesInstaller" />
+				<ref bean="partitionedSandboxesInstaller" />
+				<ref bean="libraryInstaller" />
+				<ref bean="wranglerWorkspaceInstaller" />
+				<ref bean="masterPasswdInstaller" />
+				<ref bean="masterPasswdTestInstaller" />
+				<ref bean="testInstaller" />
+				<ref bean="testStressTestInstaller" />
+				<ref bean="testOAuth2Installer" />
+				<ref bean="configurationInstaller" />
+				<ref bean="sandboxConfigurationInstaller" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="basicInstallerProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="locations">
+			<list>
+				<value>${installer.basic.config.location}</value>
+				<value>${installer.basic.additional.config.location}</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="abstractInstaller" abstract="true" class="com.cloveretl.server.h.b">
+		<property name="installerProperties" ref="basicInstallerProperties" />
+	</bean>
+	<bean id="abstractSandboxInstaller" abstract="true" parent="abstractInstaller" class="com.cloveretl.server.h.c" />
+	
+	<bean id="basicGroupsInstaller" parent="abstractInstaller" class="com.cloveretl.server.h.f" />
+	<bean id="everyoneGroupInstaller" parent="abstractInstaller" class="com.cloveretl.server.h.j" />
+	<bean id="adminUserInstaller" parent="abstractInstaller" class="com.cloveretl.server.h.d" />
+	
+	<bean id="runtimeUserInstaller" parent="abstractInstaller" class="com.cloveretl.server.h.s" />
+	<bean id="sharedSandboxesDirectoryInstaller" parent="abstractInstaller" class="com.cloveretl.server.h.v" />
+	<bean id="librariesDirectoryInstaller" parent="abstractInstaller" class="com.cloveretl.server.h.l" />
+	<bean id="wranglerWorkspacesDirectoryInstaller" parent="abstractInstaller" class="com.cloveretl.server.h.ac" />
+	<bean id="bundledSandboxesInstaller" parent="abstractSandboxInstaller" class="com.cloveretl.server.h.g" />
+	<bean id="freshBundledSandboxesInstaller" parent="bundledSandboxesInstaller" class="com.cloveretl.server.h.k" />
+	<bean id="templatesInstaller" parent="abstractInstaller" class="com.cloveretl.server.h.x" />
+	<bean id="archivatorInstaller" parent="abstractInstaller" class="com.cloveretl.server.h.e" />
+	<bean id="dataManagerInstaller" parent="abstractInstaller" class="com.cloveretl.server.h.i" />
+	
+	<bean id="libraryRepositoryInstaller" parent="abstractInstaller" class="com.cloveretl.server.h.n" />
+	
+	<bean id="sharedSandboxesInstaller" parent="abstractSandboxInstaller" class="com.cloveretl.server.h.w" />
+	<bean id="localSandboxesInstaller" parent="abstractSandboxInstaller" class="com.cloveretl.server.h.o" />
+	<bean id="partitionedSandboxesInstaller" parent="abstractSandboxInstaller" class="com.cloveretl.server.h.r" />
+	
+	<bean id="libraryInstaller" parent="abstractSandboxInstaller" class="com.cloveretl.server.h.m" />
+	
+	<bean id="wranglerWorkspaceInstaller" parent="abstractSandboxInstaller" class="com.cloveretl.server.h.ab" />
+
+	<bean id="masterPasswdInstaller" parent="abstractInstaller" class="com.cloveretl.server.h.p" />
+	
+	<bean id="masterPasswdTestInstaller" parent="abstractInstaller" class="com.cloveretl.server.h.q" />
+	
+	<bean id="configurationInstaller" parent="abstractInstaller" class="com.cloveretl.server.h.h" />
+	
+	<bean id="sandboxConfigurationInstaller" parent="abstractInstaller" class="com.cloveretl.server.h.t" />
+
+	<bean id="testInstaller" parent="abstractInstaller" class="com.cloveretl.server.h.y" />
+
+	<bean id="testStressTestInstallerProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="location" value="${installer.stress.config.location}" />
+	</bean>
+	<bean id="testStressTestInstaller" parent="abstractInstaller" class="com.cloveretl.server.h.aa">
+		<property name="stressTestInstallerProperties" ref="testStressTestInstallerProperties" />
+	</bean>
+
+	<bean id="testOAuth2Installer" parent="abstractInstaller" class="com.cloveretl.server.h.z" />
+
+	<bean id="sandboxInstallerFactory" class="com.cloveretl.server.h.u" />
+	
+<!-- /installer -->	
+	
+	<bean id="serverEventCreator" class="com.cloveretl.server.events.ServerEventCreator" />	
+
+	<bean id="clusterEventCreator" class="com.cloveretl.server.cluster.d" >
+		<property name="configuration" ref="configuration" />
+	</bean>	
+
+	<bean id="serverEventNotificator" class="com.cloveretl.server.events.ServerEventNotificator">
+		<property name="eventListeners">
+			<map>
+				<entry>
+					<key><ref bean="synchronizer" /></key>
+					<list>
+						<value>com.cloveretl.server.cluster.a.i</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="scheduleEventProcessor" /></key>
+					<list>
+						<value>com.cloveretl.server.events.types.ScheduleServerEvent</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="clusterInfoGatherer" /></key>
+					<list>
+						<value>com.cloveretl.server.events.types.JobServerEvent</value>
+						<value>com.cloveretl.server.cluster.a.f</value>
+						<value>com.cloveretl.server.cluster.a.e</value>
+						<value>com.cloveretl.server.cluster.a.d</value>
+						<value>com.cloveretl.server.cluster.a.k</value>
+						<value>com.cloveretl.server.cluster.a.q</value>
+						<value>com.cloveretl.server.cluster.a.o</value>
+						<value>com.cloveretl.server.events.types.SandboxFileChangedEvent</value>
+						<value>com.cloveretl.server.events.types.UserChangedEvent</value>
+						<value>com.cloveretl.server.cluster.a.s</value>
+						<value>com.cloveretl.server.events.types.UserGroupChangedEvent</value>
+						<value>com.cloveretl.server.cluster.a.t</value>
+						<value>com.cloveretl.server.events.types.UserLoginEvent</value>
+						<value>com.cloveretl.server.cluster.a.v</value>
+						<value>com.cloveretl.server.events.types.UserLockoutEvent</value>
+						<value>com.cloveretl.server.cluster.a.u</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="masterWatchdogManager" /></key>
+					<list>
+						<value>com.cloveretl.server.events.types.JobServerEvent</value>
+						<value>com.cloveretl.server.cluster.a.f</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="libraryManager" /></key>
+					<list>
+						<value>com.cloveretl.server.events.types.GraphServerEvent</value>
+						<value>com.cloveretl.server.events.types.JobflowServerEvent</value>
+						<value>com.cloveretl.server.cluster.a.m</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="graphEventProcessor" /></key>
+					<list>
+						<value>com.cloveretl.server.events.types.GraphServerEvent</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="jobflowEventProcessor" /></key>
+					<list>
+						<value>com.cloveretl.server.events.types.JobflowServerEvent</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="fileEventProcessor" /></key>
+					<list>
+						<value>com.cloveretl.server.events.types.FileEvent</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="jmsEventProcessor" /></key>
+					<list>
+						<value>com.cloveretl.server.events.types.JmsEvent</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="kafkaEventProcessor" /></key>
+					<list>
+						<value>com.cloveretl.server.events.types.KafkaEvent</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="groovyEventProcessor" /></key>
+					<list>
+						<value>com.cloveretl.server.events.types.GroovyEvent</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="taskEventProcessor" /></key>
+					<list>
+						<value>com.cloveretl.server.events.types.AbstractTaskEvent</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="cache" /></key>
+					<list>
+						<value>com.cloveretl.server.cluster.a.m</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="classLoadersContainer" /></key>
+					<list>
+						<value>com.cloveretl.server.cluster.a.m</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="suspensionManager" /></key>
+					<list>
+						<value>com.cloveretl.server.cluster.a.q</value>
+						<value>com.cloveretl.server.cluster.a.o</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="secureParamEncryptor" /></key>
+					<list>
+						<value>com.cloveretl.server.cluster.a.l</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="serverEventStore" /></key>
+					<list>
+						<value>com.cloveretl.server.events.types.ListenerTaskEvent</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="listenerEventAggregator" /></key>
+					<list>
+						<value>com.cloveretl.server.events.types.ListenerTaskEvent</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="dataServiceJobManager" /></key>
+					<list>
+						<value>com.cloveretl.server.events.types.SandboxFileChangedEvent</value>
+						<value>com.cloveretl.server.events.types.UserChangedEvent</value>
+						<value>com.cloveretl.server.cluster.a.s</value>
+						<value>com.cloveretl.server.events.types.UserGroupChangedEvent</value>
+						<value>com.cloveretl.server.cluster.a.t</value>
+						<value>com.cloveretl.server.events.types.TriggerHealthEvent</value>
+						<value>com.cloveretl.server.cluster.a.r</value>
+						<value>com.cloveretl.server.events.types.ReloadLicenseServerEvent</value>
+						<value>com.cloveretl.server.cluster.a.m</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="securityEventManager" /></key>
+					<list>
+						<value>com.cloveretl.server.cluster.a.v</value>
+						<value>com.cloveretl.server.events.types.UserLockoutEvent</value>
+						<value>com.cloveretl.server.cluster.a.u</value>
+					</list>				
+				</entry>
+				<entry>
+					<key><ref bean="configurationManager"/></key>
+					<list>
+						<value>com.cloveretl.server.events.types.WorkerStateChangedEvent</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="workerManager"/></key>
+					<list>
+						<value>com.cloveretl.server.events.types.WorkerStateChangedEvent</value>
+						<value>com.cloveretl.server.events.types.ReloadLicenseServerEvent</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="workerCheckerManager"/></key>
+					<list>
+						<value>com.cloveretl.server.events.types.WorkerStateChangedEvent</value>
+					</list>
+				</entry>				
+				<entry>
+					<key><ref bean="workerJobManager"/></key>
+					<list>
+						<value>com.cloveretl.server.events.types.WorkerStateChangedEvent</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="invocationHistoryPropagator" /></key>
+					<list>
+						<value>com.cloveretl.server.cluster.a.p</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="healthMonitor" /></key>
+					<list>
+						<value>com.cloveretl.server.cluster.a.r</value>
+						<value>com.cloveretl.server.cluster.a.a</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="monitorManager"/></key>
+					<list>
+						<value>com.cloveretl.server.events.types.TriggerHealthEvent</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="jobKiller" /></key>
+					<list>
+						<value>com.cloveretl.server.cluster.a.g</value>
+						<value>com.cloveretl.server.cluster.a.h</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="oAuth2Manager" /></key>
+					<list>
+						<value>com.cloveretl.server.cluster.a.j</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="secretManagerManager" /></key>
+					<list>
+						<value>com.cloveretl.server.cluster.a.n</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="dataSetStatsCache" /></key>
+					<list>
+						<value>com.cloveretl.server.cluster.a.c</value>
+					</list>
+				</entry>
+				<entry>
+					<key><ref bean="referenceDataManagerCache" /></key>
+					<list>
+						<value>com.cloveretl.server.cluster.a.m</value>
+					</list>
+				</entry>
+			</map>
+		</property>
+	</bean>	
+
+	<bean id="eventsHelper" class="com.cloveretl.server.events.EventsHelper">
+		<property name="taskProcessors">
+			<!-- each taskType has own taskProcessor implementation -->
+			<map>
+				<entry>
+					<key><value>email</value></key>
+					<ref bean="taskProcessor_email" />
+				</entry>
+				<entry>
+					<key><value>shell_command</value></key>
+					<ref bean="taskProcessor_shell_command" />
+				</entry>
+				<entry>
+					<key><value>execute_graph</value></key>
+					<ref bean="taskProcessor_execute_graph" />
+				</entry>
+				<entry>
+					<key><value>health_check</value></key>
+					<ref bean="taskProcessor_execute_graph" />
+				</entry>
+				<entry>
+					<key><value>archivator</value></key>
+					<ref bean="taskProcessor_archivator" />
+				</entry>
+				<entry>
+					<key><value>data_manager_maintenance</value></key>
+					<ref bean="taskProcessor_data_manager_maintenance" />
+				</entry>
+			
+				<entry>
+					<key><value>kill_job</value></key>
+					<ref bean="taskProcessor_kill_job" />
+				</entry>
+				<entry>
+					<key><value>jms_message</value></key>
+					<ref bean="taskProcessor_jms_message" />
+				</entry>
+				<entry>
+					<key><value>groovy</value></key>
+					<ref bean="taskProcessor_groovy" />
+				</entry>
+				<entry>
+					<key><value>execute_jobflow</value></key>
+					<ref bean="taskProcessor_execute_jobflow" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="abstractEventProcessor" abstract="true" class="com.cloveretl.server.events.a.c" />
+	<bean id="jobflowEventProcessor" parent="abstractEventProcessor" class="com.cloveretl.server.events.a.h" />
+	<bean id="graphEventProcessor" parent="abstractEventProcessor" class="com.cloveretl.server.events.a.e" />
+	<bean id="scheduleEventProcessor" parent="abstractEventProcessor" class="com.cloveretl.server.events.a.k" />
+	<bean id="fileEventProcessor" parent="abstractEventProcessor" class="com.cloveretl.server.events.a.d" />
+	<bean id="groovyEventProcessor" parent="abstractEventProcessor" class="com.cloveretl.server.events.a.f" />
+	<bean id="jmsEventProcessor" parent="abstractEventProcessor" class="com.cloveretl.server.events.a.g" />
+	<bean id="kafkaEventProcessor" parent="abstractEventProcessor" class="com.cloveretl.server.events.a.i" />
+	<bean id="taskEventProcessor" parent="abstractEventProcessor" class="com.cloveretl.server.events.a.l" />
+	
+	<bean id="abstractEventProducer" abstract="true" class="com.cloveretl.server.events.b.a" />
+
+	<bean id="jmsEventProducerProxy" scope="prototype" parent="abstractEventProducer" class="com.cloveretl.server.events.b.e" />
+	<bean id="groovyEventProducer" scope="prototype" parent="abstractEventProducer" class="com.cloveretl.server.events.b.c" />
+	<bean id="fileEventProducer" scope="prototype" parent="abstractEventProducer" class="com.cloveretl.server.events.b.b" />
+	<bean id="kafkaEventProducer" scope="prototype" parent="abstractEventProducer" class="com.cloveretl.server.events.b.f" />
+
+	<!-- inited explicitly from ScheduleManager -->	
+	<bean id="scheduleEventProducerTriggerListener" class="com.cloveretl.server.events.b.h" lazy-init="true" />
+
+<!-- /clover -->
+
+	<!-- Spring mailSender doesn't work from unknown reason! -->
+	<!--bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${clover.smtp.host}" />
+		<property name="port" value="${clover.smtp.port}" />
+		<property name="username" value="${clover.smtp.username}" />
+		<property name="password" value="${clover.smtp.password}" />
+	</bean -->
+	
+	<bean id="sendMailProvider" class="com.cloveretl.server.mail.SendMailProvider" />
+	
+	<bean id="taskValidator" class="com.cloveretl.server.m.v" />
+
+	<bean id="abstractTaskProcessor" abstract="true" class="com.cloveretl.server.m.i" scope="prototype" />
+	<bean id="taskProcessor_email" parent="abstractTaskProcessor" class="com.cloveretl.server.m.u" scope="prototype" />
+	<bean id="taskProcessor_shell_command" parent="abstractTaskProcessor" class="com.cloveretl.server.m.p" scope="prototype" />
+	<bean id="taskProcessor_execute_graph" parent="abstractTaskProcessor" class="com.cloveretl.server.m.m" scope="prototype" />
+	<bean id="taskProcessor_execute_jobflow" parent="abstractTaskProcessor" class="com.cloveretl.server.m.o" scope="prototype" />
+	<bean id="taskProcessor_archivator" parent="abstractTaskProcessor" class="com.cloveretl.server.m.j" scope="singleton" />
+	<bean id="taskProcessor_data_manager_maintenance" parent="abstractTaskProcessor" class="com.cloveretl.server.m.l" scope="singleton" />
+	<bean id="taskProcessor_kill_job" parent="abstractTaskProcessor" class="com.cloveretl.server.m.t" scope="prototype" />
+	<bean id="taskProcessor_jms_message" parent="abstractTaskProcessor" class="com.cloveretl.server.m.r" scope="prototype" />
+	<bean id="taskProcessor_groovy" parent="abstractTaskProcessor" class="com.cloveretl.server.m.q" scope="prototype" />
+
+	<bean id="groovyHelper" class="com.cloveretl.server.utils.GroovyHelper" />
+	
+	<bean id="logsCollector" class="com.cloveretl.server.logging.LogsCollector" init-method="init">
+		<property name="appenders">
+			<map>
+				<entry>
+					<key><util:constant static-field="com.cloveretl.server.logging.LogType.COMMON" /></key>
+					<bean class="com.cloveretl.server.commons.logging.MemLogAppender">
+						<constructor-arg>
+							<value>COMMON</value>
+						</constructor-arg>
+						<constructor-arg>
+							<bean class="com.cloveretl.server.logging.PatternLayoutFactoryBean">
+								<property name="pattern" value="${logging.mem_appender.COMMON.pattern_layout}" />
+								<property name="charset" value="UTF-8" />
+							</bean>
+						</constructor-arg>
+						<property name="size" value="${logging.mem_appender.COMMON.size_limit}" />
+						<property name="threshold">
+							<util:constant static-field="org.apache.logging.log4j.Level.INFO" />
+						</property>
+					</bean>
+				</entry>
+				<entry>
+					<key><util:constant static-field="com.cloveretl.server.logging.LogType.CLUSTER" /></key>
+					<bean class="com.cloveretl.server.commons.logging.MemLogAppender">
+						<constructor-arg>
+							<value>CLUSTER</value>
+						</constructor-arg>
+						<constructor-arg>
+							<bean class="com.cloveretl.server.logging.PatternLayoutFactoryBean">
+								<property name="pattern" value="${logging.mem_appender.CLUSTER.pattern_layout}" />
+								<property name="charset" value="UTF-8" />
+							</bean>
+						</constructor-arg>
+						<property name="size" value="${logging.mem_appender.CLUSTER.size_limit}" />
+						<property name="threshold">
+							<util:constant static-field="org.apache.logging.log4j.Level.DEBUG" />
+						</property>
+						<property name="logger" value="com.cloveretl.server.cluster" />
+					</bean>
+				</entry>
+				<entry>
+					<key><util:constant static-field="com.cloveretl.server.logging.LogType.AUDIT" /></key>
+					<bean class="com.cloveretl.server.commons.logging.MemLogAppender">
+						<constructor-arg>
+							<value>AUDIT</value>
+						</constructor-arg>
+						<constructor-arg>
+							<bean class="com.cloveretl.server.logging.PatternLayoutFactoryBean">
+								<property name="pattern" value="${logging.mem_appender.AUDIT.pattern_layout}" />
+								<property name="charset" value="UTF-8" />
+							</bean>
+						</constructor-arg>
+						<property name="size" value="${logging.mem_appender.AUDIT.size_limit}" />
+						<property name="threshold">
+							<util:constant static-field="org.apache.logging.log4j.Level.TRACE" />
+						</property>
+						<property name="logger" value="serverAuditLog" />
+					</bean>
+				</entry>
+				<entry>
+					<key><util:constant static-field="com.cloveretl.server.logging.LogType.USER_ACTION" /></key>
+					<bean class="com.cloveretl.server.commons.logging.MemLogAppender">
+						<constructor-arg>
+							<value>USER_ACTION</value>
+						</constructor-arg>
+						<constructor-arg>
+							<bean class="com.cloveretl.server.logging.PatternLayoutFactoryBean">
+								<property name="pattern" value="${logging.mem_appender.USER_ACTION.pattern_layout}" />
+								<property name="charset" value="UTF-8" />
+							</bean>
+						</constructor-arg>
+						<property name="size" value="${logging.mem_appender.USER_ACTION.size_limit}" />
+						<property name="threshold">
+							<util:constant static-field="org.apache.logging.log4j.Level.DEBUG" />
+						</property>
+						<property name="logger" value="userAction" />
+					</bean>
+				</entry>
+				<entry>
+					<key><util:constant static-field="com.cloveretl.server.logging.LogType.SERVER_INTEGRATION" /></key>
+					<bean class="com.cloveretl.server.commons.logging.MemLogAppender">
+						<constructor-arg>
+							<value>SERVER_INTEGRATION</value>
+						</constructor-arg>
+						<constructor-arg>
+							<bean class="com.cloveretl.server.logging.PatternLayoutFactoryBean">
+								<property name="pattern" value="${logging.mem_appender.SERVER_INTEGRATION.pattern_layout}" />
+								<property name="charset" value="UTF-8" />
+							</bean>
+						</constructor-arg>
+						<property name="size" value="${logging.mem_appender.SERVER_INTEGRATION.size_limit}" />
+						<property name="threshold">
+							<util:constant static-field="org.apache.logging.log4j.Level.TRACE" />
+						</property>
+						<property name="logger" value="serverIntegrationLog" />
+					</bean>
+				</entry>
+				<entry>
+					<key><util:constant static-field="com.cloveretl.server.logging.LogType.DATA_SERVICES" /></key>
+					<bean class="com.cloveretl.server.commons.logging.MemLogAppender">
+						<constructor-arg>
+							<value>DATA_SERVICES</value>
+						</constructor-arg>
+						<constructor-arg>
+							<bean class="com.cloveretl.server.logging.PatternLayoutFactoryBean">
+								<property name="pattern" value="${logging.mem_appender.DATA_SERVICES.pattern_layout}" />
+								<property name="charset" value="UTF-8" />
+							</bean>
+						</constructor-arg>
+						<property name="size" value="${logging.mem_appender.DATA_SERVICES.size_limit}" />
+						<property name="threshold">
+							<util:constant static-field="org.apache.logging.log4j.Level.DEBUG" />
+						</property>
+						<property name="logger" value="DataServiceLogger" />
+					</bean>
+				</entry>
+				<entry>
+					<key><util:constant static-field="com.cloveretl.server.logging.LogType.PERFORMANCE" /></key>
+					<bean class="com.cloveretl.server.commons.logging.MemLogAppender">
+						<constructor-arg>
+							<value>PERFORMANCE</value>
+						</constructor-arg>
+						<constructor-arg>
+							<bean class="com.cloveretl.server.logging.PatternLayoutFactoryBean">
+								<property name="pattern" value="${logging.mem_appender.PERFORMANCE.pattern_layout}" />
+								<property name="charset" value="UTF-8" />
+							</bean>
+						</constructor-arg>
+						<property name="size" value="${logging.mem_appender.PERFORMANCE.size_limit}" />
+						<property name="threshold">
+							<util:constant static-field="org.apache.logging.log4j.Level.INFO" />
+						</property>
+						<property name="logger" value="PerformanceLogger" />
+					</bean>
+				</entry>
+				<entry>
+					<key><util:constant static-field="com.cloveretl.server.logging.LogType.JOB_QUEUE" /></key>
+					<bean class="com.cloveretl.server.commons.logging.MemLogAppender">
+						<constructor-arg>
+							<value>JOB_QUEUE</value>
+						</constructor-arg>
+						<constructor-arg>
+							<bean class="com.cloveretl.server.logging.PatternLayoutFactoryBean">
+								<property name="pattern" value="${logging.mem_appender.JOB_QUEUE.pattern_layout}" />
+								<property name="charset" value="UTF-8" />
+							</bean>
+						</constructor-arg>
+						<property name="size" value="${logging.mem_appender.JOB_QUEUE.size_limit}" />
+						<property name="threshold">
+							<util:constant static-field="org.apache.logging.log4j.Level.DEBUG" />
+						</property>
+						<property name="logger" value="JobQueueLogger" />
+					</bean>
+				</entry>
+				<entry>
+					<key><util:constant static-field="com.cloveretl.server.logging.LogType.MONITOR" /></key>
+					<bean class="com.cloveretl.server.commons.logging.MemLogAppender">
+						<constructor-arg>
+							<value>MONITOR</value>
+						</constructor-arg>
+						<constructor-arg>
+							<bean class="com.cloveretl.server.logging.PatternLayoutFactoryBean">
+								<property name="pattern" value="${logging.mem_appender.MONITOR.pattern_layout}" />
+								<property name="charset" value="UTF-8" />
+							</bean>
+						</constructor-arg>
+						<property name="size" value="${logging.mem_appender.MONITOR.size_limit}" />
+						<property name="threshold">
+							<util:constant static-field="org.apache.logging.log4j.Level.INFO" />
+						</property>
+						<property name="logger" value="MonitorLogger" />
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="threadPool" class="com.cloveretl.server.worker.commons.runtime.CleaningThreadPoolExecutorFactoryBean">
+		<!-- there are always at least 4 threads (running or idling) -->
+		<property name="corePoolSize" value="${threadManager.pool.corePoolSize}" /> 
+		<!-- task which doesn't have thread available, is enqueued -->
+		<property name="queueCapacity" value="${threadManager.pool.queueCapacity}" /> 
+		<!-- if queue is full, task is enqueued and new thread(up to this limit) is created for the first task in the queue -->
+		<property name="maxPoolSize" value="${threadManager.pool.maxPoolSize}" />
+		<property name="keepAliveSeconds" value="${threadManager.pool.keepAliveSeconds}" />
+		<property name="allowCoreThreadTimeOut" value="${threadManager.pool.allowCoreThreadTimeOut}" />
+	</bean>
+
+<!-- ScheduledExecutor timer -->
+	<bean id="groovyEventsJob" class="com.cloveretl.server.timing.GroovyEventsJob" />
+	<bean id="groovyEventsJobTrigger" class="org.springframework.scheduling.concurrent.ScheduledExecutorTask">
+		<property name="delay" value="15000" />
+		<property name="period" value="${clover.event.groovyCheckMinInterval}" />
+		<property name="runnable" ref="groovyEventsJob" />
+	</bean>
+	<bean id="fileEventsJob" class="com.cloveretl.server.timing.FileEventsJob" />
+	<bean id="fileEventsJobTrigger" class="org.springframework.scheduling.concurrent.ScheduledExecutorTask">
+		<property name="delay" value="15000" />
+		<property name="period" value="${clover.event.fileCheckMinInterval}" />
+		<property name="runnable" ref="fileEventsJob" />
+	</bean>
+ 
+	<bean id="garbageManJob" class="com.cloveretl.server.timing.GarbageManJob" />
+	<bean id="garbageManTrigger" class="org.springframework.scheduling.concurrent.ScheduledExecutorTask">
+		<property name="delay" value="10000" />
+		<property name="period" value="${jobs.check.interval}" />
+		<property name="runnable" ref="garbageManJob" />
+	</bean>
+	<bean id="clusterNodeCheckJob" class="com.cloveretl.server.timing.b" />
+	<bean id="clusterNodeCheckTrigger" class="org.springframework.scheduling.concurrent.ScheduledExecutorTask">
+		<property name="delay" value="10000" />
+		<property name="period" value="${cluster.node.check.checkMinInterval}" />
+		<property name="runnable" ref="clusterNodeCheckJob" />
+	</bean>
+	<bean id="sandboxesHomeCheckJob" class="com.cloveretl.server.timing.e" />
+	<bean id="sandboxesHomeCheckTrigger" class="org.springframework.scheduling.concurrent.ScheduledExecutorTask">
+		<property name="delay" value="10000" />
+		<property name="period" value="${sandboxes.home.check.checkMinInterval}" />
+		<property name="runnable" ref="sandboxesHomeCheckJob" />
+	</bean>
+	<bean id="clusterNodeTouchJob" class="com.cloveretl.server.timing.c" />
+	<bean id="clusterNodeTouchTrigger" class="org.springframework.scheduling.concurrent.ScheduledExecutorTask">
+		<property name="delay" value="10000" />
+		<property name="period" value="${cluster.node.touch.interval}" />
+		<property name="runnable" ref="clusterNodeTouchJob" />
+	</bean>
+	<bean id="watchDogCleanerJob" class="com.cloveretl.server.timing.g" />
+	<bean id="watchDogCleanerTrigger" class="org.springframework.scheduling.concurrent.ScheduledExecutorTask">
+		<property name="delay" value="10000" />
+		<property name="period" value="10000" />
+		<property name="runnable" ref="watchDogCleanerJob" />
+	</bean>
+
+	<bean id="clusterInfoGathererJob" class="com.cloveretl.server.timing.ClusterInfoGathererJob" />
+	<bean id="clusterInfoGathererTrigger" class="org.springframework.scheduling.concurrent.ScheduledExecutorTask">
+		<property name="delay" value="1000" />
+		<property name="period" value="${cluster.node.sendinfo.interval}" />
+		<property name="runnable" ref="clusterInfoGathererJob" />
+	</bean>
+	<bean id="systemInfoJob" class="com.cloveretl.server.timing.f" />
+	<bean id="systemInfoTrigger" class="org.springframework.scheduling.concurrent.ScheduledExecutorTask">
+		<property name="delay" value="5000" />
+		<property name="period" value="${systeminfo.checkInterval}" />
+		<property name="runnable" ref="systemInfoJob" />
+	</bean>
+	<bean id="performanceCollectorJob" class="com.cloveretl.server.timing.PerformanceCollectorJob" >
+		<property name="enabled" value="#{${jobqueue.enabled} or ${logging.logger.performance.enabled}}" />
+	</bean>
+	<bean id="performanceLoggerTrigger" class="org.springframework.scheduling.concurrent.ScheduledExecutorTask">
+		<property name="delay" value="1000" />
+		<property name="period" value="${logging.logger.performance.checkInterval}" />
+		<property name="runnable" ref="performanceCollectorJob" />
+	</bean>
+	<bean id="jobQueueJob" class="com.cloveretl.server.timing.JobQueueJob" >
+		<property name="enabled" value="${jobqueue.enabled}" />
+	</bean>
+	<bean id="jobQueueTrigger" class="org.springframework.scheduling.concurrent.ScheduledExecutorTask">
+		<property name="delay" value="1000" />
+		<property name="period" value="${jobqueue.checkInterval}" />
+		<property name="runnable" ref="jobQueueJob" />
+	</bean>
+	<bean id="cpuProbeJob" class="com.cloveretl.server.timing.CoreCpuProbeJob" />
+	<bean id="cpuProbeTrigger" class="org.springframework.scheduling.concurrent.ScheduledExecutorTask">
+		<property name="delay" value="5000" />
+		<property name="period" value="1000" />
+		<property name="runnable" ref="cpuProbeJob" />
+	</bean>
+	
+	<bean id="jobTriggersList" class="com.cloveretl.server.timing.d">
+		<property name="sourceList">
+			<list>
+				<ref bean="groovyEventsJobTrigger" />
+				<ref bean="fileEventsJobTrigger" />
+				<ref bean="garbageManTrigger" />
+				<ref bean="clusterInfoGathererTrigger" />
+				<ref bean="clusterNodeCheckTrigger" />
+				<ref bean="systemInfoTrigger" />
+				<ref bean="cpuProbeTrigger" />
+				<ref bean="watchDogCleanerTrigger" />
+				<ref bean="jobQueueTrigger" />
+				<ref bean="performanceLoggerTrigger" />
+				<ref bean="sandboxesHomeCheckTrigger" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="scheduledExecutor" class="org.springframework.scheduling.concurrent.ScheduledExecutorFactoryBean" destroy-method="destroy">
+		<!-- allows to execute at most 4 jobs concurrently -->
+		<property name="poolSize" value="6" />
+		<property name="continueScheduledExecutionAfterException" value="true" />
+		<property name="scheduledExecutorTasks" ref="jobTriggersList"/>
+	</bean>
+	
+	<bean id="nodeTouchScheduledExecutor" class="org.springframework.scheduling.concurrent.ScheduledExecutorFactoryBean" destroy-method="destroy">
+		<!-- allows to execute at most 1 jobs concurrently -->
+		<property name="poolSize" value="1" />
+		<property name="continueScheduledExecutionAfterException" value="true" />
+		<property name="scheduledExecutorTasks">
+			<list>
+				<ref bean="clusterNodeTouchTrigger" />
+			</list>
+		</property>
+	</bean>	
+		
+<!-- /ScheduledExecutor timer -->
+
+	<bean id="persistenceService" class="com.cloveretl.server.dao.PersistenceServiceReferenceInjector">
+		<property name="persistenceServiceEndPoint" ref="persistenceServiceLocalProxy" />
+	</bean>
+	
+	<bean id="ctlDebugSupport" class="com.cloveretl.server.job.b.b" />
+
+	<bean id="transformationGraphManager" class="com.cloveretl.server.g.m" />
+	<bean id="concurrentExecutionGraphManager" class="com.cloveretl.server.g.e" />
+	
+	<!-- worker related beans - start -->
+	<bean id="multiJvmModule" class="com.cloveretl.server.worker.e"/>
+	<bean id="multiJvmConfiguration" class="com.cloveretl.server.worker.b.b"/>
+	
+	<bean id="workerManager" class="com.cloveretl.server.worker.manager.ar" destroy-method="destroy"/>
+
+	<bean id="workerJobManager" class="com.cloveretl.server.worker.manager.l"/>
+	
+	<bean id="workerConfigurationManager" class="com.cloveretl.server.worker.z"/>
+	
+	<bean id="workerCommand" class="com.cloveretl.server.worker.x" />
+	<bean id="gcLogManager" class="com.cloveretl.server.worker.d.b" />
+	
+	<bean id="workerFactory" class="com.cloveretl.server.worker.manager.i"/>
+	<bean id="workerProcessFactory" class="com.cloveretl.server.worker.manager.au"/>
+	
+	<bean id="workerHttpServerManager" class="com.cloveretl.server.worker.aa" destroy-method="destroy"/>
+	<bean id="portPoolManager" class="com.cloveretl.server.worker.e.c"/>
+	<bean id="workerPortManager" class="com.cloveretl.server.worker.e.h"/>
+	<bean id="portProbe" class="com.cloveretl.server.worker.e.e"/>
+
+	<bean id="serverAuthorityProxyApiImpl" class="com.cloveretl.server.worker.ServerAuthorityProxyApiImpl" />
+	
+	<bean id="workerHttpInvokerFactory" class="com.cloveretl.server.worker.v"/>
+
+	<bean id="serverAuthorityProxyApi" 
+		factory-bean="serverAuthorityProxyApiImpl" 
+		factory-method="installLoggingProxies" >
+		<constructor-arg ref="serverAuthorityProxyApiImpl" />
+	</bean>
+
+	<bean name="serverAuthorityProxyApiExporter" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="serverAuthorityProxyApi" />
+		<property name="serviceInterface" value="com.cloveretl.server.worker.commons.api.ServerAuthorityProxyApi" />
+	</bean>
+
+	<bean id="jmxProxyApiImpl" class="com.cloveretl.server.worker.JmxProxyApiImpl"/>
+	
+	<bean id="jmxProxyApi" 
+		factory-bean="jmxProxyApiImpl" 
+		factory-method="installLoggingProxies" >
+		<constructor-arg ref="jmxProxyApiImpl" />
+	</bean>
+
+	<bean name="jmxProxyApiExporter" class="com.cloveretl.server.worker.c">
+		<property name="service" ref="jmxProxyApi" />
+		<property name="serviceInterface" value="com.cloveretl.server.worker.commons.api.JmxProxyApi" />
+	</bean>
+	
+	<bean abstract="true" id="workerAsyncProxyApiImpl" class="com.cloveretl.server.worker.WorkerAsyncProxyApiImpl" depends-on="configuration" />
+
+	<bean id="serverHttpContextApiImpl" parent="workerAsyncProxyApiImpl" class="com.cloveretl.server.worker.ServerHttpContextApiImpl" />
+
+	<bean id="serverHttpContextApi" 
+		factory-bean="serverHttpContextApiImpl" 
+		factory-method="installLoggingProxies" >
+		<constructor-arg ref="serverHttpContextApiImpl" />
+	</bean>
+	
+	<bean name="serverHttpContextApiExporter" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="serverHttpContextApi" />
+		<property name="serviceInterface" value="com.cloveretl.server.worker.commons.api.ServerHttpContextApi" />
+	</bean>
+	
+	<bean id="sandboxOperationHandler" parent="workerAsyncProxyApiImpl" class="com.cloveretl.server.f.d"/>
+	
+	<bean id="sandboxOperationHandlerApiImpl" class="com.cloveretl.server.worker.SandboxOperationHandlerApiImpl" />
+	
+	<bean id="sandboxOperationHandlerApi" 
+		factory-bean="sandboxOperationHandlerApiImpl" 
+		factory-method="installLoggingProxies" >
+		<constructor-arg ref="sandboxOperationHandlerApiImpl" />
+	</bean>
+
+	<bean name="sandboxOperationHandlerApiExporter" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="sandboxOperationHandlerApi" />
+		<property name="serviceInterface" value="com.cloveretl.server.worker.commons.api.SandboxOperationHandlerApi" />
+	</bean>
+	
+	<!-- worker related beans - end -->
+	
+	<bean id="jobContentProvider" class="com.cloveretl.server.g.c.g" />
+	
+	<bean id="dismissedMessagesManager" class="com.cloveretl.server.DismissedMessagesManager" />
+	
+	<bean id="diagnosticInformationProvider" class="com.cloveretl.server.DiagnosticInformationProvider" />
+
+	<bean id="operatingSystemBean" class="com.cloveretl.server.commons.system.OperatingSystemBeanImpl" />
+
+	<import resource="applicationContext-localPersistence.xml" />
+
+	<import resource="applicationContext-dataManagerPersistence.xml" />
+
+	<beans profile="mBeanExporters">
+		<import resource="applicationContext-mBeanExporters.xml" />
+	</beans>
+	
+	<beans profile="quartz">
+		<import resource="applicationContext-quartz.xml" />
+	</beans>
+	
+	<beans profile="saml">
+		<import resource="applicationContext-saml.xml"/>
+	</beans>
+
+	<beans profile="test">
+		<bean id="operatingSystemBean" class="com.cloveretl.server.commons.system.OperatingSystemBean4Tests" >
+			<constructor-arg>
+				<bean class="com.cloveretl.server.commons.system.OperatingSystemBeanImpl" />
+			</constructor-arg>
+		</bean>
+	</beans>
+	
+</beans>

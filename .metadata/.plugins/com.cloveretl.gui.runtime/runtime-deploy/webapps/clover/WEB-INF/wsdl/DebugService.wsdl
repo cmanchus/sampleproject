@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:tns="http://server.cloveretl.com/DebugService"
+    xmlns:model="http://server.cloveretl.com/DebugModel"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    name="DebugService"
+    targetNamespace="http://server.cloveretl.com/DebugService">
+    
+    <types>
+        <xs:schema targetNamespace="http://server.cloveretl.com/DebugService">
+            <xs:import namespace="http://server.cloveretl.com/DebugModel" schemaLocation="DebugModel.xsd" />
+            
+            <xs:element name="TakeDebugEvents">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="sessionToken" type="xs:string" />
+                        <xs:element name="runId" type="xs:long" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="TakeDebugEventsResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="out" type="model:DebugEvent"
+                            minOccurs="0" maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        
+            <xs:element name="GetThreads">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="sessionToken" type="xs:string" />
+                        <xs:element name="runId" type="xs:long" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetThreadsResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="out" type="model:Thread"
+                            minOccurs="0" maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        
+            <xs:element name="GetStackFrames">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="sessionToken" type="xs:string" />
+                        <xs:element name="runId" type="xs:long" />
+                        <xs:element name="threadId" type="xs:long" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetStackFramesResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="out" type="model:StackFrame"
+                            minOccurs="0" maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        
+            <xs:element name="Resume">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="sessionToken" type="xs:string" />
+                        <xs:element name="runId" type="xs:long" />
+                        <xs:element name="threadId" type="xs:long"
+                            minOccurs="0" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ResumeResponse">
+                <xs:complexType>
+                    <xs:sequence />
+                </xs:complexType>
+            </xs:element>
+        
+            <xs:element name="Suspend">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="sessionToken" type="xs:string" />
+                        <xs:element name="runId" type="xs:long" />
+                        <xs:element name="threadId" type="xs:long"
+                            minOccurs="0" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SuspendResponse">
+                <xs:complexType>
+                    <xs:sequence />
+                </xs:complexType>
+            </xs:element>
+        
+            <xs:element name="AddBreakpoints">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="sessionToken" type="xs:string" />
+                        <xs:element name="rootRunId" type="xs:long" />
+                        <xs:element name="breakpoints" type="model:Breakpoint"
+                            minOccurs="0" maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="AddBreakpointsResponse">
+                <xs:complexType />
+            </xs:element>
+            
+            <xs:element name="RemoveBreakpoints">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="sessionToken" type="xs:string" />
+                        <xs:element name="rootRunId" type="xs:long" />
+                        <xs:element name="breakpoints" type="model:Breakpoint"
+                            minOccurs="0" maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="RemoveBreakpointsResponse">
+                <xs:complexType />
+            </xs:element>
+        
+            <xs:element name="ModifyBreakpoint">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="sessionToken" type="xs:string" />
+                        <xs:element name="rootRunId" type="xs:long" />
+                        <xs:element name="breakpoint" type="model:Breakpoint" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ModifyBreakpointResponse">
+                <xs:complexType />
+            </xs:element>
+
+            <xs:element name="SetBreakingEnabled">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="sessionToken" type="xs:string" />
+                        <xs:element name="rootRunId" type="xs:long" />
+                        <xs:element name="enabled" type="xs:boolean" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SetBreakingEnabledResponse">
+                <xs:complexType />
+            </xs:element>
+        
+            <xs:element name="StepThread">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="sessionToken" type="xs:string" />
+                        <xs:element name="runId" type="xs:long" />
+                        <xs:element name="threadId" type="xs:long" />
+                        <xs:element name="stepType" type="model:StepType" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="StepThreadResponse">
+                <xs:complexType />
+            </xs:element>
+            
+            <xs:element name="RunToLine">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="sessionToken" type="xs:string" />
+                        <xs:element name="runId" type="xs:long" />
+                        <xs:element name="threadId" type="xs:long" />
+                        <xs:element name="line" type="model:Breakpoint" />
+                        <xs:element name="skipBreakpoints" type="xs:boolean" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="RunToLineResponse">
+                <xs:complexType />
+            </xs:element>
+
+            <xs:complexType name="VariableListing">
+                <xs:sequence>
+                    <xs:element name="globalVariables" type="model:Variable" minOccurs="0" maxOccurs="unbounded" />
+                    <xs:element name="localVariables" type="model:Variable" minOccurs="0" maxOccurs="unbounded" />
+                    <xs:element name="inputRecords" type="model:CompositeVariable" minOccurs="0" maxOccurs="unbounded" />
+                    <xs:element name="outputRecords" type="model:CompositeVariable" minOccurs="0" maxOccurs="unbounded" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="ListVariables">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="sessionToken" type="xs:string" />
+                        <xs:element name="runId" type="xs:long" />
+                        <xs:element name="threadId" type="xs:long" />
+                        <xs:element name="stackFrameIndex" type="xs:int" />
+                        <xs:element name="includeGlobal" type="xs:boolean" minOccurs="0" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ListVariablesResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="out" type="tns:VariableListing" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="DebugFault" type="tns:DebugFaultInfo" />
+            
+            <xs:complexType name="DebugFaultInfo">
+                <xs:sequence>
+                    <xs:element name="message" type="xs:string" />
+                </xs:sequence>
+            </xs:complexType>
+            
+            <xs:element name="EvaluateExpression">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="sessionToken" type="xs:string" />
+                        <xs:element name="expression" type="xs:string" />
+                        <xs:element name="runId" type="xs:long" />
+                        <xs:element name="threadId" type="xs:long" />
+                        <xs:element name="stackFrameIndex" type="xs:int" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            
+            <xs:element name="EvaluateExpressionResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="out" type="model:Variable" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </types>
+    <message name="TakeDebugEventsRequest">
+        <part name="parameters" element="tns:TakeDebugEvents" />
+    </message>
+    <message name="TakeDebugEventsResponse">
+        <part name="parameters" element="tns:TakeDebugEventsResponse" />
+    </message>
+    <message name="GetThreadsRequest">
+        <part name="parameters" element="tns:GetThreads" />
+    </message>
+    <message name="GetThreadsResponse">
+        <part name="parameters" element="tns:GetThreadsResponse" />
+    </message>
+    <message name="GetStackFramesRequest">
+        <part name="parameters" element="tns:GetStackFrames" />
+    </message>
+    <message name="GetStackFramesResponse">
+        <part name="parameters" element="tns:GetStackFramesResponse" />
+    </message>
+    <message name="ResumeRequest">
+        <part name="parameters" element="tns:Resume" />
+    </message>
+    <message name="ResumeResponse">
+        <part name="parameters" element="tns:ResumeResponse" />
+    </message>
+    <message name="SuspendRequest">
+        <part name="parameters" element="tns:Suspend" />
+    </message>
+    <message name="SuspendResponse">
+        <part name="parameters" element="tns:SuspendResponse" />
+    </message>
+    <message name="AddBreakpointsRequest">
+        <part name="parameters" element="tns:AddBreakpoints" />
+    </message>
+    <message name="AddBreakpointsResponse">
+        <part name="parameters" element="tns:AddBreakpointsResponse" />
+    </message>
+    <message name="RemoveBreakpointsRequest">
+        <part name="parameters" element="tns:RemoveBreakpoints" />
+    </message>
+    <message name="RemoveBreakpointsResponse">
+        <part name="parameters" element="tns:RemoveBreakpointsResponse" />
+    </message>
+    <message name="ModifyBreakpointRequest">
+        <part name="parameters" element="tns:ModifyBreakpoint" />
+    </message>
+    <message name="ModifyBreakpointResponse">
+        <part name="parameters" element="tns:ModifyBreakpointResponse" />
+    </message>
+    <message name="SetBreakingEnabledRequest">
+        <part name="parameters" element="tns:SetBreakingEnabled" />
+    </message>
+    <message name="SetBreakingEnabledResponse">
+        <part name="parameters" element="tns:SetBreakingEnabledResponse" />
+    </message>
+    <message name="StepThreadRequest">
+        <part name="parameters" element="tns:StepThread" />
+    </message>
+    <message name="StepThreadResponse">
+        <part name="parameters" element="tns:StepThreadResponse" />
+    </message>
+    <message name="RunToLineRequest">
+        <part name="parameters" element="tns:RunToLine" />
+    </message>
+    <message name="RunToLineResponse">
+        <part name="parameters" element="tns:RunToLineResponse" />
+    </message>
+    <message name="DebugFault">
+        <part name="parameters" element="tns:DebugFault" />
+    </message>
+    <message name="ListVariablesRequest">
+        <part name="parameters" element="tns:ListVariables" />
+    </message>
+    <message name="ListVariablesResponse">
+        <part name="parameters" element="tns:ListVariablesResponse" />
+    </message>
+    <message name="EvaluateExpressionRequest">
+        <part name="parameters" element="tns:EvaluateExpression" />
+    </message>
+    <message name="EvaluateExpressionResponse">
+        <part name="parameters" element="tns:EvaluateExpressionResponse" />
+    </message>
+    <portType name="DebugService">
+        <operation name="TakeDebugEvents">
+            <input message="tns:TakeDebugEventsRequest" />
+            <output message="tns:TakeDebugEventsResponse" />
+            <fault name="fault" message="tns:DebugFault" />
+        </operation>
+        <operation name="GetThreads">
+            <input message="tns:GetThreadsRequest" />
+            <output message="tns:GetThreadsResponse" />
+            <fault name="fault" message="tns:DebugFault" />
+        </operation>
+        <operation name="GetStackFrames">
+            <input message="tns:GetStackFramesRequest" />
+            <output message="tns:GetStackFramesResponse" />
+            <fault name="fault" message="tns:DebugFault" />
+        </operation>
+        <operation name="Resume">
+            <input message="tns:ResumeRequest" />
+            <output message="tns:ResumeResponse" />
+            <fault name="fault" message="tns:DebugFault" />
+        </operation>
+        <operation name="Suspend">
+            <input message="tns:SuspendRequest" />
+            <output message="tns:SuspendResponse" />
+            <fault name="fault" message="tns:DebugFault" />
+        </operation>
+        <operation name="AddBreakpoints">
+            <input message="tns:AddBreakpointsRequest" />
+            <output message="tns:AddBreakpointsResponse" />
+            <fault name="fault" message="tns:DebugFault" />
+        </operation>
+        <operation name="RemoveBreakpoints">
+            <input message="tns:RemoveBreakpointsRequest" />
+            <output message="tns:RemoveBreakpointsResponse" />
+            <fault name="fault" message="tns:DebugFault" />
+        </operation>
+        <operation name="ModifyBreakpoint">
+            <input message="tns:ModifyBreakpointRequest" />
+            <output message="tns:ModifyBreakpointResponse" />
+            <fault name="fault" message="tns:DebugFault" />
+        </operation>
+        <operation name="SetBreakingEnabled">
+            <input message="tns:SetBreakingEnabledRequest" />
+            <output message="tns:SetBreakingEnabledResponse" />
+            <fault name="fault" message="tns:DebugFault" />
+        </operation>
+        <operation name="StepThread">
+            <input message="tns:StepThreadRequest" />
+            <output message="tns:StepThreadResponse" />
+            <fault name="fault" message="tns:DebugFault" />
+        </operation>
+        <operation name="RunToLine">
+            <input message="tns:RunToLineRequest" />
+            <output message="tns:RunToLineResponse" />
+            <fault name="fault" message="tns:DebugFault" />
+        </operation>
+        <operation name="ListVariables">
+            <input message="tns:ListVariablesRequest" />
+            <output message="tns:ListVariablesResponse" />
+            <fault name="fault" message="tns:DebugFault" />
+        </operation>
+        <operation name="EvaluateExpression">
+            <input message="tns:EvaluateExpressionRequest" />
+            <output message="tns:EvaluateExpressionResponse" />
+            <fault name="fault" message="tns:DebugFault" />
+        </operation>
+    </portType>
+    <binding name="DebugServicePort" type="tns:DebugService">
+        <soap:binding style="document"
+            transport="http://schemas.xmlsoap.org/soap/http" />
+        <operation name="TakeDebugEvents">
+            <soap:operation
+                soapAction="http://server.cloveretl.com/DebugService/TakeDebugEvents" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+            <fault name="fault">
+                <soap:fault use="literal" name="fault" />
+            </fault>
+        </operation>
+        <operation name="GetThreads">
+            <soap:operation
+                soapAction="http://server.cloveretl.com/DebugService/GetThreads" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+            <fault name="fault">
+                <soap:fault use="literal" name="fault" />
+            </fault>
+        </operation>
+        <operation name="GetStackFrames">
+            <soap:operation
+                soapAction="http://server.cloveretl.com/DebugService/GetStackFrames" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+            <fault name="fault">
+                <soap:fault use="literal" name="fault" />
+            </fault>
+        </operation>
+        <operation name="Resume">
+            <soap:operation
+                soapAction="http://server.cloveretl.com/DebugService/Resume" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+            <fault name="fault">
+                <soap:fault use="literal" name="fault" />
+            </fault>
+        </operation>
+        <operation name="Suspend">
+            <soap:operation
+                soapAction="http://server.cloveretl.com/DebugService/Suspend" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+            <fault name="fault">
+                <soap:fault use="literal" name="fault" />
+            </fault>
+        </operation>
+        <operation name="AddBreakpoints">
+            <soap:operation
+                soapAction="http://server.cloveretl.com/DebugService/AddBreakpoints" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+            <fault name="fault">
+                <soap:fault use="literal" name="fault" />
+            </fault>
+        </operation>
+        <operation name="RemoveBreakpoints">
+            <soap:operation
+                soapAction="http://server.cloveretl.com/DebugService/RemoveBreakpoints" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+            <fault name="fault">
+                <soap:fault use="literal" name="fault" />
+            </fault>
+        </operation>
+        <operation name="ModifyBreakpoint">
+            <soap:operation
+                soapAction="http://server.cloveretl.com/DebugService/ModifyBreakpoint" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+            <fault name="fault">
+                <soap:fault use="literal" name="fault" />
+            </fault>
+        </operation>
+        <operation name="SetBreakingEnabled">
+            <soap:operation
+                soapAction="http://server.cloveretl.com/DebugService/SetBreakingEnabled" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+            <fault name="fault">
+                <soap:fault use="literal" name="fault" />
+            </fault>
+        </operation>
+        <operation name="StepThread">
+            <soap:operation
+                soapAction="http://server.cloveretl.com/DebugService/StepThread" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+            <fault name="fault">
+                <soap:fault use="literal" name="fault" />
+            </fault>
+        </operation>
+        <operation name="RunToLine">
+            <soap:operation
+                soapAction="http://server.cloveretl.com/DebugService/RunToLine" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+            <fault name="fault">
+                <soap:fault use="literal" name="fault" />
+            </fault>
+        </operation>
+        <operation name="ListVariables">
+            <soap:operation
+                soapAction="http://server.cloveretl.com/DebugService/ListVariables" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+            <fault name="fault">
+                <soap:fault use="literal" name="fault" />
+            </fault>
+        </operation>
+        <operation name="EvaluateExpression">
+            <soap:operation
+                soapAction="http://server.cloveretl.com/DebugService/EvaluateExpression" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+            <fault name="fault">
+                <soap:fault use="literal" name="fault" />
+            </fault>
+        </operation>
+    </binding>
+    <service name="DebugServiceProvider">
+        <port binding="tns:DebugServicePort" name="DebugServicePort">
+            <soap:address location="http://any" />
+        </port>
+    </service>
+</definitions>

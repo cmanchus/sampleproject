@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>CloverDX REST Job documentation</title>
+		
+		<!--  	// TODO CLO-23496 - add favicon  -->
+	
+		<script type="text/javascript" src="${contextPath}/js/swagger/swagger-ui-bundle.js" ></script>
+		<script type="text/javascript" src="${contextPath}/js/swagger/swagger-ui-standalone-preset.js" ></script>
+		<script type="text/javascript" src="${contextPath}/js/swagger/jquery-3.6.0.min.js" ></script>
+		<script type="text/javascript" src="${contextPath}/js/swagger/jquery.waituntilexists.min.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="${contextPath}/css/swagger/theme-clover.css" />
+
+		<style type="text/css">
+			.information-container {
+				display: none;
+			}
+			
+			.hidden {
+				display: none;
+			}
+			
+			.topbar {
+				display:none;
+			}
+			
+			button.cancel {
+				display: none;
+			}
+
+			.button {
+				border:0px;
+				margin: 0px 8px 0px 0px;
+				padding: 0px;
+				cursor: pointer;
+				background: transparent;
+				vertical-align: middle;
+			}
+			
+			button:focus {
+				outline:0;
+			}
+			
+			#groupByFrom {
+				margin: 14px 0px 12px 12px;
+			}
+			
+			.groupByText {
+				font-size: 14px;
+				font-family: "Inter",Segoe UI,Tahoma,Helvetica,sans-serif;
+			}
+		</style>
+		
+		<script type="text/javascript">
+			//<![CDATA[
+				
+				function waitForResponse() {
+					setTimeout(function () {
+						if (jQuery(".loading").length > 0) {
+							waitForResponse();
+						} else {
+							jQuery(".curl").each(function() {
+								var val = jQuery(this).val();
+								jQuery(this).val(val + " -v ${curlUsernameAttr}");
+							});
+						}
+					}, 1000);
+				}
+
+				jQuery(document).ready(function() {
+					jQuery("button:contains(Try it out)").waitUntilExists(function() {
+						jQuery("button:contains(Try it out)").each(function() { 
+							jQuery(this).click();
+						});
+					}, true);
+					
+					jQuery("div.body-param").waitUntilExists(function() {
+						jQuery("div.body-param").each(function() {
+							var divParent = jQuery(this).parent();
+							var original = jQuery(".body-param__text", this);
+	
+							if (!jQuery(divParent).find(" > .clover-body-param").length) {
+								divParent.append("<textarea rows='8' class='clover-body-param'></textarea>");
+								var newElem = jQuery("textarea.clover-body-param", divParent);
+									jQuery(newElem).blur(function() {
+										jQuery(original).val(jQuery(newElem).val());
+										jQuery(original).click();
+									});
+								}
+							});
+						}, true);
+						
+					jQuery("table.parameters >tbody").waitUntilExists(function() {
+						jQuery("table.parameters >tbody").each(function() {
+							if (jQuery(this).children().length == 1) {
+								var table = jQuery(this).parent().parent();
+								if (!table.hasClass('hidden')) {
+									table.addClass("hidden");
+									var parent = table.parent();
+									parent.append("<div class='opblock-description-wrapper'><p>No parameters</p></div>");
+								}
+							}
+						});
+					}, true);
+					
+					jQuery("#swagger-ui").click(function(event) {
+						var source = event.target || event.srcElement;
+						if (source != null) {
+							var sourceClass = source.innerHTML;
+							if (sourceClass == "Execute") {
+								waitForResponse();
+							}
+						}
+					});
+				
+				});
+				
+				window.onload = function() {
+				
+					var url = '${serverUrl}';
+					var docExpansion = '${docExpansion}';
+
+					var ui = SwaggerUIBundle({
+						url: url,
+						dom_id: '#swagger-ui',
+						docExpansion: docExpansion,
+						presets: [
+							SwaggerUIBundle.presets.apis,
+							SwaggerUIStandalonePreset
+						],
+						plugins: [
+							SwaggerUIBundle.plugins.DownloadUrl
+						],
+						layout: "StandaloneLayout",
+						showRequestHeaders: true,
+						validatorUrl: false
+					});
+					window.ui = ui;
+				}
+			//]]>
+		</script>
+
+	</head>
+	<body>
+		#if (${groupByShow})
+			<section class="swagger-ui swagger-container">
+				<div class="swagger-ui">
+					<div>
+						<div class="scheme-container" style="margin:0px; padding: 0px;">
+							<section class="schemes wrapper block col-12">	
+								<form id="groupByFrom" method="post">
+									#if ($groupByChecked == "NO_GROUP")
+										<input type="hidden" name="groupBy" value="on"/>
+										<button type="submit" class="button"><img src="design/icon/off.png"/></button>
+									#else
+										<input type="hidden" name="groupBy" value="off"/>
+										<button type="submit" class="button"><img src="design/icon/on.png"/></button>
+									#end
+									<span class="groupByText">Group Data Services by sandbox</span>
+								</form>
+							</section>
+						</div>
+					</div>
+				</div>
+			</section>
+		#end
+
+		<div id="swagger-ui"></div>
+	</body>
+</html>

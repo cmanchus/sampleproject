@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bindings version="2.1"
+    xmlns="http://java.sun.com/xml/ns/jaxb"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <bindings scd="x-schema::model" xmlns:model="http://server.cloveretl.com/DebugModel">
+        <schemaBindings>
+            <package name="com.cloveretl.server.api.debug.generated.model" />
+        </schemaBindings>
+    </bindings>
+    <bindings scd="x-schema::cloverws" xmlns:cloverws="http://server.cloveretl.com/CloverServerWS/">
+        <schemaBindings>
+            <package name="com.cloveretl.server.api.webservice.generated" />
+        </schemaBindings>
+    </bindings>
+</bindings>

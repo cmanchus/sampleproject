@@ -2,9 +2,76 @@
 <Graph author="Christian" created="Fri Sep 20 19:48:38 CST 2024" guiVersion="6.5.1.5" id="1726833662784" licenseCode="CLP1DPERSO75885942EX" name="new-graph" showComponentDetails="true">
 <Global>
 <Metadata id="Metadata0">
-<Record fieldDelimiter="," name="sample" previewAttachment="C:/Users/Christian/OneDrive/Desktop/sample.csv" previewAttachmentCharset="UTF-8" quoteChar="both" quotedStrings="false" recordDelimiter="\r\n" skipSourceRows="0" type="delimited">
-<Field name="Field1" type="string"/>
-<Field eofAsDelimiter="true" name="Field2" type="string"/>
+<Record fieldDelimiter="," name="order" previewAttachment="C:/Users/Christian/OneDrive/Desktop/order.csv" previewAttachmentCharset="UTF-8" quoteChar="both" quotedStrings="false" recordDelimiter="\r\n" skipSourceRows="1" type="delimited">
+<Field name="Id" type="integer"/>
+<Field name="order" type="string"/>
+<Field name="amount" type="integer"/>
+<Field eofAsDelimiter="true" name="quantity" type="integer"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata3">
+<Record fieldDelimiter="," name="order" previewAttachment="C:/Users/Christian/OneDrive/Desktop/order.csv" previewAttachmentCharset="UTF-8" quoteChar="both" quotedStrings="false" recordDelimiter="\r\n" skipSourceRows="1" type="delimited">
+<Field name="Id" type="integer"/>
+<Field name="order" type="string"/>
+<Field name="amount" type="integer"/>
+<Field eofAsDelimiter="true" name="quantity" type="integer"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata6">
+<Record fieldDelimiter="," name="order" previewAttachment="C:/Users/Christian/OneDrive/Desktop/order.csv" previewAttachmentCharset="UTF-8" quoteChar="both" quotedStrings="false" recordDelimiter="\r\n" skipSourceRows="1" type="delimited">
+<Field name="Id" type="integer"/>
+<Field name="order" type="string"/>
+<Field name="amount" type="integer"/>
+<Field eofAsDelimiter="true" name="quantity" type="integer"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata8">
+<Record fieldDelimiter="," name="order" previewAttachment="C:/Users/Christian/OneDrive/Desktop/order.csv" previewAttachmentCharset="UTF-8" quoteChar="both" quotedStrings="false" recordDelimiter="\r\n" skipSourceRows="1" type="delimited">
+<Field name="Id" type="integer"/>
+<Field name="order" type="string"/>
+<Field name="amount" type="integer"/>
+<Field eofAsDelimiter="true" name="quantity" type="integer"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata4">
+<Record fieldDelimiter="|" name="recordName" recordDelimiter="\n" type="delimited">
+<Field label="Id" name="sampleid" trim="true" type="integer"/>
+<Field label="Name " name="Name" type="string"/>
+<Field eofAsDelimiter="true" label="Address" name="Address" type="string"/>
+<Field name="Idorder" trim="true" type="integer"/>
+<Field name="order" type="string"/>
+<Field name="amount" trim="true" type="integer"/>
+<Field eofAsDelimiter="true" name="quantity" trim="true" type="integer"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata7">
+<Record fieldDelimiter="|" name="recordName1" recordDelimiter="\n" type="delimited">
+<Field label="Name " name="Name" type="string"/>
+<Field eofAsDelimiter="true" label="Address" name="Address" type="string"/>
+<Field name="order" type="string"/>
+<Field name="amount" trim="true" type="integer"/>
+<Field eofAsDelimiter="true" name="quantity" trim="true" type="integer"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata1">
+<Record fieldDelimiter="," name="sample" previewAttachment="C:/Users/Christian/OneDrive/Desktop/sample.csv" previewAttachmentCharset="UTF-8" quoteChar="both" quotedStrings="false" recordDelimiter="\r\n" skipSourceRows="1" type="delimited">
+<Field label="Id" name="Id" type="integer"/>
+<Field label="Name " name="Name" type="string"/>
+<Field eofAsDelimiter="true" label="Address" name="Address" type="string"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata2">
+<Record fieldDelimiter="," name="sample" previewAttachment="C:/Users/Christian/OneDrive/Desktop/sample.csv" previewAttachmentCharset="UTF-8" quoteChar="both" quotedStrings="false" recordDelimiter="\r\n" skipSourceRows="1" type="delimited">
+<Field label="Id" name="Id" type="integer"/>
+<Field label="Name " name="Name" type="string"/>
+<Field eofAsDelimiter="true" label="Address" name="Address" type="string"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata5">
+<Record fieldDelimiter="," name="sample" previewAttachment="C:/Users/Christian/OneDrive/Desktop/sample.csv" previewAttachmentCharset="UTF-8" quoteChar="both" quotedStrings="false" recordDelimiter="\r\n" skipSourceRows="1" type="delimited">
+<Field label="Id" name="Id" type="integer"/>
+<Field label="Name " name="Name" type="string"/>
+<Field eofAsDelimiter="true" label="Address" name="Address" type="string"/>
 </Record>
 </Metadata>
 <GraphParameters>
@@ -13,13 +80,46 @@
 <Dictionary/>
 </Global>
 <Phase number="0">
-<Node guiName="Dedup" guiX="909" guiY="227" id="DEDUP" type="DEDUP"/>
-<Node guiName="EmailReader" guiX="1021" guiY="138" id="EMAIL_READER" type="EMAIL_READER"/>
-<Node guiName="Filter" guiX="691" guiY="293" id="FILTER" type="EXT_FILTER"/>
-<Node fileURL="C:/Users/Christian/OneDrive/Desktop/sample.csv" guiName="FlatFileReader" guiX="379" guiY="231" id="FLAT_FILE_READER" type="FLAT_FILE_READER"/>
-<Node guiName="HL7Reader" guiX="764" guiY="133" id="HL7READER" type="HL7_READER"/>
-<Node guiName="JMSReader" guiX="562" guiY="385" id="JMSREADER" type="JMS_READER"/>
-<Node guiName="Partition" guiX="942" guiY="359" id="PARTITION" type="PARTITION"/>
-<Edge fromNode="FLAT_FILE_READER:0" guiBendpoints="" guiRouter="Manhattan" id="Edge0" inPort="Port 0 (in)" metadata="Metadata0" outPort="Port 0 (output)" toNode="FILTER:0"/>
+<Node guiName="Inner Join" guiX="554" guiY="277" id="INNER_JOIN" joinKey="$Id(a)#$Id(a);" joinType="inner" type="EXT_MERGE_JOIN">
+<attr name="transform"><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+	$out.0.Name = $in.0.Name;
+	$out.0.Address = $in.0.Address;
+	$out.0.order = $in.1.order;
+	$out.0.amount = $in.1.amount;
+	$out.0.quantity = $in.1.quantity;
+
+	return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+</Node>
+<Node fileURL="C:/Users/Christian/OneDrive/Desktop/order.csv" guiName="Order" guiX="187" guiY="343" id="ORDER" type="FLAT_FILE_READER"/>
+<Node fileURL="C:/Users/Christian/OneDrive/Desktop/sample11.csv" guiName="Output" guiX="849" guiY="262" id="OUTPUT" type="FLAT_FILE_WRITER"/>
+<Node guiName="Sort" guiX="400" guiY="416" id="SORT" sortKey="Id(a)" type="EXT_SORT"/>
+<Node fileURL="C:/Users/Christian/OneDrive/Desktop/sample.csv" guiName="Cust" guiX="187" guiY="170" id="Table1" type="FLAT_FILE_READER"/>
+<Edge fromNode="INNER_JOIN:0" guiBendpoints="" guiRouter="Manhattan" id="Edge20" inPort="Port 0 (in)" metadata="Metadata7" outPort="Port 0 (out)" toNode="OUTPUT:0"/>
+<Edge fromNode="ORDER:0" guiBendpoints="" guiRouter="Manhattan" id="Edge21" inPort="Port 0 (in)" metadata="Metadata6" outPort="Port 0 (output)" toNode="SORT:0"/>
+<Edge fromNode="SORT:0" guiBendpoints="" guiRouter="Manhattan" id="Edge22" inPort="Port 1 (slave)" outPort="Port 0 (out)" toNode="INNER_JOIN:1"/>
+<Edge fromNode="Table1:0" guiBendpoints="" guiRouter="Manhattan" id="Edge18" inPort="Port 0 (driver)" metadata="Metadata5" outPort="Port 0 (output)" toNode="INNER_JOIN:0"/>
 </Phase>
 </Graph>

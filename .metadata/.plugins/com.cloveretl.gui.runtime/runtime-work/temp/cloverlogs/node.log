@@ -1,0 +1,6 @@
+2024-09-20 21:28:50,243[        AppInit] INFO  NodeStatus NodeStatus[#1 nodeRun: 1 node01 STARTING null updater: node01 autoresumeEnabled: true workerAvailable: null] successfuly inserted
+2024-09-20 21:28:50,246[        AppInit] INFO  NodeRun registered NodeRun[#1 node01 STARTING checked:Fri Sep 20 21:28:50 CST 2024] NodeStatus[#1 nodeRun: 1 node01 STARTING null updater: node01 autoresumeEnabled: true workerAvailable: null] 
+2024-09-20 21:28:51,242[        AppInit] INFO  Setting NodeStatus[#1 nodeRun: 1 node01 READY null updater: node01 autoresumeEnabled: true workerAvailable: null] status to READY
+2024-09-20 21:28:51,270[        AppInit] WARN  nodeInfoHolder not found! NodeInfo#node01 nodeRun#null asyncMsgNotReady syncMsgNotReady Messages:[Msg#error:MSG_INVALID_NODE_NOT_READY_YET] Locks:[] Jobs:[] srcTime:Fri Sep 20 21:28:49 CST 2024
+2024-09-20 21:28:51,276[   threadPool-4] WARN  GetAllAccessibleNodesInfo - sync request for node NodeInfoHolder#node01| failed
+2024-09-20 21:28:58,701[ServerLockWatch] INFO  Setting NodeStatus[#2 nodeRun: 1 node01 STOPPED null updater: node01 autoresumeEnabled: false workerAvailable: null] status to STOPPED

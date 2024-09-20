@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+	default-autowire="no" >
+
+	<!-- JPA -->
+	<bean id="abstractDao" class="com.cloveretl.server.dao.AbstractDao" abstract="true" />
+	
+	<bean id="scheduleDetailDao" class="com.cloveretl.server.dao.ScheduleDetailDao" lazy-init="true">
+	</bean>		
+	<bean id="scheduleDao" class="com.cloveretl.server.dao.ScheduleDao" lazy-init="true">
+	</bean>
+	<bean id="scheduleStateDao" class="com.cloveretl.server.dao.ScheduleStateDao" lazy-init="true" parent="abstractDao">
+  	</bean>
+	<bean id="emailTemplateDao" class="com.cloveretl.server.dao.EmailTemplateDao" lazy-init="true" parent="abstractDao">
+  	</bean>
+	<bean id="jmsMessageTemplateDao" class="com.cloveretl.server.dao.JmsMessageDao" lazy-init="true" parent="abstractDao">
+  	</bean>
+	<bean id="taskDao" class="com.cloveretl.server.dao.TaskDao" lazy-init="true" parent="abstractDao">
+  	</bean>
+	<bean id="taskLogDao" class="com.cloveretl.server.dao.TaskLogDao" lazy-init="true" parent="abstractDao">
+  	</bean>
+  	<bean id="taskLogEventDao" class="com.cloveretl.server.dao.TaskLogEventDao" lazy-init="true" parent="abstractDao">
+  	</bean>
+	<bean id="userDao" class="com.cloveretl.server.dao.UserDao" lazy-init="true" parent="abstractDao">
+  	</bean>
+	<bean id="userGroupDao" class="com.cloveretl.server.dao.UserGroupDao" lazy-init="true" parent="abstractDao">
+  	</bean>
+	<bean id="sandboxDao" class="com.cloveretl.server.dao.SandboxDao" lazy-init="true" parent="abstractDao">
+  	</bean>
+	<bean id="runRecordDao" class="com.cloveretl.server.dao.RunRecordDao" lazy-init="true" parent="abstractDao">
+  	</bean>
+  	<bean id="httpInvocationRecordDao" class="com.cloveretl.server.dao.HttpInvocationRecordDao" lazy-init="true" parent="abstractDao">
+  	</bean>
+  	<bean id="sslConfigurationDao" class="com.cloveretl.server.dao.SslConfigurationDao" lazy-init="true" parent="abstractDao">
+  	</bean>
+	<bean id="graphConfigDao" class="com.cloveretl.server.dao.GraphConfigDao" lazy-init="true" parent="abstractDao">
+  	</bean>
+  	<bean id="healthConfigurationDao" class="com.cloveretl.server.dao.HealthConfigurationDao" lazy-init="true" parent="abstractDao">
+  	</bean>
+	<bean id="eventListenerDao" class="com.cloveretl.server.dao.EventListenerDao" lazy-init="true" parent="abstractDao">
+  	</bean>
+  	<bean id="eventListenerStateDao" class="com.cloveretl.server.dao.EventListenerStateDao" lazy-init="true" parent="abstractDao">
+  	</bean>
+	<bean id="eventListener" class="com.cloveretl.server.dao.EventListenerDao" lazy-init="true" parent="abstractDao">
+  	</bean>
+  	<bean id="eventListenerDetailDao" class="com.cloveretl.server.dao.EventListenerDetailDao" lazy-init="true" parent="eventListenerDao">
+  	</bean>
+	<bean id="serverTempSpaceDao" class="com.cloveretl.server.dao.ServerTempSpaceDao" lazy-init="true" parent="abstractDao">
+  	</bean>
+  	<bean id="nodeRunDao" class="com.cloveretl.server.dao.NodeRunDao" lazy-init="true" parent="abstractDao">
+  	</bean>
+  	<bean id="settingsNodeDao" class="com.cloveretl.server.dao.SettingsNodeDao" lazy-init="true" parent="abstractDao">
+  	</bean>
+  	<bean id="settingsUserDao" class="com.cloveretl.server.dao.SettingsUserDao" lazy-init="true" parent="abstractDao">
+  	</bean>  	
+	<bean id="nodeStatusDao" class="com.cloveretl.server.dao.NodeStatusDao" lazy-init="true" parent="abstractDao">
+  	</bean>
+  	<bean id="dashboardDao" class="com.cloveretl.server.dao.DashboardDao" lazy-init="true" parent="abstractDao" />
+  	<bean id="secretManagerDao" class="com.cloveretl.server.dao.SecretManagerDao" lazy-init="true" parent="abstractDao" />
+	<bean id="dataServiceJobDao" class="com.cloveretl.server.dao.DataServiceJobDao" lazy-init="true" parent="abstractDao" />
+	<bean id="dataServiceJobStateDao" class="com.cloveretl.server.dao.DataServiceJobStateDao" lazy-init="true" parent="abstractDao" />	
+	<bean id="dataServiceJobDetailDao" class="com.cloveretl.server.dao.DataServiceJobDetailDao" lazy-init="true" parent="dataServiceJobDao" />
+  	<bean id="secureParamPasswdDao" class="com.cloveretl.server.dao.SecureParamPasswdDao" lazy-init="true" parent="abstractDao"/>
+  	<bean id="cloverLicenseDao" class="com.cloveretl.server.dao.CloverLicenseDao" lazy-init="true" parent="abstractDao"/>
+  	<bean id="monitorDao" class="com.cloveretl.server.dao.MonitorDao" lazy-init="true" parent="abstractDao" />
+  	<bean id="libraryRepositoryDao" class="com.cloveretl.server.dao.LibraryRepositoryDao" lazy-init="true" parent="abstractDao" />
+  	<bean id="smtpOAuth2TokensDao" class="com.cloveretl.server.dao.SmtpOAuth2TokensDao" lazy-init="true" parent="abstractDao" />
+	<bean id="wranglerJobLastRunDao" class="com.cloveretl.server.dao.WranglerJobLastRunDao" lazy-init="true" parent="abstractDao" />
+	<bean id="dataSetDao" class="com.cloveretl.server.dao.DataSetDao" lazy-init="true" parent="abstractDao" />
+    <bean id="serverConfigImportExportDelegate" class="com.cloveretl.server.dao.ServerConfigurationImportExportDelegate" lazy-init="true" />
+	<bean id="persistenceServiceNoTx" class="com.cloveretl.server.dao.PersistenceServiceImpl" lazy-init="true" />
+	<bean id="persistenceServiceTxProxy" parent="txProxy" lazy-init="true" >
+		<property name="target">
+	    	<bean class="org.springframework.aop.target.LazyInitTargetSource">
+	       		<property name="targetBeanName"><idref bean="persistenceServiceNoTx"/></property>
+	     	</bean>
+	   	</property>
+	</bean>
+	
+	<bean id="persistenceServiceLocalProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+	    <property name="interceptorNames">
+	        <list>
+	        	<value>interruptSentinelInterceptor</value>
+	        </list>
+	    </property>
+	    <property name="proxyInterfaces" >
+	        <list>
+	            <value>com.cloveretl.server.dao.PersistenceService</value>
+	        </list>
+	    </property>
+	    <property name="targetName" value="persistenceServiceTxProxy" />
+  	</bean>
+	
+	<bean id="interruptSentinelInterceptor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+	    <property name="advice" ref="interruptSentinelAdvice" />
+	    <property name="pointcut">
+	        <bean class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+	            <property name="pattern" value=".*" />
+	        </bean>
+	    </property>
+	</bean>
+
+	<bean name="interruptSentinelAdvice" class="com.cloveretl.server.aop.InterruptSentinelAdvice">
+		<constructor-arg ref="mainDataSource" />
+	</bean>
+
+	<bean id="dbPatches" class="com.cloveretl.server.dbschema.DbPatches" lazy-init="true">
+	</bean>
+	
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" depends-on="dbPatches" lazy-init="true" >
+		<property name="dataSource" ref="mainDataSource"/>
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="${clover.showSql}"/> 
+				<property name="generateDdl" value="${persistence.generateDdl}"/>
+				<property name="databasePlatform" value="${jdbc.dialect}"/>
+			</bean>
+		</property>
+		<property name="jpaProperties">
+         	<props>
+         		<prop key="hibernate.id.new_generator_mappings">false</prop>
+            	<prop key="hibernate.query.plan_cache_max_size">40</prop>
+            	<prop key="hibernate.query.plan_parameter_metadata_max_size">40</prop>
+            	<prop key="hibernate.batch_fetch_style">dynamic</prop>
+            	<prop key="hibernate.cache.use_second_level_cache">false</prop>
+            	<prop key="hibernate.cache.use_query_cache">false</prop>
+            	<prop key="hibernate.cache.use_minimal_puts">true</prop>
+            	<prop key="hibernate.format_sql">${clover.inDevelopment}</prop>
+            	<prop key="hibernate.use_sql_comments">false</prop>
+            	<prop key="hibernate.hbm2ddl.auto">${persistence.hbm2ddl.auto}</prop>
+            	<prop key="javax.persistence.validation.mode">NONE</prop>
+            	<prop key="javax.persistence.sharedCache.mode">NONE</prop>
+            	<!-- <prop key="javax.persistence.nonJtaDataSource">${datasource.jndiName}</prop> -->
+         	</props>
+      	</property>
+      <property name="persistenceUnitName" value="SpringJpaPersistence" />
+      <property name="persistenceXmlLocation" value="${persistence.descriptor.location}" />
+	  <property name="persistenceUnitPostProcessors">
+           <list>
+      		<bean class="com.cloveretl.server.config.c">
+      		</bean>
+           </list>
+      </property>
+	</bean>
+
+	<alias alias="dataSource" name="mainDataSource"/>
+	<bean id="mainDataSource" class="com.cloveretl.server.datasource.d" lazy-init="true" init-method="init">
+		<constructor-arg ref="dataSource_${datasource.type}"/>
+		<constructor-arg value="${datasource.tries}" />
+		<constructor-arg value="${datasource.tries.delay}" />
+	</bean>
+	
+	<!--  data source - JDBC -->
+	<bean id="dataSource_JDBC" class="org.springframework.jdbc.datasource.DelegatingDataSource" lazy-init="true" >
+		<property name="targetDataSource" ref="dataSource_JDBC_target" />
+	</bean>
+	<bean id="dataSource_JDBC_target" class="com.cloveretl.server.datasource.c" destroy-method="close" lazy-init="true" >
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+
+		<property name="cloverName" value="Built-in system database pool" />
+
+		<!-- uncomment following line to register data source as managed bean -->
+		<!-- property name="jmxName" value="com.cloveretl.server.db:name=PrimaryJdbcDataSourceMBean" /-->
+
+		<property name="initialSize" value="1" />
+		<!-- max 50 connection may be borrowed at the time -->
+		<property name="maxTotal" value="50" />
+		<!-- wait max 30s until the pool can borrow the next connection -->
+		<property name="maxWaitMillis" value="30000" />
+
+		<property name="minIdle" value="0" />
+		<!-- max 50 connection may be idle in the pool, same as maxTotal -->
+		<property name="maxIdle" value="50" />
+		<!-- connection will idle only 20s in the pool -->
+		<property name="minEvictableIdleTimeMillis" value="20000" />
+		<!-- eviction thread will be activated each 10s -->
+		<property name="timeBetweenEvictionRunsMillis" value="10000" />
+		<!-- abandon inactive connections after each eviction run -->
+		<property name="removeAbandonedOnMaintenance" value="true" />
+		<!-- connections which weren't active for 40 minutes are considered as lost and will be abandoned -->
+		<property name="removeAbandonedTimeout" value="2400" />
+
+		<!-- enable autoCommit for new connections -->
+		<property name="defaultAutoCommit" value="true" />
+		<!-- enable autoCommit for returned connections -->
+		<property name="enableAutoCommitOnReturn" value="true" />
+		<!-- cache autoCommit and readOnly flags to prevent unnecessary db queries -->
+		<property name="cacheState" value="true" />
+
+		<!-- do not validate connection before being borrowed -->
+		<property name="testOnBorrow" value="false" />
+	</bean>
+
+	<!--  data source - JNDI -->
+	<bean id="dataSource_JNDI" class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="true" >
+		<property name="lookupOnStartup" value="false" /> <!-- lazy init - thus JNDI is completely ignored when simple JDBC DS is configured -->
+		<property name="jndiName" value="${datasource.jndiName}" />
+		<property name="proxyInterface" value="javax.sql.DataSource"/>
+	</bean>
+
+	<!--  tx manager -->
+	<bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager" lazy-init="true">
+    	<property name="entityManagerFactory" ref="entityManagerFactory"/>
+    	<property name="dataSource" ref="mainDataSource"/>
+	</bean>
+
+	<!-- MVa: zakomentovano, pouzivame explicitne definovany txProxy -->
+  	<!-- tx:annotation-driven   transaction-manager="txManager" /-->
+  
+  	<!-- explicitly defined txProxy, use this as parent of your bean to achieve transactional behaviour -->
+	<bean abstract="true" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" id="txProxy" lazy-init="true">
+			<property name="transactionManager" ref="txManager"/>
+			<property name="transactionAttributes"> 
+				<props>
+                    <!-- Always require a transaction - solves CLO-2947, and
+                    prevents transaction-per-query pattern of auto-commit mode
+                    that is slower and can suffer from phantom reads.
+                    -->
+					<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+					<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+                    <prop key="*">PROPAGATION_REQUIRED</prop>
+				</props> 
+			</property> 
+			<property name="target">
+				<null/>
+			</property>
+	</bean>
+	
+ 	<!-- i.e. for injection of EntityManager into DAO beans -->
+  	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+	<!-- PostProcessors to perform exception translation on @Repository classes (from native
+		exceptions such as JPA PersistenceExceptions to Spring's DataAccessException hierarchy).	-->
+	<!-- bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/ -->
+	
+
+</beans>

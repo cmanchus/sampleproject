@@ -1,0 +1,1301 @@
+2024-09-20 21:28:23,869[           main] INFO      Log4j configured: RuntimeXmlConfiguration[location=C:\Users\Christian\sampleproject\.metadata\.plugins\com.cloveretl.gui.runtime\runtime-deploy\webapps\clover\WEB-INF\log4j2.xml]
+2024-09-20 21:28:23,884[           main] INFO      JUL-SLF4J bridge handler installed to root logger java.util.logging.LogManager$RootLogger@c6e0f32 loaded by null
+2024-09-20 21:28:23,943[           main] INFO      ====== CloverDX Server 6.5.1.5 Starting
+2024-09-20 21:28:23,943[           main] INFO      PreInit started...
+2024-09-20 21:28:23,944[           main] INFO      ExecutionType initialized: [STANDALONE, MASTER, PARTITION_WORKER, UNKNOWN]
+2024-09-20 21:28:23,946[           main] INFO      JobType initialized: [ETL_GRAPH, JOBFLOW, SUBGRAPH, SUBJOBFLOW, RESTJOB, WRANGLER_JOB]
+2024-09-20 21:28:23,948[           main] INFO      GenericJobEventType initialized: [STARTED, PHASE_FINISHED, FINISHED, ERROR, ABORTED, TIMEOUT, STATUS_UNKNOWN]
+2024-09-20 21:28:23,948[           main] INFO      GraphEvents initialized: [GRAPH_STARTED, GRAPH_PHASE_FINISHED, GRAPH_FINISHED, GRAPH_ERROR, GRAPH_ABORTED, GRAPH_TIMEOUT, GRAPH_STATUS_UNKNOWN]
+2024-09-20 21:28:23,949[           main] INFO      JobflowEvents initialized: [JOBFLOW_STARTED, JOBFLOW_PHASE_FINISHED, JOBFLOW_FINISHED, JOBFLOW_ERROR, JOBFLOW_ABORTED, JOBFLOW_TIMEOUT, JOBFLOW_STATUS_UNKNOWN]
+2024-09-20 21:28:23,950[           main] INFO      WranglerJobEventType initialized: [WRANGLER_JOB_STARTED, WRANGLER_JOB_PHASE_FINISHED, WRANGLER_JOB_FINISHED, WRANGLER_JOB_ERROR, WRANGLER_JOB_ABORTED, WRANGLER_JOB_TIMEOUT, WRANGLER_JOB_STATUS_UNKNOWN]
+2024-09-20 21:28:23,974[           main] INFO      WSSERVLET12: JAX-WS context listener initializing
+2024-09-20 21:28:25,496[           main] INFO      WSSERVLET14: JAX-WS servlet initializing
+2024-09-20 21:28:25,637[           main] INFO      ====== Searching for configuration properties
+2024-09-20 21:28:25,647[           main] INFO      External config file (system property clover.config.file): C:\Users\Christian\sampleproject\.metadata\.plugins\com.cloveretl.gui.runtime\runtime-work\clover-config
+2024-09-20 21:28:25,647[           main] INFO      Config file C:\Users\Christian\sampleproject\.metadata\.plugins\com.cloveretl.gui.runtime\runtime-work\clover-config
+2024-09-20 21:28:25,648[           main] INFO      Loading external config file C:\Users\Christian\sampleproject\.metadata\.plugins\com.cloveretl.gui.runtime\runtime-work\clover-config
+2024-09-20 21:28:25,650[           main] INFO      Running /WEB-INF/config_modification.groovy script ...
+2024-09-20 21:28:34,320[           main] INFO      Script /WEB-INF/config_modification.groovy finished
+2024-09-20 21:28:34,351[           main] INFO      Running /WEB-INF/config_validation.groovy script ...
+2024-09-20 21:28:34,392[           main] INFO      Script /WEB-INF/config_validation.groovy finished
+2024-09-20 21:28:34,419[           main] INFO      Creating secure config encryptor with properties: security.config_properties.encryptor.providerName=, security.config_properties.encryptor.providerClassName=, security.config_properties.encryptor.algorithm=PBEWithMD5AndDES
+2024-09-20 21:28:34,454[           main] INFO      Secure config encryptor created: provider class=com.sun.crypto.provider.SunJCE, algorithm=PBEWithMD5AndDES
+2024-09-20 21:28:34,454[           main] INFO      Creating secure config encryptor with properties: security.config_properties.encryptor.providerName=, security.config_properties.encryptor.providerClassName=, security.config_properties.encryptor.algorithm=PBEWithMD5AndDES
+2024-09-20 21:28:34,455[           main] INFO      Secure config encryptor created: provider class=com.sun.crypto.provider.SunJCE, algorithm=PBEWithMD5AndDES
+2024-09-20 21:28:34,472[           main] INFO      Final properties: 
+autoapply.sys.db.patches = 
+buildNum = 6.5.1.5
+clover.event.file.check.timeoutSeconds = 60
+clover.event.file.threadpool.size = 10
+clover.event.fileCheckMinInterval = 120000
+clover.event.groovyCheckMinInterval = 120000
+clover.event.kafkaPollInterval = 60000
+clover.home = C:\Users\Christian\CloverDX
+clover.inDevelopment = true
+clover.jmx.mp.url = 
+clover.showSql = false
+clover.smtp.authentication = false
+clover.smtp.host = localhost
+clover.smtp.password = *****
+clover.smtp.port = 25
+clover.smtp.sender = 
+clover.smtp.timeout = 5000
+clover.smtp.transport.protocol = smtps
+clover.smtp.username = 
+cloverlogs.dir = C:\Users\Christian\sampleproject\.metadata\.plugins\com.cloveretl.gui.runtime\runtime-work\temp/cloverlogs
+cluster.edge.chunkReadRetries = 2
+cluster.edge.chunkSize = 524288
+cluster.edge.chunkWaitTimeout = 60000
+cluster.edge.connectTimeout = 30000
+cluster.edge.disableChunkProtocol = false
+cluster.edge.handshakeTimeout = 120000
+cluster.edge.readTimeout = 90000
+cluster.enabled = false
+cluster.group.name = cloverCluster
+cluster.http.url = 
+cluster.jgroups.bind_address = 127.0.0.1
+cluster.jgroups.config_file = /WEB-INF/jgroups-tcp.xml
+cluster.jgroups.external_address = 
+cluster.jgroups.external_port = 
+cluster.jgroups.protocol.AUTH.value = *****
+cluster.jgroups.protocol.NAKACK.gc_lag = 10000
+cluster.jgroups.protocol.NAKACK.xmit_table_obsolete_member_timeout = 3600000
+cluster.jgroups.protocol.UDP.ip_ttl = 8
+cluster.jgroups.protocol.UDP.mcast_addr = 228.8.8.8
+cluster.jgroups.protocol.UDP.mcast_port = 45588
+cluster.jgroups.start_port = 7800
+cluster.jgroups.tcpping.initial_hosts = 
+cluster.lb.cpu.exponent = 1
+cluster.lb.cpu.limit = 0.9
+cluster.lb.cpu.weight = 1
+cluster.lb.memory.exponent = 3
+cluster.lb.memory.limit = 0.9
+cluster.lb.memory.weight = 3
+cluster.management.enabled = false
+cluster.max_allowed_time_shift_between_nodes = 2000
+cluster.messaging.multicast.impl = com.cloveretl.server.cluster.JGroupsAsyncMessaging
+cluster.node.check.checkMinInterval = 300000
+cluster.node.check.intervalBeforeAutoresume = 120000
+cluster.node.check.intervalResetAutoresumeCount = 240
+cluster.node.check.maxAutoresumeCount = 3
+cluster.node.check.messagingReinitLimit = 60000
+cluster.node.id = node01
+cluster.node.remove.interval = 50000
+cluster.node.sendinfo.full.interval = 20000
+cluster.node.sendinfo.history.interval = 240000
+cluster.node.sendinfo.interval = 120000
+cluster.node.sendinfo.min_interval = 120000
+cluster.node.sendinfo.stats.interval = 24
+cluster.node.touch.forced_stop.interval = 60000
+cluster.node.touch.forced_stop.solve_running_jobs.enabled = true
+cluster.node.touch.forced_stop.startup.interval = 300000
+cluster.node.touch.interval = 20000
+cluster.pipe.buffer.size = 8192
+cluster.reverseDataTransfer.connection.readTimeout = 300000
+cluster.shared_sandboxes_path = 
+cluster.ssl.disableCertificateValidation = false
+cluster.sync.connection.connectTimeout = 7000
+cluster.sync.connection.nodeInfo.connectTimeout = 5000
+cluster.sync.connection.nodeInfo.readTimeout = 5000
+cluster.sync.connection.readTimeout = 90000
+config.file = C:\Users\Christian\sampleproject\.metadata\.plugins\com.cloveretl.gui.runtime\runtime-work\clover-config
+configuration.autoimport.file = 
+dataapp.execution.timeout = 1800
+dataapp.request.timeout = 30
+dataapp.response.csv.maxMetadataSize = 6144
+dataapp.response.csv.maxPreviewCells = 100000
+dataapp.response.csv.maxPreviewSize = 100
+datamanager.datasource.jndiName = java:comp/env/jdbc/data_manager_storage
+datamanager.datasource.tries = 4
+datamanager.datasource.tries.delay = 10
+datamanager.datasource.type = JDBC
+datamanager.jdbc.driverClassName = org.apache.derby.jdbc.EmbeddedDriver
+datamanager.jdbc.password = *****
+datamanager.jdbc.url = jdbc:derby:databases/cloverDb103;create=true
+datamanager.jdbc.username = 
+datamanager.lookup.home = DataManagerReferenceData
+dataservice.access.control.allow.credentials = false
+dataservice.access.control.allow.headers = 
+dataservice.access.control.allow.methods = 
+dataservice.access.control.allow.origin = 
+dataservice.access.control.expose.headers = 
+dataservice.access.control.max.age = 
+dataservice.cors.allowed = true
+dataservice.https.connector.session.timeout = 50
+dataservice.invocation.record.max.age = 4320
+datasource.jndiName = java:comp/env/jdbc/clover_server
+datasource.tries = 4
+datasource.tries.delay = 10
+datasource.type = JDBC
+datasource.verifySchema = true
+dbPatches.location = /WEB-INF/dbpatches
+dblocker.enabled = false
+engine.config.file = 
+engine.lib.dirs = C:\Program Files\CloverDX\CloverDX Designer 6.5.1\plugins\com.cloveretl.gui_6.5.1.5\lib,C:\Program Files\CloverDX\CloverDX Designer 6.5.1\plugins\com.cloveretl.gui_6.5.1.5\lib\lib
+engine.plugins.additional.src = 
+engine.plugins.all_must_be_initialized = true
+engine.plugins.core.src = C:\Program Files\CloverDX\CloverDX Designer 6.5.1\plugins\com.cloveretl.gui_6.5.1.5\lib\plugins,C:\Program Files\CloverDX\CloverDX Designer 6.5.1\plugins\com.cloveretl.gui.validator_6.5.1.5\lib\plugins,C:\Program Files\CloverDX\CloverDX Designer 6.5.1\plugins\com.cloveretl.gui.subgraph_6.5.1.5\lib\plugins,C:\Program Files\CloverDX\CloverDX Designer 6.5.1\plugins\com.cloveretl.gui.spreadsheet_6.5.1.5\lib\plugins,C:\Program Files\CloverDX\CloverDX Designer 6.5.1\plugins\com.cloveretl.gui.quickbase_6.5.1.5\lib\plugins,C:\Program Files\CloverDX\CloverDX Designer 6.5.1\plugins\com.cloveretl.gui.parquet_6.5.1.5\lib\plugins,C:\Program Files\CloverDX\CloverDX Designer 6.5.1\plugins\com.cloveretl.gui.mongodb_6.5.1.5\lib\plugins,C:\Program Files\CloverDX\CloverDX Designer 6.5.1\plugins\com.cloveretl.gui.commercial_6.5.1.5\lib\plugins,C:\Program Files\CloverDX\CloverDX Designer 6.5.1\plugins\com.cloveretl.profiler.gui_6.5.1.5\lib\plugins
+eventlistener.aggregator.interval = 1
+eventlistener.init.timeout = 30000
+executor.classloader_caching = false
+executor.classpath = 
+executor.debug_mode = false
+executor.delete_obsolete_temp_files = false
+executor.enqueue_executions = false
+executor.jobflow_token_tracking = true
+executor.log_level = INFO
+executor.max_job_tree_depth = 32
+executor.max_running_concurrently = 0
+executor.skip_check_config = true
+executor.tracking_interval = 2000
+executor.use_jmx = true
+executor.use_local_context_url = false
+executor.verbose_mode = false
+executor.worker_execution = true
+graph.logs_path = 
+graph.pass_event_params_to_graph_in_old_style = false
+graph.viewData.persist = false
+groovy.api.enabled = false
+gui.section.execution.serverSwitchMode.enabled = false
+http.api.enabled = false
+installer.AdminUserInstaller.enabled = false
+installer.ArchivatorInstaller.enabled = false
+installer.BasicGroupsInstaller.enabled = true
+installer.BundledSandboxesInstaller.enabled = false
+installer.ConfigurationInstaller.enabled = true
+installer.DataManagerInstaller.enabled = false
+installer.EveryoneGroupInstaller.enabled = true
+installer.FreshBundledSandboxesInstaller.enabled = false
+installer.LibraryInstaller.enabled = true
+installer.LibraryRepositoryInstaller.enabled = true
+installer.LocalSandboxesInstaller.enabled = false
+installer.MasterPasswdInstaller.enabled = false
+installer.MasterPasswdTestInstaller.enabled = false
+installer.PartitionedSandboxesInstaller.enabled = false
+installer.RuntimeUserInstaller.enabled = true
+installer.SandboxConfigurationInstaller.enabled = true
+installer.SharedSandboxesInstaller.enabled = false
+installer.TemplatesInstaller.enabled = false
+installer.TestInstaller.enabled = false
+installer.TestOAuth2Installer.enabled = false
+installer.TestStressTestInstaller.enabled = false
+installer.WorkspaceInstaller.enabled = ${sandboxes.autoimport}
+installer.basic.additional.config.location = 
+installer.basic.config.location = /WEB-INF/installer.basic.properties
+installer.localSandboxes.subdirectories = data-in,data-out,data-tmp
+installer.partitionedSandboxes.subdirectories = data-in,data-out,data-tmp
+installer.stress.config.location = /WEB-INF/installer.stress.properties
+instance.name = CloverDX Server
+isLog4jAutoInitializationDisabled = true
+jdbc.dialect = org.hibernate.dialect.DerbyTenSevenDialect
+jdbc.driverClassName = org.apache.derby.jdbc.EmbeddedDriver
+jdbc.password = *****
+jdbc.schema.update.dialect = DerbyDialect
+jdbc.specific.derby.home = 
+jdbc.url = jdbc:derby:memory:rdb;create=true
+jdbc.username = 
+job.inspector.refreshing.interval = 5000
+job.inspector.request.timeout = 30000
+job.release.thread.timeout = 30000
+jobqueue.checkInterval = 100
+jobqueue.coreHeapUsageLimit = 0.9
+jobqueue.cpuLoadDetectionToleranceDuration = 60000
+jobqueue.dataservice.enabled = false
+jobqueue.enabled = false
+jobqueue.initialLoadStep = 20
+jobqueue.loadStepDecreaseThreshold = 10
+jobqueue.loadStepIncreaseThreshold = 30
+jobqueue.loadStepMultiplier = 0.1
+jobqueue.maxLoadStep = 300
+jobqueue.maxQueueSize = 100000
+jobqueue.minLoadStep = 5
+jobqueue.minSystemCpu = 0.2
+jobqueue.systemCpuLimit = 0.85
+jobqueue.workerHeapUsageLimit = 0.9
+jobs.check.interval = 30000
+jobs.done.remove.threshold.interval = 20000
+jobs.forced.runtime.env.release.interval = 600000
+libraries.home = ${sandboxes.home}/libraries
+license.clear = false
+license.dir = C:\Users\Christian\.eclipse\org.eclipse.platform_4.28.0_83938069_win32_win32_x86_64\configuration\com.cloveretl.gui
+license.display_header = true
+logging.appender.jobs.encoding = UTF-8
+logging.appender.jobs.pattern_layout = %d{HH:mm:ss,SSS} %-5p [%t] %m%n
+logging.default_subdir = cloverlogs
+logging.logger.performance.checkInterval = 100
+logging.logger.performance.enabled = true
+logging.logger.server_audit.enabled = false
+logging.logger.server_integration.enabled = false
+logging.mem_appender.AUDIT.pattern_layout = %d{yyyy-MM-dd HH:mm:ss,SSS} %X{IP} %m%n
+logging.mem_appender.AUDIT.size_limit = 100
+logging.mem_appender.CLUSTER.pattern_layout = %d{yyyy-MM-dd HH:mm:ss,SSS}[%15.15t] %-5p %-3X{runId} %m%n
+logging.mem_appender.CLUSTER.size_limit = 500
+logging.mem_appender.COMMON.pattern_layout = %d{yyyy-MM-dd HH:mm:ss,SSS}[%15.15t] %-5p %-3X{runId} %m%n
+logging.mem_appender.COMMON.size_limit = 500
+logging.mem_appender.DATA_SERVICES.pattern_layout = %d{yyyy-MM-dd HH:mm:ss,SSS} %X{IP} %m%n
+logging.mem_appender.DATA_SERVICES.size_limit = 100
+logging.mem_appender.JOB_QUEUE.pattern_layout = { %m }%n
+logging.mem_appender.JOB_QUEUE.size_limit = 500
+logging.mem_appender.MONITOR.pattern_layout = %d{yyyy-MM-dd HH:mm:ss,SSS} %-5p %m%n
+logging.mem_appender.MONITOR.size_limit = 500
+logging.mem_appender.PERFORMANCE.pattern_layout = { %m }%n
+logging.mem_appender.PERFORMANCE.size_limit = 500
+logging.mem_appender.SERVER_INTEGRATION.pattern_layout = %d{yyyy-MM-dd HH:mm:ss,SSS} %X{IP} %m%n
+logging.mem_appender.SERVER_INTEGRATION.size_limit = 100
+logging.mem_appender.USER_ACTION.pattern_layout = %d{yyyy-MM-dd HH:mm:ss,SSS} %X{IP} %m%n
+logging.mem_appender.USER_ACTION.size_limit = 100
+logging.mem_appender.WORKER.pattern_layout = %d{yyyy-MM-dd HH:mm:ss,SSS}[%15.15t] %-5p %-3X{runId} %m%n
+logging.mem_appender.WORKER.size_limit = 500
+logging.project_name = CloverDX
+logging.server_start_info.enabled = false
+masterpassword.autoimport.file = *****
+mode = runtime
+oauth2.cluster.lock.attempts = 10
+oauth2.cluster.lock.backoff.max.ms = 3000
+oauth2.cluster.lock.backoff.min.ms = 1000
+oauth2.eager.refresh.seconds = 60
+openssh.config.file = 
+operations.dashboard.refreshing.interval = 3000
+operations.dashboard.request.timeout = 30000
+pattern.sandbox.file.event = *.rjob
+persistence.descriptor.location = /WEB-INF/persistence.xml
+persistence.generateDdl = true
+persistence.hbm2ddl.auto = update
+persistence.useQueryCache = false
+persistence.useSecondLevelCache = true
+private.properties = *password*, security.secure_passwd.table.secure_passwd, cluster.jgroups.protocol.AUTH.value
+properties_resolver.placeholders.server_props_list_default = sandboxes.home,sandboxes.home.local,sandboxes.home.partitioned,user.data.home,clover.home,libraries.home,workspaces.home
+public.marketplace.file = /marketplace-repository
+public.marketplace.name = CloverDX Marketplace
+public.marketplace.protocol = AZ-BLOB-CLIENT-SECRET
+public.marketplace.url = az-blob://cloverdx.blob.core.windows.net
+quartz.config.location = 
+quartz.driverDelegateClass = org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+runtime.embedded.enabled = true
+sandbox.url.handler.enabled = false
+sandboxes.access.check.boundaries.enabled = true
+sandboxes.autoimport = false
+sandboxes.home = C:\Users\Christian\sampleproject\.metadata\.plugins\com.cloveretl.gui.runtime\runtime-work\temp\sandboxes
+sandboxes.home.check.checkMinInterval = 20000
+sandboxes.home.check.filewrite.timeout = 600000
+sandboxes.home.local = ${clover.home}/sandboxes-local
+sandboxes.home.partitioned = ${clover.home}/sandboxes-partitioned
+sandboxes.ignored.dir.patterns = 
+sandboxes.upload.temporary_file.suffix = .clover.upload.part
+security.alternative_authentication.features_list = /downloadStorage;/downloadBatch;/downloadFile;/uploadSandboxFile;/uploadSandboxZip;/downloadLog;/clusterDataPipe;/remoteEdgeDataSource;/reverseDataTransfer;/downloadEdgeDebugData;/upload;/download
+security.authentication.allowed_domains = clover
+security.available_system_properties = java.vendor,java.version,java.specification.version
+security.basic_authentication.features_list = /groovy;/request_processor;/simpleHttpApi;/data-service;/downloadStorage;/downloadFile;/uploadSandboxFile;/uploadSandboxZip;/downloadLog;/webdav;/memory.jsp;/mbeans.jsp;/info.jsp;/threadDump.jsp
+security.basic_authentication.realm = CloverDX Server
+security.config_properties.encryptor.algorithm = 
+security.config_properties.encryptor.providerClassName = 
+security.csrf.protection.enabled = true
+security.default_domain = clover
+security.digest_authentication.features_list = 
+security.digest_authentication.nonce_validity = 300
+security.digest_authentication.realm = CloverDX Server
+security.digest_authentication.storeA1.enabled = false
+security.job_parameters.encryptor.algorithm = PBEWithMD5AndDES
+security.job_parameters.encryptor.master_password_encryption.password = *****
+security.job_parameters.encryptor.providerClassName = 
+security.ldap.ctx_factory = com.sun.jndi.ldap.LdapCtxFactory
+security.ldap.default_user_group = 
+security.ldap.groups_search.attribute.group_code = cn
+security.ldap.groups_search.base = dc=company,dc=com
+security.ldap.groups_search.filter = (&(objectClass=groupOfNames)(member=${userDN}))
+security.ldap.groups_search.scope = subtree
+security.ldap.password = *****
+security.ldap.records_limit = 2000
+security.ldap.referral = 
+security.ldap.ssl.enabled = false
+security.ldap.timeout = 5000
+security.ldap.url = 
+security.ldap.userDN = cn=Manager,dc=company,dc=com
+security.ldap.user_autocreate = false
+security.ldap.user_dn_pattern = 
+security.ldap.user_search.attribute.email = mail
+security.ldap.user_search.attribute.firstname = fn
+security.ldap.user_search.attribute.groups = 
+security.ldap.user_search.attribute.lastname = sn
+security.ldap.user_search.base = dc=company,dc=com
+security.ldap.user_search.filter = (sn=${username})
+security.ldap.user_search.scope = subtree
+security.lockout.login.attempts = 5
+security.lockout.reset.period = 300
+security.lockout.unlock.period = 300
+security.password.policy = *****
+security.runtime_mode.alternative_authentication.feature_list = /info.jsp
+security.saml.default_user_group = 
+security.saml.idp_entity_id = 
+security.saml.idp_metadata_url = 
+security.saml.idp_metadata_url_disable_ssl_validation = false
+security.saml.idp_slo_service_url = 
+security.saml.idp_sso_service_url = 
+security.saml.idp_x509cert = 
+security.saml.metadata.idp_entity_id = 
+security.saml.metadata.name_id_format = 
+security.saml.send_logout_response = true
+security.saml.sp_assertion_consumer_url = 
+security.saml.sp_entity_id = 
+security.saml.sp_nameid_format = 
+security.saml.strict = true
+security.saml.user_autocreate = false
+security.session.exchange.limit = 360000
+security.session.validity = 14400000
+server.env.min_heap_memory = 400
+server.env.min_nonheap_memory = 256
+server.maxSupportPackageSize = 52428800
+startup.validation.cluster.derby.enabled = true
+systeminfo.checkInterval = 20000
+task.archivator.archive_file_prefix = cloverArchive_
+task.archivator.batch_size = 500
+task.archivator.remote_call.timeout = 1800000
+task.jms.callback.timeout = 3600000
+temp.default_subdir = clovertmp
+tempspaces.dir = C:\Users\Christian\sampleproject\.metadata\.plugins\com.cloveretl.gui.runtime\runtime-work\temp
+threadManager.pool.allowCoreThreadTimeOut = false
+threadManager.pool.corePoolSize = 4
+threadManager.pool.keepAliveSeconds = 20
+threadManager.pool.maxPoolSize = 8192
+threadManager.pool.queueCapacity = 0
+timestamp = 1920f9e84d1
+trigger.failure.ratio.min.record.count = 3
+user.data.home = C:\Users\Christian
+webDav.method.propfind.maxDepth = 40
+webGui.displayEnvironmentVariables = true
+webGui.displayJvmInfo = true
+webGui.displaySystemProperties = true
+webGui.maxEditableFileSize = 65536
+webGui.maxViewableFileSize = 65536
+webapps.branding.clientCacheMaxAge = 604800
+webapps.branding.resourceFilePath = 
+webapps.branding.useCache = true
+worker.classpath = ${clover.home}/worker-lib
+worker.connectTimeout = 60000
+worker.enableDebug = false
+worker.heartbeat.connectTimeout = 5000
+worker.heartbeat.readTimeout = 5000
+worker.inheritSystemProperties = true
+worker.initHeapSize = 0
+worker.initialWorkers = 0
+worker.maxHeapSize = 0
+worker.portRange = 10500-10600
+worker.readTimeout = 600000
+worker.restartDelay = 3000
+worker.startupTimeout = 90000
+workspaces.home = ${sandboxes.home}
+wrangler.developmentMode = false
+wrangler.sourceCache.maxAge = 3600
+wrangler.testMode = false
+2024-09-20 21:28:34,519[           main] INFO      JEE app initialization done
+2024-09-20 21:28:34,519[        AppInit] INFO      Application initializer activated
+2024-09-20 21:28:34,522[        AppInit] INFO      Installation path: C:\Users\Christian\sampleproject\.metadata\.plugins\com.cloveretl.gui.runtime\runtime-deploy\webapps\clover\
+2024-09-20 21:28:34,522[        AppInit] INFO      Initializing ApplicationContext with profiles: [common, runtime]
+2024-09-20 21:28:34,752[        AppInit] INFO      Initializing Spring root WebApplicationContext
+2024-09-20 21:28:34,752[        AppInit] INFO      Root WebApplicationContext: initialization started
+2024-09-20 21:28:39,571[        AppInit] INFO      Initializing bean containerInfo
+2024-09-20 21:28:39,754[        AppInit] INFO      Initializing bean ldapRequestCtrl
+2024-09-20 21:28:39,772[        AppInit] INFO      Initializing bean dataServiceJobRequestCtrl
+2024-09-20 21:28:39,780[        AppInit] INFO      Initializing bean sslConnectorStateCtrl
+2024-09-20 21:28:39,785[        AppInit] INFO      Initializing bean statusSelector
+2024-09-20 21:28:39,818[        AppInit] INFO      Initializing bean requestScopeController
+2024-09-20 21:28:39,825[        AppInit] INFO      Initializing bean cookieBean
+2024-09-20 21:28:39,829[        AppInit] INFO      Initializing bean requestMessages
+2024-09-20 21:28:39,843[        AppInit] INFO      Initializing bean configuration
+2024-09-20 21:28:39,967[        AppInit] INFO      Initializing bean serverFacade
+2024-09-20 21:28:40,438[        AppInit] INFO      Initializing bean wsJdbcDelegate
+2024-09-20 21:28:40,442[        AppInit] INFO      Initializing bean cloverServerWs
+2024-09-20 21:28:40,900[        AppInit] INFO      Initializing bean dataSource_JDBC_target
+2024-09-20 21:28:40,917[        AppInit] INFO      Initializing bean dataSource_JDBC
+2024-09-20 21:28:40,922[        AppInit] INFO      Initializing bean mainDataSource
+2024-09-20 21:28:41,581[        AppInit] INFO      Initializing bean cloverVersionInfo
+2024-09-20 21:28:41,581[        AppInit] INFO      Initializing bean dbPatches
+2024-09-20 21:28:41,581[        AppInit] INFO      DB patches: Skipped, ORM generates DDL itself
+2024-09-20 21:28:41,677[        AppInit] INFO      Initializing bean org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter#1c40e423
+2024-09-20 21:28:41,686[        AppInit] INFO      Initializing bean com.cloveretl.server.config.c#78fb3a95
+2024-09-20 21:28:41,690[        AppInit] INFO      Initializing bean entityManagerFactory
+2024-09-20 21:28:41,699[        AppInit] INFO      persistence.xml should be located inside META-INF directory; cannot determine persistence unit root URL for ServletContext resource [/WEB-INF/persistence.xml]
+2024-09-20 21:28:41,732[        AppInit] INFO      HHH000204: Processing PersistenceUnitInfo [
+	name: SpringJpaPersistence
+	...]
+2024-09-20 21:28:41,898[        AppInit] INFO      HHH000412: Hibernate Core {5.3.21.Final}
+2024-09-20 21:28:41,900[        AppInit] INFO      HHH000206: hibernate.properties not found
+2024-09-20 21:28:42,223[        AppInit] INFO      HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2024-09-20 21:28:42,492[        AppInit] INFO      HHH000400: Using dialect: org.hibernate.dialect.DerbyTenSevenDialect
+2024-09-20 21:28:43,537[        AppInit] INFO      HHH10005002: No explicit CDI BeanManager reference was passed to Hibernate, but CDI is available on the Hibernate ClassLoader.
+2024-09-20 21:28:45,055[        AppInit] INFO      HHH000397: Using ASTQueryTranslatorFactory
+2024-09-20 21:28:45,191[        AppInit] INFO      Initialized JPA EntityManagerFactory for persistence unit 'SpringJpaPersistence'
+2024-09-20 21:28:45,228[        AppInit] INFO      Initializing bean txManager
+2024-09-20 21:28:45,270[        AppInit] INFO      Initializing bean org.springframework.aop.target.LazyInitTargetSource#722c6404
+2024-09-20 21:28:45,276[        AppInit] INFO      Initializing bean persistenceServiceTxProxy
+2024-09-20 21:28:45,301[        AppInit] INFO      Initializing bean persistenceServiceLocalProxy
+2024-09-20 21:28:45,335[        AppInit] INFO      Initializing bean dataSource_JNDI
+2024-09-20 21:28:45,341[        AppInit] INFO      Initializing bean dataManagerDataSource_JNDI
+2024-09-20 21:28:45,342[        AppInit] INFO      Initializing bean dataManagerPersistence
+2024-09-20 21:28:45,348[        AppInit] INFO      Initializing bean dataManagerDataSource_JDBC
+2024-09-20 21:28:45,348[        AppInit] INFO      Initializing bean dataManagerDataSource
+2024-09-20 21:28:45,571[        AppInit] INFO      Initializing bean dataManagerTxManager
+2024-09-20 21:28:45,572[        AppInit] INFO      Initializing bean org.springframework.aop.target.LazyInitTargetSource#2e128634
+2024-09-20 21:28:45,572[        AppInit] INFO      Initializing bean dataManagerPersistenceTxProxy
+2024-09-20 21:28:45,847[        AppInit] INFO      Used jdbc driver: Apache Derby Embedded JDBC Driver 10.14.2.0 - (1828579)
+2024-09-20 21:28:45,847[        AppInit] INFO      Database calls are going to be protected because jdbc driver reacts to interrupts
+2024-09-20 21:28:45,886[        AppInit] INFO      Initializing bean threadPool
+2024-09-20 21:28:45,887[        AppInit] INFO      Initializing bean interruptSentinelAdvice
+2024-09-20 21:28:45,918[        AppInit] INFO      Initializing bean org.springframework.aop.support.JdkRegexpMethodPointcut#2e306d6d
+2024-09-20 21:28:45,919[        AppInit] INFO      Initializing bean interruptSentinelInterceptor
+2024-09-20 21:28:45,925[        AppInit] INFO      Initializing bean persistenceService
+2024-09-20 21:28:45,926[        AppInit] INFO      Initializing bean healthMonitorPersistence
+2024-09-20 21:28:45,942[        AppInit] INFO      Initializing bean secureParamEncryptor
+2024-09-20 21:28:46,033[        AppInit] INFO      Initializing bean clusterConnector
+2024-09-20 21:28:46,033[        AppInit] INFO      Initializing bean clusterDispatcher
+2024-09-20 21:28:46,034[        AppInit] INFO      Initializing bean propertyResolverHelper
+2024-09-20 21:28:46,039[        AppInit] INFO      Initializing bean asyncClusterDispatcher
+2024-09-20 21:28:46,061[        AppInit] INFO      Initializing bean projectFileManager
+2024-09-20 21:28:46,062[        AppInit] INFO      Initializing bean localSandboxManager
+2024-09-20 21:28:46,062[        AppInit] INFO      Initializing bean storageIndexer
+2024-09-20 21:28:46,138[        AppInit] INFO      Initializing bean libraryRepositoryValidator
+2024-09-20 21:28:46,162[        AppInit] INFO      Initializing bean healthConfigurationValidator
+2024-09-20 21:28:46,174[        AppInit] INFO      Initializing bean transformationGraphManager
+2024-09-20 21:28:46,175[        AppInit] INFO      Initializing bean dataServiceJobInfoLoader
+2024-09-20 21:28:46,175[        AppInit] INFO      Initializing bean dataServiceJobValidator
+2024-09-20 21:28:46,218[        AppInit] INFO      Initializing bean sandboxInstallerFactory
+2024-09-20 21:28:46,281[        AppInit] INFO      Initializing bean healthMonitorTaskListener
+2024-09-20 21:28:46,322[        AppInit] INFO      Initializing bean quartzManager
+2024-09-20 21:28:46,366[        AppInit] INFO      Initializing bean tempSpaceManager
+2024-09-20 21:28:46,366[        AppInit] INFO      Initializing bean tempSpaceLifecycleAware
+2024-09-20 21:28:46,390[        AppInit] INFO      Initializing bean storagesInfoProvider
+2024-09-20 21:28:46,391[        AppInit] INFO      Initializing bean sandboxValidator
+2024-09-20 21:28:46,394[        AppInit] INFO      Initializing bean wranglerPersistence
+2024-09-20 21:28:46,404[        AppInit] INFO      Initializing bean validateConnectionManager
+2024-09-20 21:28:46,404[        AppInit] INFO      Initializing bean sandboxLifecycleAware
+2024-09-20 21:28:46,424[        AppInit] INFO      Initializing bean monitorManager
+2024-09-20 21:28:46,425[        AppInit] INFO      Initializing bean scheduleLifecycleAware
+2024-09-20 21:28:46,486[        AppInit] INFO      Initializing bean auditLogAdvice
+2024-09-20 21:28:46,486[        AppInit] INFO      Initializing bean org.springframework.aop.support.JdkRegexpMethodPointcut#8baed85
+2024-09-20 21:28:46,487[        AppInit] INFO      Initializing bean auditLogInterceptor
+2024-09-20 21:28:46,500[        AppInit] INFO      Initializing bean userAccessAdvice
+2024-09-20 21:28:46,500[        AppInit] INFO      User access log enabled
+2024-09-20 21:28:46,500[        AppInit] INFO      Initializing bean org.springframework.aop.support.JdkRegexpMethodPointcut#5eb03611
+2024-09-20 21:28:46,500[        AppInit] INFO      Initializing bean userAccessInterceptor
+2024-09-20 21:28:46,552[        AppInit] INFO      Initializing bean sendTemplateEmailManager
+2024-09-20 21:28:46,580[        AppInit] INFO      Initializing bean resourceBundleMessageSource
+2024-09-20 21:28:46,582[        AppInit] INFO      Initializing bean operatingSystemBean
+2024-09-20 21:28:46,605[        AppInit] INFO      Initializing bean serverEventCreator
+2024-09-20 21:28:46,632[        AppInit] INFO      Initializing bean temporalRunIdGenerator
+2024-09-20 21:28:46,632[        AppInit] INFO      Executions logs will be stored in:C:\Users\Christian\sampleproject\.metadata\.plugins\com.cloveretl.gui.runtime\runtime-work\temp/cloverlogs/graph
+2024-09-20 21:28:46,632[        AppInit] INFO      Initializing bean runRecordHelper
+2024-09-20 21:28:46,666[        AppInit] INFO      Initializing bean settingsNodeManager
+2024-09-20 21:28:46,691[        AppInit] INFO      Initializing bean performanceMetricsReader
+2024-09-20 21:28:46,691[        AppInit] INFO      Initializing bean workerMetricChannelProvider
+2024-09-20 21:28:46,828[        AppInit] INFO      Initializing bean cpuLoadAverageCollector
+2024-09-20 21:28:46,828[        AppInit] INFO      Initializing bean windowsSystemInfoProvider
+2024-09-20 21:28:46,828[        AppInit] INFO      Initializing bean systemInformationManager
+2024-09-20 21:28:46,828[        AppInit] INFO      Initializing bean coreMetricProvider
+2024-09-20 21:28:46,833[        AppInit] INFO      Initializing bean performanceLogger
+2024-09-20 21:28:46,833[        AppInit] INFO      Initializing bean performanceCollector
+2024-09-20 21:28:46,842[        AppInit] INFO      Initializing bean executionFailureHandler
+2024-09-20 21:28:46,868[        AppInit] INFO      Initializing bean clusterJobLoadBalancer
+2024-09-20 21:28:46,874[        AppInit] INFO      Initializing bean transformationAnalyser
+2024-09-20 21:28:46,878[        AppInit] INFO      Initializing bean graphTimeoutManager
+2024-09-20 21:28:46,894[        AppInit] INFO      Initializing bean nodeStatusManager
+2024-09-20 21:28:46,908[        AppInit] INFO      Initializing bean taskValidator
+2024-09-20 21:28:46,950[        AppInit] INFO      Initializing bean serverEventStore
+2024-09-20 21:28:46,974[        AppInit] INFO      Initializing bean taskEventProcessor
+2024-09-20 21:28:46,982[        AppInit] INFO      Initializing bean listenerEventAggregator
+2024-09-20 21:28:46,983[        AppInit] INFO      Initializing bean jmsElLifecycleAwareBean
+2024-09-20 21:28:47,018[        AppInit] INFO      Initializing bean kafkaElLifecycleAwareBean
+2024-09-20 21:28:47,044[        AppInit] INFO      Initializing bean jobflowElLifecycleAwareBean
+2024-09-20 21:28:47,070[        AppInit] INFO      Initializing bean graphElLifecycleAwareBean
+2024-09-20 21:28:47,097[        AppInit] INFO      Initializing bean groovyElLifecycleAwareBean
+2024-09-20 21:28:47,119[        AppInit] INFO      Initializing bean taskElLifecycleAwareBean
+2024-09-20 21:28:47,120[        AppInit] INFO      Initializing bean eventListenerManager
+2024-09-20 21:28:47,120[        AppInit] INFO      Initializing bean suspensionManager
+2024-09-20 21:28:47,142[        AppInit] INFO      Initializing bean com.cloveretl.server.tempmgr.impl.DefaultTempFileAllocator#b09e22f
+2024-09-20 21:28:47,142[        AppInit] INFO      Initializing bean tempFileManager
+2024-09-20 21:28:47,156[        AppInit] INFO      Initializing bean ctlDebugSupport
+2024-09-20 21:28:47,156[        AppInit] INFO      Initializing bean nodeDelegateStartingStrategy
+2024-09-20 21:28:47,180[        AppInit] INFO      Initializing bean concurrentExecutionGraphManager
+2024-09-20 21:28:47,180[        AppInit] INFO      Initializing bean jobflowStartingStrategy
+2024-09-20 21:28:47,196[        AppInit] INFO      Initializing bean masterStartingStrategy
+2024-09-20 21:28:47,217[        AppInit] INFO      Initializing bean workerStartingStrategy
+2024-09-20 21:28:47,239[        AppInit] INFO      Initializing bean dataServiceJobStartingStrategy
+2024-09-20 21:28:47,254[        AppInit] INFO      Initializing bean graphStartingStrategy
+2024-09-20 21:28:47,268[        AppInit] INFO      Initializing bean wranglerJobStartingStrategy
+2024-09-20 21:28:47,268[        AppInit] INFO      Initializing bean jobExecutor
+2024-09-20 21:28:47,269[        AppInit] INFO      Initializing bean jobQueue
+2024-09-20 21:28:47,280[        AppInit] INFO      Initializing bean wranglerKillingStrategy
+2024-09-20 21:28:47,290[        AppInit] INFO      Initializing bean transformationKillingStrategy
+2024-09-20 21:28:47,290[        AppInit] INFO      Initializing bean jobKiller
+2024-09-20 21:28:47,291[        AppInit] INFO      Initializing bean jndiHelper
+2024-09-20 21:28:47,292[        AppInit] INFO      Initializing bean localExecutionManager
+2024-09-20 21:28:47,302[        AppInit] INFO      Initializing bean nodeDelegateStatusStrategy
+2024-09-20 21:28:47,310[        AppInit] INFO      Initializing bean transformationStatusStrategy
+2024-09-20 21:28:47,367[        AppInit] INFO      Initializing bean sandboxOperationHandler
+2024-09-20 21:28:47,367[        AppInit] INFO      Initializing bean sandboxOperationHandlerApiImpl
+2024-09-20 21:28:47,386[        AppInit] INFO      Initializing bean serverHttpContextApiImpl
+2024-09-20 21:28:47,386[        AppInit] INFO      Initializing bean nodeDelegateLifeCycleStrategy
+2024-09-20 21:28:47,404[        AppInit] INFO      Initializing bean dataServiceJobLifeCycleStrategy
+2024-09-20 21:28:47,415[        AppInit] INFO      Initializing bean transformationLifeCycleStrategy
+2024-09-20 21:28:47,425[        AppInit] INFO      Initializing bean wranglerJobLifeCycleStrategy
+2024-09-20 21:28:47,425[        AppInit] INFO      Initializing bean executionManager
+2024-09-20 21:28:47,425[        AppInit] INFO      Initializing bean masterWatchdogManager
+2024-09-20 21:28:47,436[        AppInit] INFO      Initializing bean classLoadersContainer
+2024-09-20 21:28:47,444[        AppInit] INFO      Initializing bean checkConfigManager
+2024-09-20 21:28:47,458[        AppInit] INFO      Initializing bean dataCatalog
+2024-09-20 21:28:47,482[        AppInit] INFO      Initializing bean util:constant#2741a681
+2024-09-20 21:28:47,489[        AppInit] INFO      Initializing bean com.cloveretl.server.logging.PatternLayoutFactoryBean#4de06733
+2024-09-20 21:28:47,522[        AppInit] INFO      Initializing bean util:constant#516738a3
+2024-09-20 21:28:47,523[        AppInit] INFO      Initializing bean com.cloveretl.server.commons.logging.MemLogAppender#6cc456bd
+2024-09-20 21:28:47,523[        AppInit] INFO      Initializing bean util:constant#461b800a
+2024-09-20 21:28:47,523[        AppInit] INFO      Initializing bean com.cloveretl.server.logging.PatternLayoutFactoryBean#88cbe05
+2024-09-20 21:28:47,525[        AppInit] INFO      Initializing bean util:constant#60462d97
+2024-09-20 21:28:47,525[        AppInit] INFO      Initializing bean com.cloveretl.server.commons.logging.MemLogAppender#2e79fe9c
+2024-09-20 21:28:47,526[        AppInit] INFO      Initializing bean util:constant#34782089
+2024-09-20 21:28:47,526[        AppInit] INFO      Initializing bean com.cloveretl.server.logging.PatternLayoutFactoryBean#59e9dc95
+2024-09-20 21:28:47,526[        AppInit] INFO      Initializing bean util:constant#81268aa
+2024-09-20 21:28:47,527[        AppInit] INFO      Initializing bean com.cloveretl.server.commons.logging.MemLogAppender#69feea2a
+2024-09-20 21:28:47,527[        AppInit] INFO      Initializing bean util:constant#1cf7e3f4
+2024-09-20 21:28:47,527[        AppInit] INFO      Initializing bean com.cloveretl.server.logging.PatternLayoutFactoryBean#bed898b
+2024-09-20 21:28:47,528[        AppInit] INFO      Initializing bean util:constant#10a1f764
+2024-09-20 21:28:47,528[        AppInit] INFO      Initializing bean com.cloveretl.server.commons.logging.MemLogAppender#e10f0e0
+2024-09-20 21:28:47,528[        AppInit] INFO      Initializing bean util:constant#2ddb4a95
+2024-09-20 21:28:47,528[        AppInit] INFO      Initializing bean com.cloveretl.server.logging.PatternLayoutFactoryBean#4a9d2f74
+2024-09-20 21:28:47,529[        AppInit] INFO      Initializing bean util:constant#5518eb94
+2024-09-20 21:28:47,529[        AppInit] INFO      Initializing bean com.cloveretl.server.commons.logging.MemLogAppender#5c869627
+2024-09-20 21:28:47,529[        AppInit] INFO      Initializing bean util:constant#2b7ee0c0
+2024-09-20 21:28:47,529[        AppInit] INFO      Initializing bean com.cloveretl.server.logging.PatternLayoutFactoryBean#83b9c54
+2024-09-20 21:28:47,530[        AppInit] INFO      Initializing bean util:constant#1a6d928c
+2024-09-20 21:28:47,530[        AppInit] INFO      Initializing bean com.cloveretl.server.commons.logging.MemLogAppender#72b20848
+2024-09-20 21:28:47,530[        AppInit] INFO      Initializing bean util:constant#2e968e3e
+2024-09-20 21:28:47,530[        AppInit] INFO      Initializing bean com.cloveretl.server.logging.PatternLayoutFactoryBean#7a9b7e84
+2024-09-20 21:28:47,531[        AppInit] INFO      Initializing bean util:constant#c147aa9
+2024-09-20 21:28:47,531[        AppInit] INFO      Initializing bean com.cloveretl.server.commons.logging.MemLogAppender#6e86c32b
+2024-09-20 21:28:47,531[        AppInit] INFO      Initializing bean util:constant#747b57bb
+2024-09-20 21:28:47,531[        AppInit] INFO      Initializing bean com.cloveretl.server.logging.PatternLayoutFactoryBean#55b568ee
+2024-09-20 21:28:47,532[        AppInit] INFO      Initializing bean util:constant#7adb81c3
+2024-09-20 21:28:47,532[        AppInit] INFO      Initializing bean com.cloveretl.server.commons.logging.MemLogAppender#221c8a28
+2024-09-20 21:28:47,532[        AppInit] INFO      Initializing bean util:constant#c74c75f
+2024-09-20 21:28:47,532[        AppInit] INFO      Initializing bean com.cloveretl.server.logging.PatternLayoutFactoryBean#72f83c27
+2024-09-20 21:28:47,532[        AppInit] INFO      Initializing bean util:constant#548b6e22
+2024-09-20 21:28:47,532[        AppInit] INFO      Initializing bean com.cloveretl.server.commons.logging.MemLogAppender#1200e351
+2024-09-20 21:28:47,532[        AppInit] INFO      Initializing bean logsCollector
+2024-09-20 21:28:47,548[        AppInit] INFO      Initializing bean classpathCollector
+2024-09-20 21:28:47,573[        AppInit] INFO      Initializing bean serverFactoryProvider
+2024-09-20 21:28:47,573[        AppInit] INFO      Initializing bean httpServerManager
+2024-09-20 21:28:47,574[        AppInit] INFO      Initializing bean dismissedMessagesManager
+2024-09-20 21:28:47,582[        AppInit] INFO      Initializing bean serverEdgeDebugger
+2024-09-20 21:28:47,593[        AppInit] INFO      Initializing bean scheduleEventProducerTriggerListener
+2024-09-20 21:28:47,611[        AppInit] INFO      Initializing bean dataManagerPersistenceConfiguredAdvice
+2024-09-20 21:28:47,611[        AppInit] INFO      Initializing bean org.springframework.aop.support.JdkRegexpMethodPointcut#7ab4d5d9
+2024-09-20 21:28:47,611[        AppInit] INFO      Initializing bean dataManagerPersistenceConfiguredInterceptor
+2024-09-20 21:28:47,611[        AppInit] INFO      Used jdbc driver: Apache Derby Embedded JDBC Driver 10.14.2.0 - (1828579)
+2024-09-20 21:28:47,611[        AppInit] INFO      Database calls are going to be protected because jdbc driver reacts to interrupts
+2024-09-20 21:28:47,611[        AppInit] INFO      Initializing bean dataManagerInterruptSentinelAdvice
+2024-09-20 21:28:47,612[        AppInit] INFO      Initializing bean org.springframework.aop.support.JdkRegexpMethodPointcut#48ee0938
+2024-09-20 21:28:47,612[        AppInit] INFO      Initializing bean dataManagerInterruptSentinelInterceptor
+2024-09-20 21:28:47,614[        AppInit] INFO      Initializing bean dataSetStatsCache
+2024-09-20 21:28:47,614[        AppInit] INFO      Initializing bean dataSetManager
+2024-09-20 21:28:47,618[        AppInit] INFO      Initializing bean secretResolver
+2024-09-20 21:28:47,634[        AppInit] INFO      Initializing bean viewDataSupplier
+2024-09-20 21:28:47,637[        AppInit] INFO      Initializing bean jobContentProvider
+2024-09-20 21:28:47,642[        AppInit] INFO      Initializing bean serverConfigImportExport
+2024-09-20 21:28:47,648[        AppInit] INFO      Initializing bean settingsUserManager
+2024-09-20 21:28:47,654[        AppInit] INFO      Initializing bean dashboardManager
+2024-09-20 21:28:47,678[        AppInit] INFO      Initializing bean secretManagerValidator
+2024-09-20 21:28:47,678[        AppInit] INFO      Initializing bean secretManagerLifecycleAware
+2024-09-20 21:28:47,679[        AppInit] INFO      Initializing bean secretManagerManager
+2024-09-20 21:28:47,692[        AppInit] INFO      Initializing bean diagnosticInformationProvider
+2024-09-20 21:28:47,696[        AppInit] INFO      Initializing bean healthConfigurationManager
+2024-09-20 21:28:47,702[        AppInit] INFO      Initializing bean sslConfigManager
+2024-09-20 21:28:47,744[        AppInit] INFO      Initializing bean basicInstallerProperties
+2024-09-20 21:28:47,746[        AppInit] INFO      Initializing bean freshBundledSandboxesInstaller
+2024-09-20 21:28:47,768[        AppInit] INFO      Initializing bean referenceDataManagerCache
+2024-09-20 21:28:47,771[        AppInit] INFO      Initializing bean referenceDataManager
+2024-09-20 21:28:47,771[        AppInit] INFO      Initializing bean serverFacadeImpl
+2024-09-20 21:28:47,788[        AppInit] INFO      Initializing bean groovyHelper
+2024-09-20 21:28:47,798[        AppInit] INFO      Initializing bean locationHelper
+2024-09-20 21:28:47,798[        AppInit] INFO      Initializing bean fileElLifecycleAwareBean
+2024-09-20 21:28:47,809[        AppInit] INFO      Initializing bean dataServiceJobLifecycleAware
+2024-09-20 21:28:47,824[        AppInit] INFO      Initializing bean sslConfigValidator
+2024-09-20 21:28:47,824[        AppInit] INFO      Initializing bean sslConfigurationLifecycleAware
+2024-09-20 21:28:47,833[        AppInit] INFO      Initializing bean monitorLifecycleAware
+2024-09-20 21:28:47,842[        AppInit] INFO      Initializing bean dashboardLifecycleAware
+2024-09-20 21:28:47,858[        AppInit] INFO      Initializing bean libraryRepositoryLifecycleAware
+2024-09-20 21:28:47,869[        AppInit] INFO      Initializing bean dataSetLifecycleAware
+2024-09-20 21:28:47,899[        AppInit] INFO      Initializing bean lifecycleAwareBeans
+2024-09-20 21:28:47,900[        AppInit] INFO      Initializing bean clusterDelegatingLifecycleAware
+2024-09-20 21:28:47,900[        AppInit] INFO      Initializing bean scheduleManager
+2024-09-20 21:28:47,900[        AppInit] INFO      Initializing bean scheduleEventProcessor
+2024-09-20 21:28:47,930[        AppInit] INFO      Initializing bean graphEventProcessor
+2024-09-20 21:28:47,954[        AppInit] INFO      Initializing bean jobflowEventProcessor
+2024-09-20 21:28:47,978[        AppInit] INFO      Initializing bean fileEventProcessor
+2024-09-20 21:28:48,006[        AppInit] INFO      Initializing bean jmsEventProcessor
+2024-09-20 21:28:48,034[        AppInit] INFO      Initializing bean kafkaEventProcessor
+2024-09-20 21:28:48,059[        AppInit] INFO      Initializing bean groovyEventProcessor
+2024-09-20 21:28:48,068[        AppInit] INFO      Initializing bean securityEventManager
+2024-09-20 21:28:48,080[        AppInit] INFO      Initializing bean workerJobManager
+2024-09-20 21:28:48,088[        AppInit] INFO      Initializing bean invocationHistoryPropagator
+2024-09-20 21:28:48,089[        AppInit] INFO      Initializing bean serverEventNotificator
+2024-09-20 21:28:48,089[        AppInit] INFO      Initializing bean dataServiceJobManager
+2024-09-20 21:28:48,090[        AppInit] INFO      Initializing bean graphConfigManager
+2024-09-20 21:28:48,090[        AppInit] INFO      Initializing bean metadataPropagationManager
+2024-09-20 21:28:48,090[        AppInit] INFO      Initializing bean libraryManager
+2024-09-20 21:28:48,107[        AppInit] INFO      Initializing bean serverMetadataProvider
+2024-09-20 21:28:48,107[        AppInit] INFO      Initializing bean wranglerExportImport
+2024-09-20 21:28:48,107[        AppInit] INFO      Initializing bean wranglerManager
+2024-09-20 21:28:48,107[        AppInit] INFO      Initializing bean li
+2024-09-20 21:28:48,126[        AppInit] INFO      Initializing bean taskProcessor_email
+2024-09-20 21:28:48,132[        AppInit] INFO      Initializing bean taskProcessor_shell_command
+2024-09-20 21:28:48,141[        AppInit] INFO      Initializing bean taskProcessor_execute_graph
+2024-09-20 21:28:48,141[        AppInit] INFO      Initializing bean taskProcessor_execute_graph
+2024-09-20 21:28:48,148[        AppInit] INFO      Initializing bean taskProcessor_archivator
+2024-09-20 21:28:48,157[        AppInit] INFO      Initializing bean taskProcessor_data_manager_maintenance
+2024-09-20 21:28:48,164[        AppInit] INFO      Initializing bean taskProcessor_kill_job
+2024-09-20 21:28:48,172[        AppInit] INFO      Initializing bean taskProcessor_jms_message
+2024-09-20 21:28:48,179[        AppInit] INFO      Initializing bean taskProcessor_groovy
+2024-09-20 21:28:48,188[        AppInit] INFO      Initializing bean taskProcessor_execute_jobflow
+2024-09-20 21:28:48,189[        AppInit] INFO      TaskProcessors dictionary map:{email=com.cloveretl.server.m.u@1580cfad, shell_command=com.cloveretl.server.m.p@681b1f, execute_graph=com.cloveretl.server.m.m@64c6285c, health_check=com.cloveretl.server.m.m@4880a0ec, archivator=com.cloveretl.server.m.j@1d0f96c, data_manager_maintenance=com.cloveretl.server.m.l@58f6873d, kill_job=com.cloveretl.server.m.t@5beef3f6, jms_message=com.cloveretl.server.m.r@1b1ebb77, groovy=com.cloveretl.server.m.q@4e4fe480, execute_jobflow=com.cloveretl.server.m.o@385aa65}
+2024-09-20 21:28:48,189[        AppInit] INFO      Initializing bean eventsHelper
+2024-09-20 21:28:48,193[        AppInit] INFO      Initializing bean clusterNodeAsyncExecutor
+2024-09-20 21:28:48,193[        AppInit] INFO      Initializing bean clusterNodeApi
+2024-09-20 21:28:48,194[        AppInit] INFO      Initializing bean clusterProxy
+2024-09-20 21:28:48,194[        AppInit] INFO      Initializing bean synchronizer
+2024-09-20 21:28:48,194[        AppInit] INFO      Initializing bean oAuth2Manager
+2024-09-20 21:28:48,194[        AppInit] INFO      Initializing bean sendMailProvider
+2024-09-20 21:28:48,194[        AppInit] INFO      Initializing bean healthStatusChangedHandler
+2024-09-20 21:28:48,194[        AppInit] INFO      Initializing bean healthMonitor
+2024-09-20 21:28:48,195[        AppInit] INFO      Initializing bean restJobDispatcher
+2024-09-20 21:28:48,199[        AppInit] INFO      Initializing bean csrfChecker
+2024-09-20 21:28:48,199[        AppInit] INFO      Initializing bean httpAuthenticator
+2024-09-20 21:28:48,202[        AppInit] INFO      Initializing bean hashAlgorithmsRegistry
+2024-09-20 21:28:48,214[        AppInit] INFO      Strongest available password hashing implementation Pbkdf2WithHmacSHA512[id=PBKDF2WithHmacSHA512, saltBytesLength=27, hashBitsLength=512, saltCharactersCount=36, iterations=21281]
+2024-09-20 21:28:48,218[        AppInit] INFO      Initializing bean ldapConnector
+2024-09-20 21:28:48,218[        AppInit] INFO      Initializing bean security
+2024-09-20 21:28:48,224[        AppInit] INFO      Initializing bean parallelClusterInvoker
+2024-09-20 21:28:48,224[        AppInit] INFO      Initializing bean clusterInfoGatherer
+2024-09-20 21:28:48,224[        AppInit] INFO      Initializing bean asyncMessaging
+2024-09-20 21:28:48,224[        AppInit] INFO      Initializing bean clusterEventCreator
+2024-09-20 21:28:48,224[        AppInit] INFO      Initializing bean cache
+2024-09-20 21:28:48,228[        AppInit] INFO      Initializing bean virtualLocationsFolderProvider
+2024-09-20 21:28:48,228[        AppInit] INFO      Initializing bean copyMoveService
+2024-09-20 21:28:48,229[        AppInit] INFO      Initializing bean sandboxManager
+2024-09-20 21:28:48,229[        AppInit] INFO      Initializing bean executionHelper
+2024-09-20 21:28:48,240[        AppInit] INFO      Initializing bean multiJvmConfiguration
+2024-09-20 21:28:48,249[        AppInit] INFO      Initializing bean workerHttpInvokerFactory
+2024-09-20 21:28:48,274[        AppInit] INFO      Initializing bean portProbe
+2024-09-20 21:28:48,274[        AppInit] INFO      Initializing bean workerPortManager
+2024-09-20 21:28:48,274[        AppInit] INFO      Initializing bean portPoolManager
+2024-09-20 21:28:48,274[        AppInit] INFO      Initializing bean multiJvmModule
+2024-09-20 21:28:48,275[        AppInit] INFO      Initializing bean gcLogManager
+2024-09-20 21:28:48,275[        AppInit] INFO      Initializing bean workerCommand
+2024-09-20 21:28:48,275[        AppInit] INFO      Initializing bean workerProcessFactory
+2024-09-20 21:28:48,292[        AppInit] INFO      Initializing bean workerHttpServerManager
+2024-09-20 21:28:48,292[        AppInit] INFO      Initializing bean workerConfigurationManager
+2024-09-20 21:28:48,292[        AppInit] INFO      Initializing bean workerFactory
+2024-09-20 21:28:48,292[        AppInit] INFO      Initializing bean workerManager
+2024-09-20 21:28:48,292[        AppInit] INFO      Initializing bean com.cloveretl.server.worker.a.i#6a8ad4ab
+2024-09-20 21:28:48,301[        AppInit] INFO      Initializing bean com.cloveretl.server.worker.a.g#63b78b23
+2024-09-20 21:28:48,311[        AppInit] INFO      Initializing bean com.cloveretl.server.worker.a.h#7484a36
+2024-09-20 21:28:48,318[        AppInit] INFO      Initializing bean com.cloveretl.server.worker.a.c#4314d86a
+2024-09-20 21:28:48,327[        AppInit] INFO      Initializing bean com.cloveretl.server.worker.a.e#7f87632f
+2024-09-20 21:28:48,337[        AppInit] INFO      Initializing bean com.cloveretl.server.worker.a.d#2036116f
+2024-09-20 21:28:48,346[        AppInit] INFO      Initializing bean com.cloveretl.server.worker.a.f#65eaf6a5
+2024-09-20 21:28:48,346[        AppInit] INFO      Initializing bean workerCheckerManager
+2024-09-20 21:28:48,366[        AppInit] INFO      Initializing bean com.cloveretl.server.config.d#9649bbb
+2024-09-20 21:28:48,372[        AppInit] INFO      Initializing bean com.cloveretl.server.j.b#30ad794a
+2024-09-20 21:28:48,384[        AppInit] INFO      Initializing bean com.cloveretl.server.datasource.e#3ee69dff
+2024-09-20 21:28:48,394[        AppInit] INFO      Initializing bean com.cloveretl.server.datasource.a#78ad7d36
+2024-09-20 21:28:48,403[        AppInit] INFO      Initializing bean com.cloveretl.server.worker.ag#553988db
+2024-09-20 21:28:48,413[        AppInit] INFO      Initializing bean com.cloveretl.server.sandbox.g#e05cc1f
+2024-09-20 21:28:48,422[        AppInit] INFO      Initializing bean com.cloveretl.server.e.a#406a145
+2024-09-20 21:28:48,432[        AppInit] INFO      Initializing bean com.cloveretl.server.mail.b#1751283e
+2024-09-20 21:28:48,442[        AppInit] INFO      Initializing bean com.cloveretl.server.security.e#eb7055f
+2024-09-20 21:28:48,452[        AppInit] INFO      Initializing bean com.cloveretl.server.cluster.b#2ef245a2
+2024-09-20 21:28:48,453[        AppInit] INFO      Initializing bean configurationManager
+2024-09-20 21:28:48,480[        AppInit] INFO      Initializing bean synchronizerInvocationInterceptor
+2024-09-20 21:28:48,480[        AppInit] INFO      Initializing bean clusterNodeApiExporter
+2024-09-20 21:28:48,491[        AppInit] INFO      Initializing bean nodeIdMessageDecorator
+2024-09-20 21:28:48,491[        AppInit] INFO      Initializing bean serverConfigReader
+2024-09-20 21:28:48,495[        AppInit] INFO      Initializing bean applicationConfiguration
+2024-09-20 21:28:48,500[        AppInit] INFO      Initializing bean operationDashboardConfiguration
+2024-09-20 21:28:48,503[        AppInit] INFO      Initializing bean jobInspectorConfiguration
+2024-09-20 21:28:48,510[        AppInit] INFO      Initializing bean healthConfigurationLifecycleAware
+2024-09-20 21:28:48,514[        AppInit] INFO      Initializing bean serverFacadeSupplier
+2024-09-20 21:28:48,529[        AppInit] INFO      Initializing bean wsJdbcHelperImpl
+2024-09-20 21:28:48,529[        AppInit] INFO      Initializing bean wsJdbcDelegateImpl
+2024-09-20 21:28:48,546[        AppInit] INFO      Initializing bean cloverServerWsImpl
+2024-09-20 21:28:48,556[        AppInit] INFO      Initializing bean cloverServerWsAdvice
+2024-09-20 21:28:48,563[        AppInit] INFO      Initializing bean com.cloveretl.server.aop.TypeMethodPointcut#7bdbec4
+2024-09-20 21:28:48,563[        AppInit] INFO      Initializing bean cloverServerWsInterceptor
+2024-09-20 21:28:48,583[        AppInit] INFO      Initializing bean basicGroupsInstaller
+2024-09-20 21:28:48,599[        AppInit] INFO      Initializing bean everyoneGroupInstaller
+2024-09-20 21:28:48,612[        AppInit] INFO      Initializing bean adminUserInstaller
+2024-09-20 21:28:48,626[        AppInit] INFO      Initializing bean runtimeUserInstaller
+2024-09-20 21:28:48,642[        AppInit] INFO      Initializing bean libraryRepositoryInstaller
+2024-09-20 21:28:48,660[        AppInit] INFO      Initializing bean sharedSandboxesDirectoryInstaller
+2024-09-20 21:28:48,678[        AppInit] INFO      Initializing bean librariesDirectoryInstaller
+2024-09-20 21:28:48,696[        AppInit] INFO      Initializing bean wranglerWorkspacesDirectoryInstaller
+2024-09-20 21:28:48,712[        AppInit] INFO      Initializing bean bundledSandboxesInstaller
+2024-09-20 21:28:48,727[        AppInit] INFO      Initializing bean templatesInstaller
+2024-09-20 21:28:48,743[        AppInit] INFO      Initializing bean archivatorInstaller
+2024-09-20 21:28:48,758[        AppInit] INFO      Initializing bean dataManagerInstaller
+2024-09-20 21:28:48,775[        AppInit] INFO      Initializing bean sharedSandboxesInstaller
+2024-09-20 21:28:48,857[        AppInit] INFO      Initializing bean localSandboxesInstaller
+2024-09-20 21:28:48,882[        AppInit] INFO      Initializing bean partitionedSandboxesInstaller
+2024-09-20 21:28:48,918[        AppInit] INFO      Initializing bean libraryInstaller
+2024-09-20 21:28:48,949[        AppInit] INFO      Initializing bean wranglerWorkspaceInstaller
+2024-09-20 21:28:48,977[        AppInit] INFO      Initializing bean masterPasswdInstaller
+2024-09-20 21:28:48,991[        AppInit] INFO      Initializing bean masterPasswdTestInstaller
+2024-09-20 21:28:49,008[        AppInit] INFO      Initializing bean testInstaller
+2024-09-20 21:28:49,022[        AppInit] INFO      Initializing bean testStressTestInstallerProperties
+2024-09-20 21:28:49,023[        AppInit] INFO      Initializing bean testStressTestInstaller
+2024-09-20 21:28:49,039[        AppInit] INFO      Initializing bean testOAuth2Installer
+2024-09-20 21:28:49,059[        AppInit] INFO      Initializing bean configurationInstaller
+2024-09-20 21:28:49,079[        AppInit] INFO      Initializing bean sandboxConfigurationInstaller
+2024-09-20 21:28:49,080[        AppInit] INFO      Initializing bean installerManager
+2024-09-20 21:28:49,090[        AppInit] INFO      Initializing bean groovyEventsJob
+2024-09-20 21:28:49,092[        AppInit] INFO      Initializing bean groovyEventsJobTrigger
+2024-09-20 21:28:49,101[        AppInit] INFO      Initializing bean fileEventsJob
+2024-09-20 21:28:49,102[        AppInit] INFO      Initializing bean fileEventsJobTrigger
+2024-09-20 21:28:49,110[        AppInit] INFO      Initializing bean garbageManJob
+2024-09-20 21:28:49,110[        AppInit] INFO      Initializing bean garbageManTrigger
+2024-09-20 21:28:49,117[        AppInit] INFO      Initializing bean clusterNodeCheckJob
+2024-09-20 21:28:49,117[        AppInit] INFO      Initializing bean clusterNodeCheckTrigger
+2024-09-20 21:28:49,124[        AppInit] INFO      Initializing bean sandboxesHomeCheckJob
+2024-09-20 21:28:49,126[        AppInit] INFO      Initializing bean sandboxesHomeCheckTrigger
+2024-09-20 21:28:49,132[        AppInit] INFO      Initializing bean clusterNodeTouchJob
+2024-09-20 21:28:49,132[        AppInit] INFO      Initializing bean clusterNodeTouchTrigger
+2024-09-20 21:28:49,139[        AppInit] INFO      Initializing bean watchDogCleanerJob
+2024-09-20 21:28:49,140[        AppInit] INFO      Initializing bean watchDogCleanerTrigger
+2024-09-20 21:28:49,148[        AppInit] INFO      Initializing bean clusterInfoGathererJob
+2024-09-20 21:28:49,148[        AppInit] INFO      Initializing bean clusterInfoGathererTrigger
+2024-09-20 21:28:49,154[        AppInit] INFO      Initializing bean systemInfoJob
+2024-09-20 21:28:49,154[        AppInit] INFO      Initializing bean systemInfoTrigger
+2024-09-20 21:28:49,167[        AppInit] INFO      Initializing bean performanceCollectorJob
+2024-09-20 21:28:49,167[        AppInit] INFO      Initializing bean performanceLoggerTrigger
+2024-09-20 21:28:49,176[        AppInit] INFO      Initializing bean jobQueueJob
+2024-09-20 21:28:49,177[        AppInit] INFO      Initializing bean jobQueueTrigger
+2024-09-20 21:28:49,185[        AppInit] INFO      Initializing bean cpuProbeJob
+2024-09-20 21:28:49,186[        AppInit] INFO      Initializing bean cpuProbeTrigger
+2024-09-20 21:28:49,211[        AppInit] INFO      Initializing bean jobTriggersList
+2024-09-20 21:28:49,237[        AppInit] INFO      Initializing bean scheduledExecutor
+2024-09-20 21:28:49,241[        AppInit] INFO      Initializing bean nodeTouchScheduledExecutor
+2024-09-20 21:28:49,254[        AppInit] INFO      Initializing bean serverAuthorityProxyApiImpl
+2024-09-20 21:28:49,262[        AppInit] INFO      Initializing bean serverAuthorityProxyApi
+2024-09-20 21:28:49,263[        AppInit] INFO      Initializing bean serverAuthorityProxyApiExporter
+2024-09-20 21:28:49,273[        AppInit] INFO      Initializing bean jmxProxyApiImpl
+2024-09-20 21:28:49,275[        AppInit] INFO      Initializing bean jmxProxyApi
+2024-09-20 21:28:49,301[        AppInit] INFO      Initializing bean jmxProxyApiExporter
+2024-09-20 21:28:49,303[        AppInit] INFO      Initializing bean serverHttpContextApi
+2024-09-20 21:28:49,304[        AppInit] INFO      Initializing bean serverHttpContextApiExporter
+2024-09-20 21:28:49,307[        AppInit] INFO      Initializing bean sandboxOperationHandlerApi
+2024-09-20 21:28:49,308[        AppInit] INFO      Initializing bean sandboxOperationHandlerApiExporter
+2024-09-20 21:28:49,496[        AppInit] INFO      Root WebApplicationContext initialized in 14744 ms
+2024-09-20 21:28:49,503[        AppInit] INFO      license file env property clover.license.file:null
+2024-09-20 21:28:49,503[        AppInit] INFO      license file env property clover_license_file:null
+2024-09-20 21:28:49,503[        AppInit] INFO      license file system property clover.license.file:null
+2024-09-20 21:28:49,503[        AppInit] INFO      license file system property clover_license_file:null
+2024-09-20 21:28:49,535[        AppInit] INFO      trying to load licenses from database
+2024-09-20 21:28:50,117[        AppInit] INFO      license loaded, initializing ...
+2024-09-20 21:28:50,122[        AppInit] INFO      License: Designer(6.5.x); Runtime Environment(6.5.x); Data Quality(6.5.x)
+2024-09-20 21:28:50,141[        AppInit] INFO      Checking if secure parameters encryptor properties are valid: security.job_parameters.encryptor.providerClassName=, security.job_parameters.encryptor.algorithm=PBEWithMD5AndDES
+2024-09-20 21:28:50,142[        AppInit] INFO      Runtime; Health monitor disabled
+2024-09-20 21:28:50,144[        AppInit] INFO      SandboxUrlStreamHandler disabled
+2024-09-20 21:28:50,144[        AppInit] INFO      Runtime mode; skip starting-up event
+2024-09-20 21:28:50,247[        AppInit] INFO      Initializing engine...
+2024-09-20 21:28:50,247[        AppInit] INFO      External plugins source not specified.
+2024-09-20 21:28:50,249[        AppInit] INFO      Plugins external path: [C:\Program Files\CloverDX\CloverDX Designer 6.5.1\plugins\com.cloveretl.gui_6.5.1.5\lib\plugins, C:\Program Files\CloverDX\CloverDX Designer 6.5.1\plugins\com.cloveretl.gui.validator_6.5.1.5\lib\plugins, C:\Program Files\CloverDX\CloverDX Designer 6.5.1\plugins\com.cloveretl.gui.subgraph_6.5.1.5\lib\plugins, C:\Program Files\CloverDX\CloverDX Designer 6.5.1\plugins\com.cloveretl.gui.spreadsheet_6.5.1.5\lib\plugins, C:\Program Files\CloverDX\CloverDX Designer 6.5.1\plugins\com.cloveretl.gui.quickbase_6.5.1.5\lib\plugins, C:\Program Files\CloverDX\CloverDX Designer 6.5.1\plugins\com.cloveretl.gui.parquet_6.5.1.5\lib\plugins, C:\Program Files\CloverDX\CloverDX Designer 6.5.1\plugins\com.cloveretl.gui.mongodb_6.5.1.5\lib\plugins, C:\Program Files\CloverDX\CloverDX Designer 6.5.1\plugins\com.cloveretl.gui.commercial_6.5.1.5\lib\plugins, C:\Program Files\CloverDX\CloverDX Designer 6.5.1\plugins\com.cloveretl.profiler.gui_6.5.1.5\lib\plugins]
+2024-09-20 21:28:50,253[        AppInit] INFO      Plugins locations basic: [file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/cloverdx.azure/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.bulkloader/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.component/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.component.hadoop/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.connection/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.ctlfunction/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.engine/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.jdbc/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.license.engine/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.lookup/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.sequence/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.smb2/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.tableau/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.thirdparty/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.validator_6.5.1.5/lib/plugins/org.jetel.validator.commercial/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.subgraph_6.5.1.5/lib/plugins/org.jetel.subgraph.commercial/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.spreadsheet_6.5.1.5/lib/plugins/org.jetel.spreadsheet.commercial/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.quickbase_6.5.1.5/lib/plugins/org.jetel.quickbase.commercial/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.parquet_6.5.1.5/lib/plugins/org.jetel.parquet/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.mongodb_6.5.1.5/lib/plugins/org.jetel.mongodb.commercial/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.commercial_6.5.1.5/lib/plugins/org.jetel.compiler.commercial/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.commercial_6.5.1.5/lib/plugins/org.jetel.component.commercial/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.commercial_6.5.1.5/lib/plugins/org.jetel.ctlfunction.commercial/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.commercial_6.5.1.5/lib/plugins/org.jetel.lookup.commercial/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.profiler.gui_6.5.1.5/lib/plugins/org.jetel.profiler.commercial/]
+2024-09-20 21:28:50,253[        AppInit] INFO      Plugins location: [file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/cloverdx.azure/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.bulkloader/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.component/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.component.hadoop/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.connection/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.ctlfunction/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.engine/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.jdbc/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.license.engine/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.lookup/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.sequence/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.smb2/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.tableau/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.thirdparty/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.validator_6.5.1.5/lib/plugins/org.jetel.validator.commercial/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.subgraph_6.5.1.5/lib/plugins/org.jetel.subgraph.commercial/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.spreadsheet_6.5.1.5/lib/plugins/org.jetel.spreadsheet.commercial/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.quickbase_6.5.1.5/lib/plugins/org.jetel.quickbase.commercial/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.parquet_6.5.1.5/lib/plugins/org.jetel.parquet/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.mongodb_6.5.1.5/lib/plugins/org.jetel.mongodb.commercial/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.commercial_6.5.1.5/lib/plugins/org.jetel.compiler.commercial/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.commercial_6.5.1.5/lib/plugins/org.jetel.component.commercial/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.commercial_6.5.1.5/lib/plugins/org.jetel.ctlfunction.commercial/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.commercial_6.5.1.5/lib/plugins/org.jetel.lookup.commercial/, file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.profiler.gui_6.5.1.5/lib/plugins/org.jetel.profiler.commercial/]
+2024-09-20 21:28:50,256[        AppInit] INFO      Using context classloader as parent for engine plugins: ParallelWebappClassLoader
+  context: clover
+  delegate: false
+----------> Parent Classloader:
+jdk.internal.loader.ClassLoaders$AppClassLoader@659e0bfd
+
+2024-09-20 21:28:50,257[        AppInit] INFO      Engine plugins locations: [PluginLocation<file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/cloverdx.azure/>, PluginLocation<file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.bulkloader/>, PluginLocation<file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.component/>, PluginLocation<file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.component.hadoop/>, PluginLocation<file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.connection/>, PluginLocation<file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.ctlfunction/>, PluginLocation<file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.engine/>, PluginLocation<file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.jdbc/>, PluginLocation<file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.license.engine/>, PluginLocation<file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.lookup/>, PluginLocation<file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.sequence/>, PluginLocation<file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.smb2/>, PluginLocation<file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.tableau/>, PluginLocation<file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui_6.5.1.5/lib/plugins/org.jetel.thirdparty/>, PluginLocation<file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.validator_6.5.1.5/lib/plugins/org.jetel.validator.commercial/>, PluginLocation<file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.subgraph_6.5.1.5/lib/plugins/org.jetel.subgraph.commercial/>, PluginLocation<file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.spreadsheet_6.5.1.5/lib/plugins/org.jetel.spreadsheet.commercial/>, PluginLocation<file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.quickbase_6.5.1.5/lib/plugins/org.jetel.quickbase.commercial/>, PluginLocation<file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.parquet_6.5.1.5/lib/plugins/org.jetel.parquet/>, PluginLocation<file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.mongodb_6.5.1.5/lib/plugins/org.jetel.mongodb.commercial/>, PluginLocation<file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.commercial_6.5.1.5/lib/plugins/org.jetel.compiler.commercial/>, PluginLocation<file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.commercial_6.5.1.5/lib/plugins/org.jetel.component.commercial/>, PluginLocation<file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.commercial_6.5.1.5/lib/plugins/org.jetel.ctlfunction.commercial/>, PluginLocation<file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.gui.commercial_6.5.1.5/lib/plugins/org.jetel.lookup.commercial/>, PluginLocation<file:/C:/Program%20Files/CloverDX/CloverDX%20Designer%206.5.1/plugins/com.cloveretl.profiler.gui_6.5.1.5/lib/plugins/org.jetel.profiler.commercial/>]
+2024-09-20 21:28:50,259[        AppInit] INFO      Loading default properties from: defaultProperties
+2024-09-20 21:28:50,432[        AppInit] INFO      Engine plug-ins loaded: org.jetel.azure, org.jetel.connection, org.jetel.ctlfunction, org.jetel.engine, org.jetel.jdbc, org.jetel.license, org.jetel.lookup, org.jetel.sequence, org.jetel.component, org.jetel.bulkloader, org.jetel.hadoop, org.jetel.smb2, com.cloveretl.tableau.TableauWriter, org.jetel.thirdparty, com.opensys.clover.validator, com.opensys.clover.subgraph, com.opensys.clover.spreadsheet, com.opensys.cloveretl.quickbase, com.opensys.clover.parquet, com.opensys.clover.mongodb, com.opensys.cloveretl.compiler, com.opensys.clover.component, com.opensys.cloveretl.ctlfunction, com.opensys.clover.lookup, org.jetel.profiler
+2024-09-20 21:28:50,438[        AppInit] INFO      License No. : CLP1DPERSO75885942EX
+2024-09-20 21:28:50,913[        AppInit] INFO      Engine initialized with plugins: 
+	id - org.jetel.azure
+	version - 6.5.1.5
+	provider-name - CloverDX
+		urlResolver { className = org.jetel.util.protocols.azure.AzureBlobPathResolver; type = Azure; }
+		secretManager { className = org.jetel.graph.runtime.secrets.AzureImplicitManager; type = AZURE_IMPLICIT; }
+		secretManager { className = org.jetel.graph.runtime.secrets.AzureClientSecretManager; type = AZURE_CLIENT_SECRET; }
+
+	id - org.jetel.connection
+	version - 6.5.1.5
+	provider-name - CloverDX
+		connection { className = org.jetel.connection.jdbc.DBConnectionImpl; type = JDBC; }
+		connection { className = org.jetel.connection.jms.JmsConnection; type = JMS; }
+		connection { className = org.jetel.connection.oauth2.OAuth2Connection; type = OAUTH2; }
+
+	id - org.jetel.ctlfunction
+	version - 6.5.1.5
+	provider-name - CloverDX
+		ctlfunction { libraryName = math; className = org.jetel.ctl.extensions.MathLib; }
+		ctlfunction { libraryName = date; className = org.jetel.ctl.extensions.DateLib; }
+		ctlfunction { libraryName = string; className = org.jetel.ctl.extensions.StringLib; }
+		ctlfunction { libraryName = convert; className = org.jetel.ctl.extensions.ConvertLib; }
+		ctlfunction { libraryName = container; className = org.jetel.ctl.extensions.ContainerLib; }
+		ctlfunction { libraryName = random; className = org.jetel.ctl.extensions.RandomLib; }
+		ctlfunction { libraryName = anonymization; className = org.jetel.ctl.extensions.AnonymizationLib; }
+		ctlfunction { libraryName = util; className = org.jetel.ctl.extensions.UtilLib; }
+		ctlfunction { libraryName = dynamic; className = org.jetel.ctl.extensions.DynamicLib; }
+		ctlfunction { libraryName = string; className = org.jetel.ctl.extensions.StringLibExt; }
+		ctlfunction { libraryName = mapping; className = org.jetel.ctl.extensions.MappingLib; }
+		ctlfunction { libraryName = dynamic; className = org.jetel.ctl.extensions.DynamicLibExt; }
+		ctlfunction { libraryName = avro; className = org.jetel.ctl.extensions.AvroLib; }
+		ctlfunction { libraryName = wrangler; className = org.jetel.ctl.extensions.WranglerLib; }
+
+	id - org.jetel.engine
+	version - 6.5.1.5
+	provider-name - CloverDX
+		dictionaryType { className = org.jetel.graph.dictionary.StringDictionaryType; type = string; }
+		dictionaryType { className = org.jetel.graph.dictionary.ObjectDictionaryType; type = object; }
+		dictionaryType { className = org.jetel.graph.dictionary.ReadableChannelDictionaryType; type = readable.channel; }
+		dictionaryType { className = org.jetel.graph.dictionary.WritableChannelDictionaryType; type = writable.channel; }
+		dictionaryType { className = org.jetel.graph.dictionary.IntegerDictionaryType; type = integer; }
+		dictionaryType { className = org.jetel.graph.dictionary.LongDictionaryType; type = long; }
+		dictionaryType { className = org.jetel.graph.dictionary.DecimalDictionaryType; type = decimal; }
+		dictionaryType { className = org.jetel.graph.dictionary.NumberDictionaryType; type = number; }
+		dictionaryType { className = org.jetel.graph.dictionary.DateDictionaryType; type = date; }
+		dictionaryType { className = org.jetel.graph.dictionary.BooleanDictionaryType; type = boolean; }
+		dictionaryType { className = org.jetel.graph.dictionary.ByteDictionaryType; type = byte; }
+		dictionaryType { className = org.jetel.graph.dictionary.ListDictionaryType; type = list; }
+		dictionaryType { className = org.jetel.graph.dictionary.MapDictionaryType; type = map; }
+		dictionaryType { className = org.jetel.graph.dictionary.VariantDictionaryType; type = variant; }
+		tlCompiler { className = org.jetel.ctl.TLCompiler; type = simple.compiler; }
+		ctlfunction { libraryName = record; className = org.jetel.ctl.extensions.IntegralLib; }
+		urlResolver { className = org.jetel.util.file.SMBPathResolver; type = SMB; }
+		urlResolver { className = org.jetel.util.protocols.amazon.S3PathResolver; type = S3; }
+		urlResolver { className = org.jetel.util.protocols.azure.AzureBlobPathResolver; type = AZURE-BLOB; }
+		authorityProxy { className = org.jetel.graph.runtime.PrimitiveAuthorityProxy; type = PrimitiveAuthorityProxy; priority = 0; }
+
+	id - org.jetel.jdbc
+	version - 6.5.1.5
+	provider-name - CloverDX
+		jdbcSpecific { database = GENERIC; name = Generic; class = org.jetel.connection.jdbc.specific.impl.DefaultJdbcSpecific; }
+		jdbcSpecific { database = REDSHIFT; name = Amazon Redshift; class = org.jetel.connection.jdbc.specific.impl.RedshiftSpecific; }
+		jdbcSpecific { database = DB2; name = DB2; class = org.jetel.connection.jdbc.specific.impl.DB2Specific; }
+		jdbcSpecific { database = DERBY; name = Derby; class = org.jetel.connection.jdbc.specific.impl.DerbySpecific; productName = Apache Derby; }
+		jdbcSpecific { database = EXASOLUTION; name = EXASolution; class = org.jetel.connection.jdbc.specific.impl.ExasolSpecific; }
+		jdbcSpecific { database = FIREBIRD; name = Firebird; class = org.jetel.connection.jdbc.specific.impl.FirebirdSpecific; }
+		jdbcSpecific { database = HIVE; name = Hive; class = org.jetel.connection.jdbc.specific.impl.HiveSpecific; }
+		jdbcSpecific { database = INFORMIX; name = Informix; class = org.jetel.connection.jdbc.specific.impl.InformixSpecific; }
+		jdbcSpecific { database = MSACCESSJAVA; name = Microsoft Access; class = org.jetel.connection.jdbc.specific.impl.MSAccessPureJavaSpecific; }
+		jdbcSpecific { database = MSSQL; name = MS SQL Server 2008 or newer; class = org.jetel.connection.jdbc.specific.impl.MSSQLSpecific; productName = Microsoft SQL Server; }
+		jdbcSpecific { database = MSSQL2005; name = MS SQL Server 2000-2005; class = org.jetel.connection.jdbc.specific.impl.MSSQLSpecific2005; }
+		jdbcSpecific { database = MYSQL; name = MySQL; class = org.jetel.connection.jdbc.specific.impl.MySQLSpecific; productName = MySQL; }
+		jdbcSpecific { database = ORACLE; name = Oracle; class = org.jetel.connection.jdbc.specific.impl.OracleSpecific; productName = Oracle; }
+		jdbcSpecific { database = PERVASIVE; name = Pervasive; class = org.jetel.connection.jdbc.specific.impl.PervasiveSpecific; }
+		jdbcSpecific { database = POSTGRE; name = PostgreSQL; class = org.jetel.connection.jdbc.specific.impl.PostgreSpecific; }
+		jdbcSpecific { database = SNOWFLAKE; name = Snowflake; class = org.jetel.connection.jdbc.specific.impl.SnowflakeSpecific; }
+		jdbcSpecific { database = SYBASE; name = Sybase; class = org.jetel.connection.jdbc.specific.impl.SybaseSpecific; }
+		jdbcSpecific { database = SQLITE; name = SQLite; class = org.jetel.connection.jdbc.specific.impl.SQLiteSpecific; }
+		jdbcSpecific { database = VERTICA; name = Vertica; class = org.jetel.connection.jdbc.specific.impl.VerticaSpecific; }
+		jdbcDriver { database = MYSQL; urlHint = jdbc:mysql://hostname:3306/database; jdbc.zeroDateTimeBehavior = convertToNull; name = MySQL; driverLibrary = lib/mysql/mysql-connector-j-8.2.0.jar; jdbcSpecific = MYSQL; dbDriver = com.mysql.cj.jdbc.Driver; }
+		jdbcDriver { database = ORACLE; urlHint = jdbc:oracle:thin:@host:1521:SID,jdbc:oracle:thin:@cluster-alias:1521/service_name,jdbc:oracle:thin:@(DESCRIPTION=(LOAD_BALANCE=on)(ADDRESS=(PROTOCOL=TCP)(HOST=host1)(PORT=1521))(ADDRESS=(PROTOCOL=TCP)(HOST=host2)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=service_name))),jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=cluster_alias)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=service_name))),jdbc:oracle:thin:@host:1521/service_name; name = Oracle; driverLibrary = lib/oracle/ojdbc11-23.3.0.23.09.jar; jdbcSpecific = ORACLE; dbDriver = oracle.jdbc.OracleDriver; }
+		jdbcDriver { database = POSTGRE; urlHint = jdbc:postgresql://hostname/database; name = PostgreSQL; driverLibrary = lib/postgre/postgresql-42.7.3.jar; jdbcSpecific = POSTGRE; dbDriver = org.postgresql.Driver; }
+		jdbcDriver { database = REDSHIFT; urlHint = jdbc:redshift://cluster_id.redshift.amazonaws.com:5439/database; name = Amazon Redshift; driverLibrary = lib/redshift/RedshiftJDBC41-1.1.17.1017.jar; jdbcSpecific = REDSHIFT; dbDriver = com.amazon.redshift.jdbc41.Driver; }
+		jdbcDriver { database = MSSQL; urlHint = jdbc:jtds:sqlserver://hostname:1433/database;instance=instanceName,jdbc:jtds:sqlserver://hostname:1433/database; name = Microsoft SQL Server Legacy; driverLibrary = lib/jtds/jtds-1.2.8.jar; jdbcSpecific = MSSQL; dbDriver = net.sourceforge.jtds.jdbc.Driver; }
+		jdbcDriver { database = MSSQLSERVER; urlHint = jdbc:sqlserver://hostname:1433;databaseName=databaseName; name = Microsoft SQL Server; driverLibrary = lib/mssql/mssql-jdbc-12.4.2.jre11.jar;lib/mssql/antlr4-runtime-4.9.3.jar; jdbcSpecific = MSSQL; dbDriver = com.microsoft.sqlserver.jdbc.SQLServerDriver; }
+		jdbcDriver { database = MSACCESSJAVA; urlHint = jdbc:ucanaccess://database_file,jdbc:ucanaccess://database_file;newdatabaseversion=V2010; name = Microsoft Access; driverLibrary = lib/msaccess/ucanaccess-5.0.1.jar;lib/msaccess/jackcess-3.0.1.jar;lib/msaccess/hsqldb-2.7.1.jar; jdbcSpecific = MSACCESSJAVA; dbDriver = net.ucanaccess.jdbc.UcanaccessDriver; }
+		jdbcDriver { database = SYBASE; urlHint = jdbc:jtds:sybase://hostname:7100/database; name = Sybase; driverLibrary = lib/jtds/jtds-1.2.8.jar; jdbcSpecific = SYBASE; dbDriver = net.sourceforge.jtds.jdbc.Driver; }
+		jdbcDriver { database = SQLITE; urlHint = jdbc:sqlite:C:/database; name = SQLite; driverLibrary = lib/sqlite/sqlite-jdbc-3.42.0.0.jar; jdbcSpecific = SQLITE; dbDriver = org.sqlite.JDBC; }
+		jdbcDriver { database = DERBY; urlHint = jdbc:derby://hostname:1527/derby.db; name = Derby; driverLibrary = lib/derby/derbyclient-10.14.2.0.jar; jdbcSpecific = DERBY; dbDriver = org.apache.derby.jdbc.ClientDriver; }
+		jdbcDriver { database = VERTICA; urlHint = jdbc:vertica://hostname:5433/database; name = Vertica; driverLibrary = lib/vertica/vertica-jdbc-11.1.1-0.jar; jdbcSpecific = VERTICA; dbDriver = com.vertica.jdbc.Driver; }
+		jdbcDriver { database = SNOWFLAKE; urlHint = jdbc:snowflake://[account_identifier].snowflakecomputing.com/?[connection_params]; name = Snowflake; driverLibrary = lib/snowflake/snowflake-jdbc-3.13.29.jar;lib/snowflake/jaxb-api-2.3.1.jar; jdbcSpecific = SNOWFLAKE; dbDriver = net.snowflake.client.jdbc.SnowflakeDriver; }
+
+	id - org.jetel.license
+	version - 6.5.1.5
+	provider-name - CloverDX
+
+	id - org.jetel.lookup
+	version - 6.5.1.5
+	provider-name - CloverDX
+		lookup { className = org.jetel.lookup.SimpleLookupTable; type = simpleLookup; }
+		lookup { className = org.jetel.lookup.DBLookupTable; type = dbLookup; }
+		lookup { className = org.jetel.lookup.RangeLookupTable; type = rangeLookup; }
+
+	id - org.jetel.sequence
+	version - 6.5.1.5
+	provider-name - CloverDX
+		sequence { className = org.jetel.sequence.SimpleSequence; type = SIMPLE_SEQUENCE; }
+		sequence { className = org.jetel.sequence.PrimitiveSequence; type = PRIMITIVE_SEQUENCE; }
+
+	id - org.jetel.component
+	version - 6.5.1.5
+	provider-name - CloverDX
+		component { className = org.jetel.component.DataReader; name = UniversalDataReader; type = DATA_READER; }
+		component { className = org.jetel.component.DataWriter; name = UniversalDataWriter; type = DATA_WRITER; }
+		component { className = org.jetel.component.DataReader; name = FlatFileReader; type = FLAT_FILE_READER; }
+		component { className = org.jetel.component.DataWriter; name = FlatFileWriter; type = FLAT_FILE_WRITER; }
+		component { className = org.jetel.component.DelimitedDataReader; name = DelimitedDataReader; type = DELIMITED_DATA_READER; }
+		component { className = org.jetel.component.DelimitedDataWriter; name = DelimitedDataWriter; type = DELIMITED_DATA_WRITER; }
+		component { className = org.jetel.component.SimpleCopy; name = SimpleCopy; type = SIMPLE_COPY; }
+		component { className = org.jetel.component.Concatenate; name = Concatenate; type = CONCATENATE; }
+		component { className = org.jetel.component.SimpleGather; name = SimpleGather; type = SIMPLE_GATHER; }
+		component { className = org.jetel.component.Reformat; name = Map; type = REFORMAT; }
+		component { className = org.jetel.component.DBInputTable; name = DatabaseReader; type = DB_INPUT_TABLE; }
+		component { className = org.jetel.component.Sort; name = Sort; type = SORT; }
+		component { className = org.jetel.component.DBOutputTable; name = DatabaseWriter; type = DB_OUTPUT_TABLE; }
+		component { className = org.jetel.component.FixLenDataWriter; name = FixLenDataWriter; type = FIXLEN_DATA_WRITER; }
+		component { className = org.jetel.component.Dedup; name = Dedup; type = DEDUP; }
+		component { className = org.jetel.component.FixLenDataReader; name = FixLenDataReader; type = FIXLEN_DATA_READER; }
+		component { className = org.jetel.component.Merge; name = Merge; type = MERGE; }
+		component { className = org.jetel.component.CrossJoin; name = CrossJoin; type = CROSS_JOIN; }
+		component { className = org.jetel.component.MergeJoin; name = MergeJoin; type = MERGE_JOIN; }
+		component { className = org.jetel.component.MergeJoin; name = ExtMergeJoin; type = EXT_MERGE_JOIN; }
+		component { className = org.jetel.component.MergeJoin; type = SORTED_JOIN; }
+		component { className = org.jetel.component.Trash; name = Trash; type = TRASH; }
+		component { className = org.jetel.component.Trashifier; type = TRASHIFIER; }
+		component { className = org.jetel.component.DBExecute; name = DBExecute; type = DB_EXECUTE; }
+		component { className = org.jetel.component.HashJoin; name = HashJoin; type = HASH_JOIN; }
+		component { className = org.jetel.component.HashJoin; name = ExtHashJoin; type = EXT_HASH_JOIN; }
+		component { className = org.jetel.component.CheckForeignKey; name = CheckForeignKey; type = CHECK_FOREIGN_KEY; }
+		component { className = org.jetel.component.DBFDataReader; name = DBFDataReader; type = DBF_DATA_READER; }
+		component { className = org.jetel.component.DBFDataWriter; name = DBFDataWriter; type = DBF_DATA_WRITER; }
+		component { className = org.jetel.component.ExtFilter; name = Filter; type = EXT_FILTER; }
+		component { className = org.jetel.component.ExtSort; name = ExtSort; type = EXT_SORT; }
+		component { className = org.jetel.component.SortWithinGroups; name = SortWithinGroups; type = SORT_WITHIN_GROUPS; }
+		component { className = org.jetel.component.Partition; name = Partition; type = PARTITION; }
+		component { className = org.jetel.component.DataIntersection; name = DataIntersection; type = DATA_INTERSECTION; }
+		component { className = org.jetel.component.Aggregate; name = Aggregate; type = AGGREGATE; }
+		component { className = org.jetel.component.SystemExecute; name = SystemExecute; type = SYS_EXECUTE; }
+		component { className = org.jetel.component.RunGraph; name = RunGraph; type = RUN_GRAPH; }
+		component { className = org.jetel.component.HttpConnector; name = HTTPConnector; type = HTTP_CONNECTOR; }
+		component { className = org.jetel.component.KeyGenerator; name = KeyGenerator; type = KEY_GEN; }
+		component { className = org.jetel.component.AproxMergeJoin; name = ApproximativeJoin; type = APROX_MERGE_JOIN; }
+		component { className = org.jetel.component.DBJoin; name = DBJoin; type = DBJOIN; }
+		component { className = org.jetel.component.CloverDataWriter; name = CloverDataWriter; type = CLOVER_WRITER; }
+		component { className = org.jetel.component.CloverDataReader; name = CloverDataReader; type = CLOVER_READER; }
+		component { className = org.jetel.component.StructureWriter; name = StructuredDataWriter; type = STRUCTURE_WRITER; }
+		component { className = org.jetel.component.Normalizer; name = Normalizer; type = NORMALIZER; }
+		component { className = org.jetel.component.Denormalizer; name = Denormalizer; type = DENORMALIZER; }
+		component { className = org.jetel.component.Rollup; name = Rollup; type = ROLLUP; }
+		component { className = org.jetel.component.JmsReader; name = JMSReader; type = JMS_READER; }
+		component { className = org.jetel.component.JmsWriter; name = JMSWriter; type = JMS_WRITER; }
+		component { className = org.jetel.component.LookupJoin; name = LookupJoin; type = LOOKUP_JOIN; }
+		component { className = org.jetel.component.LookupTableReaderWriter; name = LookupTableReaderWriter; type = LOOKUP_TABLE_READER_WRITER; }
+		component { className = org.jetel.component.DataGenerator; name = DataGenerator; type = DATA_GENERATOR; }
+		component { className = org.jetel.component.SequenceChecker; name = SequenceChecker; type = SEQUENCE_CHECKER; }
+		component { className = org.jetel.component.TextTableWriter; type = TEXT_TABLE_WRITER; }
+		component { className = org.jetel.component.XmlXPathReader; name = XMLXPathReader; type = XML_XPATH_READER; }
+		component { className = org.jetel.component.XMLExtract; name = XMLExtract; type = XML_EXTRACT; }
+		component { className = org.jetel.component.JsonExtract; name = JSONExtract; type = JSON_EXTRACT; }
+		component { className = org.jetel.component.XmlReader; name = XMLReader; type = XML_READER; }
+		component { className = org.jetel.component.SpeedLimiter; name = SpeedLimiter; type = SPEED_LIMITER; }
+		component { className = org.jetel.component.SpeedLimiter; name = Sleep; type = SLEEP; }
+		component { className = org.jetel.component.JavaExecute; name = JavaExecute; type = JAVA_EXECUTE; }
+		component { className = org.jetel.component.GenericComponent; name = CustomJavaReader; type = GENERIC_READER; }
+		component { className = org.jetel.component.GenericComponent; name = CustomJavaWriter; type = GENERIC_WRITER; }
+		component { className = org.jetel.component.GenericComponent; name = CustomJavaTransformer; type = GENERIC_TRANSFORMER; }
+		component { className = org.jetel.component.GenericComponent; name = CustomJavaComponent; type = GENERIC_COMPONENT; }
+		component { className = org.jetel.component.XmlWriter; name = XMLWriter (deprecated); type = XML_WRITER; }
+		component { className = org.jetel.component.ExtXmlWriter; name = XMLWriter; type = EXT_XML_WRITER; }
+		component { className = org.jetel.component.XSLDataTransformer; name = XSLTransformer; type = XSL_TRANSFORMER; }
+		metadata { id = UniversalDataReader_Error; }
+		metadata { id = HTTPConnector_Request; }
+		metadata { id = HTTPConnector_Response; }
+		metadata { id = HTTPConnector_Error; }
+		metadata { id = RunGraph_Input; }
+		metadata { id = RunGraph_Output; }
+
+	id - org.jetel.bulkloader
+	version - 6.5.1.5
+	provider-name - CloverDX
+		component { className = org.jetel.component.OracleDataWriter; name = OracleBulkWriter; type = ORACLE_DATA_WRITER; }
+		component { className = org.jetel.component.DB2DataWriter; name = DB2BulkWriter; type = DB2_DATA_WRITER; }
+		component { className = org.jetel.component.InformixDataWriter; name = InformixBulkWriter; type = INFORMIX_DATA_WRITER; }
+		component { className = org.jetel.component.MsSqlDataWriter; name = MSSQLBulkWriter; type = MS_SQL_DATA_WRITER; }
+		component { className = org.jetel.component.MysqlDataWriter; name = MySQLBulkWriter; type = MYSQL_DATA_WRITER; }
+		component { className = org.jetel.component.PostgreSqlDataWriter; name = PostgreSQLBulkWriter; type = POSTGRESQL_DATA_WRITER; }
+		component { className = org.jetel.component.InfobrightDataWriter; name = InfobrightBulkWriter; type = INFOBRIGHT_DATA_WRITER; }
+		component { className = org.jetel.component.SnowflakeBulkWriter; name = SnowflakeBulkWriter; type = SNOWFLAKE_BULK_WRITER; }
+		metadata { id = SnowflakeBulkWriter_Output; }
+
+	id - org.jetel.hadoop
+	version - 6.5.1.5
+	provider-name - CloverDX
+		connection { className = org.jetel.hadoop.connection.HadoopConnection; type = HADOOP; }
+		component { className = org.jetel.hadoop.component.HadoopWriter; name = HadoopWriter; type = HADOOP_WRITER; }
+		component { className = org.jetel.hadoop.component.HadoopReader; name = HadoopReader; type = HADOOP_READER; }
+		urlResolver { className = org.jetel.hadoop.service.filesystem.HadoopPathResolver; type = HADOOP_HDFS; }
+
+	id - org.jetel.smb2
+	version - 6.5.1.5
+	provider-name - CloverDX
+		urlResolver { className = org.jetel.util.protocols.smb2.SMB2PathResolver; type = SMB2; }
+
+	id - com.cloveretl.tableau.TableauWriter
+	version - 6.5.1.5
+	provider-name - CloverDX
+		component { className = com.cloveretl.tableau.TableauWriter; name = TableauWriter; type = TABLEAU_WRITER; }
+
+	id - org.jetel.thirdparty
+	version - 6.5.1.5
+	provider-name - CloverDX
+		component { className = org.jetel.component.Filter; name = Filter; type = FILTER; }
+		component { className = com.linagora.component.LdapReader; name = LDAPReader; type = LDAP_READER; }
+		component { className = com.linagora.component.LdapWriter; name = LDAPWriter; type = LDAP_WRITER; }
+
+	id - com.opensys.clover.validator
+	version - 6.5.1.5
+	provider-name - CloverDX
+		component { className = com.opensys.cloveretl.validator.component.Validator; name = Validator; type = VALIDATOR; }
+		metadata { id = Validator_InvalidRecords; }
+
+	id - com.opensys.clover.subgraph
+	version - 6.5.1.5
+	provider-name - CloverDX
+		component { className = com.opensys.cloveretl.component.Subgraph; name = Subgraph; type = SUBGRAPH; }
+		component { className = com.opensys.cloveretl.component.SubgraphInput; name = SubgraphInput; type = SUBGRAPH_INPUT; }
+		component { className = com.opensys.cloveretl.component.SubgraphOutput; name = SubgraphOutput; type = SUBGRAPH_OUTPUT; }
+
+	id - com.opensys.clover.spreadsheet
+	version - 6.5.1.5
+	provider-name - CloverDX
+		component { className = com.opensys.cloveretl.component.SpreadsheetReader; name = SpreadsheetDataReader; type = SPREADSHEET_READER; }
+		component { className = com.opensys.cloveretl.component.SpreadsheetWriter; name = SpreadsheetDataWriter; type = SPREADSHEET_WRITER; }
+		metadata { id = SpreadsheetReader_Error; }
+
+	id - com.opensys.cloveretl.quickbase
+	version - 6.5.1.5
+	provider-name - CloverDX
+		connection { className = com.opensys.cloveretl.quickbase.connection.QuickBaseConnection; type = QUICKBASE; }
+		component { className = com.opensys.cloveretl.quickbase.component.QuickBaseRecordReader; name = QuickBase Record Reader; type = QUICKBASE_RECORD_READER; }
+		component { className = com.opensys.cloveretl.quickbase.component.QuickBaseQueryReader; name = QuickBase Query Reader; type = QUICKBASE_QUERY_READER; }
+		component { className = com.opensys.cloveretl.quickbase.component.QuickBaseRecordWriter; name = QuickBase Record Writer; type = QUICKBASE_RECORD_WRITER; }
+		component { className = com.opensys.cloveretl.quickbase.component.QuickBaseImportCSV; name = QuickBase Import CSV; type = QUICKBASE_IMPORT_CSV; }
+
+	id - com.opensys.clover.parquet
+	version - 6.5.1.5
+	provider-name - CloverDX
+		component { className = com.opensys.cloveretl.component.ParquetReader; name = ParquetReader; type = PARQUET_READER; }
+		component { className = com.opensys.cloveretl.component.ParquetWriter; name = ParquetWriter; type = PARQUET_WRITER; }
+		metadata { id = ParquetReader_Error; }
+		metadata { id = ParquetWriter_output; }
+
+	id - com.opensys.clover.mongodb
+	version - 6.5.1.5
+	provider-name - CloverDX
+		connection { className = com.opensys.cloveretl.connection.nosql.mongo.MongoDBConnection; type = MONGODB; }
+		component { className = com.opensys.cloveretl.component.MongoDBReader; name = MongoDBReader; type = MONGODB_READER; }
+		component { className = com.opensys.cloveretl.component.MongoDBWriter; name = MongoDBWriter; type = MONGODB_WRITER; }
+		component { className = com.opensys.cloveretl.component.MongoDBExecute; name = MongoDBExecute; type = MONGODB_EXECUTE; }
+		metadata { id = MongoDBReader_Attributes; }
+		metadata { id = MongoDBWriter_Attributes; }
+		metadata { id = MongoDBExecute_Attributes; }
+		metadata { id = MongoDBReader_Result; }
+		metadata { id = MongoDBWriter_Result; }
+		metadata { id = MongoDBExecute_Result; }
+		metadata { id = MongoDBReader_Error; }
+		metadata { id = MongoDBWriter_Error; }
+		metadata { id = MongoDBExecute_Error; }
+
+	id - com.opensys.cloveretl.compiler
+	version - 6.5.1.5
+	provider-name - CloverDX
+		tlCompiler { className = com.opensys.cloveretl.ctl.BytecodeCompiler; type = bytecode.compiler; priority = 1; }
+
+	id - com.opensys.clover.component
+	version - 6.5.1.5
+	provider-name - CloverDX
+		component { className = com.opensys.cloveretl.component.EmailFilter; name = EmailFilter; type = EMAIL_FILTER; }
+		component { className = com.opensys.cloveretl.component.EmailSender; name = EmailSender; type = EMAIL_SENDER; }
+		component { className = com.opensys.cloveretl.component.EmailReader; name = EmailReader; type = EMAIL_READER; }
+		component { className = com.opensys.cloveretl.component.FastSort; name = FastSort; type = FAST_SORT; }
+		component { className = com.opensys.cloveretl.component.MetaPivot; name = MetaPivot; type = META_PIVOT; }
+		component { className = com.opensys.cloveretl.component.MultiLevelReader; name = MultiLevelReader; type = MULTI_LEVEL_READER; }
+		component { className = com.opensys.cloveretl.component.RelationalJoin; name = RelationalJoin; type = RELATIONAL_JOIN; }
+		component { className = com.opensys.cloveretl.component.ParallelReader; name = ParallelReader; type = PARALLEL_READER; }
+		component { className = com.opensys.cloveretl.component.ClusterPartition; name = ParallelPartition; type = CLUSTER_PARTITION; }
+		component { className = com.opensys.cloveretl.component.ClusterSimpleGather; name = ParallelSimpleGather; type = CLUSTER_SIMPLE_GATHER; }
+		component { className = com.opensys.cloveretl.component.ClusterMerge; name = ParallelMerge; type = CLUSTER_MERGE; }
+		component { className = com.opensys.cloveretl.component.ClusterSimpleCopy; name = ParallelSimpleCopy; type = CLUSTER_SIMPLE_COPY; }
+		component { className = com.opensys.cloveretl.component.WebServiceClient; name = WebServiceClient; type = WEB_SERVICE_CLIENT; }
+		component { className = com.opensys.cloveretl.component.complexdatareader.ComplexDataReader; name = ComplexDataReader; type = COMPLEX_DATA_READER; }
+		component { className = com.opensys.cloveretl.component.DataSampler; name = DataSampler; type = DATA_SAMPLER; }
+		component { className = com.opensys.cloveretl.component.Pivot; name = Pivot; type = PIVOT; }
+		component { className = com.opensys.cloveretl.component.BeanReader; name = JavaBeanReader; type = BEAN_READER; }
+		component { className = com.opensys.cloveretl.component.BeanWriter; name = JavaBeanWriter; type = BEAN_WRITER; }
+		component { className = com.opensys.cloveretl.component.MapWriter; name = JavaMapWriter; type = MAP_WRITER; }
+		component { className = com.opensys.cloveretl.component.JsonReader; name = JSONReader; type = JSON_READER; }
+		component { className = com.opensys.cloveretl.component.JsonWriter; name = JSONWriter; type = JSON_WRITER; }
+		component { className = com.opensys.cloveretl.component.ExecuteGraph; name = ExecuteGraph; type = EXECUTE_GRAPH; }
+		component { className = com.opensys.cloveretl.component.ExecuteJobflow; name = ExecuteJobflow; type = EXECUTE_JOBFLOW; }
+		component { className = com.opensys.cloveretl.component.ExecuteWranglerJob; name = ExecuteWranglerJob; type = EXECUTE_WRANGLER_JOB; }
+		component { className = com.opensys.cloveretl.component.MonitorGraph; name = MonitorGraph; type = MONITOR_GRAPH; }
+		component { className = com.opensys.cloveretl.component.MonitorJobflow; name = MonitorJobflow; type = MONITOR_JOBFLOW; }
+		component { className = com.opensys.cloveretl.component.ExecuteScript; name = ExecuteScript; type = EXECUTE_SCRIPT; }
+		component { className = com.opensys.cloveretl.component.KillGraph; name = KillGraph; type = KILL_GRAPH; }
+		component { className = com.opensys.cloveretl.component.KillJobflow; name = KillJobflow; type = KILL_JOBFLOW; }
+		component { className = com.opensys.cloveretl.component.Fail; name = Fail; type = FAIL; }
+		component { className = com.opensys.cloveretl.component.SetJobOutput; name = SetJobOutput; type = SET_JOB_OUTPUT; }
+		component { className = com.opensys.cloveretl.component.GetJobInput; name = GetJobInput; type = GET_JOB_INPUT; }
+		component { className = com.opensys.cloveretl.component.TokenGather; name = TokenGather; type = TOKEN_GATHER; }
+		component { className = com.opensys.cloveretl.component.Barrier; name = Barrier; type = BARRIER; }
+		component { className = com.opensys.cloveretl.component.Condition; name = Condition; type = CONDITION; }
+		component { className = com.opensys.cloveretl.component.Success; name = Success; type = SUCCESS; }
+		component { className = com.opensys.cloveretl.component.Combine; name = Combine; type = COMBINE; }
+		component { className = com.opensys.cloveretl.component.ListFiles; name = ListFiles; type = LIST_FILES; }
+		component { className = com.opensys.cloveretl.component.CreateFiles; name = CreateFiles; type = CREATE_FILES; }
+		component { className = com.opensys.cloveretl.component.DeleteFiles; name = DeleteFiles; type = DELETE_FILES; }
+		component { className = com.opensys.cloveretl.component.CopyFiles; name = CopyFiles; type = COPY_FILES; }
+		component { className = com.opensys.cloveretl.component.MoveFiles; name = MoveFiles; type = MOVE_FILES; }
+		component { className = com.opensys.cloveretl.component.LoadBalancingPartition; name = LoadBalancingPartition; type = LOAD_BALANCING_PARTITION; }
+		component { className = com.opensys.cloveretl.component.ClusterLoadBalancingPartition; name = ParallelLoadBalancingPartition; type = CLUSTER_LOAD_BALANCING_PARTITION; }
+		component { className = com.opensys.cloveretl.component.ClusterRepartition; name = ParallelRepartition; type = CLUSTER_REPARTITION; }
+		component { className = com.opensys.cloveretl.component.ClusterRegather; type = CLUSTER_REGATHER; }
+		component { className = com.opensys.cloveretl.component.ExecuteMapReduce; name = ExecuteMapReduce; type = EXECUTE_MAPREDUCE; }
+		component { className = com.opensys.cloveretl.component.Loop; name = Loop; type = LOOP; }
+		component { className = com.opensys.cloveretl.component.SalesforceReader; name = SalesforceReader; type = SALESFORCE_READER; }
+		component { className = com.opensys.cloveretl.component.SalesforceWriter; name = SalesforceWriter; type = SALESFORCE_WRITER; }
+		component { className = com.opensys.cloveretl.component.SalesforceBulkReader; name = SalesforceBulkReader; type = SALESFORCE_BULK_READER; }
+		component { className = com.opensys.cloveretl.component.SalesforceBulkWriter; name = SalesforceBulkWriter; type = SALESFORCE_BULK_WRITER; }
+		component { className = com.opensys.cloveretl.component.SalesforceEinsteinWriter; name = SalesforceEinsteinWriter; type = SALESFORCE_WAVE_WRITER; }
+		component { className = com.opensys.cloveretl.component.dataservice.RestJobInput; name = Input; type = RESTJOB_INPUT; }
+		component { className = com.opensys.cloveretl.component.dataservice.RestJobOutput; name = Output; type = RESTJOB_OUTPUT; }
+		component { className = com.opensys.cloveretl.component.KafkaReader; name = KafkaReader; type = KAFKA_READER; }
+		component { className = com.opensys.cloveretl.component.KafkaWriter; name = KafkaWriter; type = KAFKA_WRITER; }
+		component { className = com.opensys.cloveretl.component.KafkaCommit; name = KafkaCommit; type = KAFKA_COMMIT; }
+		component { className = com.opensys.cloveretl.component.EDIFACTReader; name = EDIFACTReader; type = EDIFACT_READER; }
+		component { className = com.opensys.cloveretl.component.X12Reader; name = X12Reader; type = X12_READER; }
+		component { className = com.opensys.cloveretl.component.EDIFACTWriter; name = EDIFACTWriter; type = EDIFACT_WRITER; }
+		component { className = com.opensys.cloveretl.component.X12Writer; name = X12Writer; type = X12_WRITER; }
+		component { className = com.opensys.cloveretl.component.HL7Reader; name = HL7Reader; type = HL7_READER; }
+		component { className = com.opensys.cloveretl.component.DataSetWriter; name = DataSetWriter; type = DATA_SET_WRITER; }
+		component { className = com.opensys.cloveretl.component.DataSetCommit; name = DataSetCommit; type = DATA_SET_COMMIT; }
+		component { className = com.opensys.cloveretl.component.DataSetReader; name = DataSetReader; type = DATA_SET_READER; }
+		metadata { id = ExecuteGraph_RunStatus; }
+		metadata { id = ExecuteWranglerJob_RunStatus; }
+		metadata { id = ExecuteGraph_RunConfig; }
+		metadata { id = ExecuteWranglerJob_RunConfig; }
+		metadata { id = MonitorGraph_RunConfig; }
+		metadata { id = ExecuteScript_RunConfig; }
+		metadata { id = ExecuteScript_RunResult; }
+		metadata { id = KillGraph_RunConfig; }
+		metadata { id = CopyFiles_Attributes; }
+		metadata { id = CreateFiles_Attributes; }
+		metadata { id = DeleteFiles_Attributes; }
+		metadata { id = ListFiles_Attributes; }
+		metadata { id = MoveFiles_Attributes; }
+		metadata { id = CopyFiles_Result; }
+		metadata { id = CreateFiles_Result; }
+		metadata { id = DeleteFiles_Result; }
+		metadata { id = ListFiles_Result; }
+		metadata { id = MoveFiles_Result; }
+		metadata { id = CopyFiles_Error; }
+		metadata { id = CreateFiles_Error; }
+		metadata { id = DeleteFiles_Error; }
+		metadata { id = ListFiles_Error; }
+		metadata { id = MoveFiles_Error; }
+		metadata { id = ExecuteMapReduce_JobResult; }
+		metadata { id = ParallelReader_Error; }
+		metadata { id = MetaPivot_Output; }
+		metadata { id = RecordToKeyValues_Output; }
+		metadata { id = KeyValuesToRecord_Input; }
+		metadata { id = EmailReader_Message; }
+		metadata { id = EmailReader_Attachment; }
+		metadata { id = SalesforceEinstein_Success; }
+		metadata { id = SalesforceEinstein_Error; }
+		metadata { id = DataSetCommit_Input; }
+		metadata { id = DataSetCommit_Output; }
+		metadata { id = DataSetCommit_Error; }
+		connection { className = com.opensys.cloveretl.connection.SalesforceConnection; type = SALESFORCE; }
+		connection { className = com.opensys.cloveretl.connection.KafkaConnection; type = KAFKA; }
+		graphAnalyzerParticipant { className = com.opensys.cloveretl.component.dataservice.b; type = restjob.graphAnalyzerParticipant; }
+
+	id - com.opensys.cloveretl.ctlfunction
+	version - 6.5.1.5
+	provider-name - CloverDX
+		ctlfunction { libraryName = string; className = com.opensys.cloveretl.ctl.extensions.StringLib; }
+		ctlfunction { libraryName = HTTP; className = com.opensys.cloveretl.ctl.extensions.HttpLib; }
+
+	id - com.opensys.clover.lookup
+	version - 6.5.1.5
+	provider-name - CloverDX
+		lookup { className = com.opensys.cloveretl.lookup.PersistentLookupTable; type = persistentLookup; }
+		lookup { className = com.opensys.cloveretl.lookup.AspellLookupTable; type = aspellLookup; }
+
+	id - org.jetel.profiler
+	version - 6.5.1.5
+	provider-name - CloverDX
+		generalObject { className = com.cloveretl.profiler.engine.ProfilerLauncherImpl; id = ProfilerLauncher; }
+		generalObject { className = com.cloveretl.profiler.engine.PreviewGraphGeneratorImpl; id = ProfilerPreviewGraphGenerator; }
+		component { className = com.cloveretl.profiler.engine.components.Profiler; name = ProfilerProbe; type = PROFILER_PROBE; }
+
+
+2024-09-20 21:28:50,914[        AppInit] INFO      1 wrangler function descriptor(s) loaded.
+2024-09-20 21:28:50,914[        AppInit] INFO      66 wrangler step descriptor(s) loaded.
+2024-09-20 21:28:50,915[        AppInit] WARN      System database locking is disabled by configuration property, multiple cluster nodes may update the database in parallel.
+2024-09-20 21:28:50,922[        AppInit] INFO      Executing BasicGroupsInstaller installer
+2024-09-20 21:28:50,922[        AppInit] INFO      Creating admin user group
+2024-09-20 21:28:50,971[        AppInit] INFO      Creating all_users user group
+2024-09-20 21:28:50,976[        AppInit] INFO      Creating L2 support user group
+2024-09-20 21:28:50,986[        AppInit] INFO      Creating L1 support user group
+2024-09-20 21:28:50,995[        AppInit] INFO      Creating Job developer user group
+2024-09-20 21:28:51,003[        AppInit] INFO      Creating QA engineer user group
+2024-09-20 21:28:51,012[        AppInit] INFO      Creating Data App users user group
+2024-09-20 21:28:51,017[        AppInit] INFO      Creating Read-only users user group
+2024-09-20 21:28:51,024[        AppInit] INFO      Creating Wrangler user group
+2024-09-20 21:28:51,026[        AppInit] INFO      Creating Data Manager administrator user group
+2024-09-20 21:28:51,028[        AppInit] INFO      Creating Data Manager users user group
+2024-09-20 21:28:51,036[        AppInit] INFO      Executing EveryoneGroupInstaller installer
+2024-09-20 21:28:51,037[        AppInit] INFO      Creating system_q2L1SfBv_everyone user group
+2024-09-20 21:28:51,042[        AppInit] INFO      Executing RuntimeUserInstaller installer
+2024-09-20 21:28:51,071[        AppInit] INFO      Devel version message: creating user QCTa+Xkn3pKEyQc9nI1Y3A==/TgNL8pXa9laGiKPcmYLKOg==
+2024-09-20 21:28:51,156[        AppInit] INFO      Executing LibraryRepositoryInstaller installer
+2024-09-20 21:28:51,164[        AppInit] INFO      Created CloverDX Marketplace
+2024-09-20 21:28:51,166[        AppInit] INFO      Executing v installer
+2024-09-20 21:28:51,166[        AppInit] INFO      Creating sandboxes directory 'C:\Users\Christian\sampleproject\.metadata\.plugins\com.cloveretl.gui.runtime\runtime-work\temp\sandboxes'
+2024-09-20 21:28:51,166[        AppInit] INFO      Executing l installer
+2024-09-20 21:28:51,166[        AppInit] INFO      Creating libraries directory 'C:\Users\Christian\sampleproject\.metadata\.plugins\com.cloveretl.gui.runtime\runtime-work\temp\sandboxes/libraries'
+2024-09-20 21:28:51,166[        AppInit] INFO      Executing ac installer
+2024-09-20 21:28:51,166[        AppInit] INFO      Executing LibraryInstaller installer
+2024-09-20 21:28:51,166[        AppInit] INFO      Executing ConfigurationInstaller installer
+2024-09-20 21:28:51,166[        AppInit] INFO      Executing SandboxConfigurationInstaller installer
+2024-09-20 21:28:51,166[        AppInit] INFO      Inspecting shared sandboxes for configuration import.
+2024-09-20 21:28:51,166[        AppInit] INFO      0 shared sandboxes inspected.
+2024-09-20 21:28:51,197[        AppInit] INFO      Runtime mode; skip startup status creation
+2024-09-20 21:28:51,214[        AppInit] INFO      Temp space registered: ServerTempSpace[id=1, nodeId=node01, path=C:/Users/Christian/sampleproject/.metadata/.plugins/com.cloveretl.gui.runtime/runtime-work/temp/clover_temp_node01]
+2024-09-20 21:28:51,214[        AppInit] INFO      No temp. space was configured; fall-back temp. space ServerTempSpace[id=1, nodeId=node01, path=C:/Users/Christian/sampleproject/.metadata/.plugins/com.cloveretl.gui.runtime/runtime-work/temp/clover_temp_node01] created and persisted
+2024-09-20 21:28:51,231[        AppInit] INFO      JobExecutor ready to process requests: [com.cloveretl.server.job.a.d@646f4d62, com.cloveretl.server.job.c.f@71e08ee6, com.cloveretl.server.job.a.a@54ae7a5f, com.cloveretl.server.job.a.f@2091c0b4, com.cloveretl.server.job.c.c@384e0a0f, com.cloveretl.server.job.c.e@26645525, com.cloveretl.server.job.wrangler.b@382604b4]
+2024-09-20 21:28:51,231[        AppInit] INFO      Runtime mode; skipping initialization of heartbeat
+2024-09-20 21:28:51,231[        AppInit] INFO      Executing BasicGroupsInstaller installer post initialization.
+2024-09-20 21:28:51,231[        AppInit] INFO      Executing EveryoneGroupInstaller installer post initialization.
+2024-09-20 21:28:51,231[        AppInit] INFO      Executing RuntimeUserInstaller installer post initialization.
+2024-09-20 21:28:51,231[        AppInit] INFO      Executing LibraryRepositoryInstaller installer post initialization.
+2024-09-20 21:28:51,231[        AppInit] INFO      Executing v installer post initialization.
+2024-09-20 21:28:51,231[        AppInit] INFO      Executing l installer post initialization.
+2024-09-20 21:28:51,231[        AppInit] INFO      Executing ac installer post initialization.
+2024-09-20 21:28:51,231[        AppInit] INFO      Executing LibraryInstaller installer post initialization.
+2024-09-20 21:28:51,231[        AppInit] INFO      Executing ConfigurationInstaller installer post initialization.
+2024-09-20 21:28:51,232[        AppInit] INFO      Executing SandboxConfigurationInstaller installer post initialization.
+2024-09-20 21:28:51,290[        AppInit] INFO      Enabling synchronous messaging...
+2024-09-20 21:28:51,298[        AppInit] INFO      Secure parameters are not working
+2024-09-20 21:28:51,299[        AppInit] INFO      Runtime; Listeners disabled
+2024-09-20 21:28:51,299[        AppInit] INFO      Enabling timers...
+2024-09-20 21:28:51,299[        AppInit] INFO      Runtime; Scheduler disabled
+2024-09-20 21:28:51,300[        AppInit] INFO      Initialization complete
+2024-09-20 21:28:51,302[        AppInit] INFO      ====== CloverDX Runtime 6.5.1.5 Started @27 sec
+2024-09-20 21:28:51,314[        AppInit] INFO      *** CloverDX Server Core System Configuration ***
+	CloverDX version:	6.5.1.5
+	CPU logical cores:	12
+	Operating system:	Windows 11, architecture amd64
+	Java version:		OpenJDK Runtime Environment, 17.0.8, Eclipse Adoptium (JDK)
+	Max Java heap (-Xmx):	640 MB
+	Max file descriptors:	unlimited (Windows)
+2024-09-20 21:28:53,293[io-54956-exec-7] INFO      Login successful; username=QCTa+Xkn3pKEyQc9nI1Y3A==,address=127.0.0.1
+2024-09-20 21:28:58,704[ServerLockWatch] INFO      Runtime mode; skip suspending Quartz
+2024-09-20 21:28:58,707[ServerLockWatch] INFO      contextDestroyed: SandboxUrlStreamHandler disabled
+2024-09-20 21:28:58,707[ServerLockWatch] INFO      Closing Spring root WebApplicationContext
+2024-09-20 21:28:58,715[ServerLockWatch] INFO      Stop all workers
+2024-09-20 21:28:58,717[ServerLockWatch] INFO      Closing JPA EntityManagerFactory for persistence unit 'SpringJpaPersistence'
+2024-09-20 21:28:58,718[ServerLockWatch] INFO      Context closed
+2024-09-20 21:28:58,738[ServerLockWatch] INFO      Derby shutdown complete.
+2024-09-20 21:28:58,738[ServerLockWatch] INFO      WSSERVLET15: JAX-WS servlet destroyed
+2024-09-20 21:28:58,740[ServerLockWatch] INFO      WSSERVLET13: JAX-WS context listener destroyed

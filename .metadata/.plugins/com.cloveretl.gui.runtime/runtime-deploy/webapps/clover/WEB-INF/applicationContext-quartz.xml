@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+	default-autowire="no" >
+
+	
+	<!--
+	<alias alias="quartzDataSourceAlias_local" name="mainDataSource" />
+	<alias alias="quartzDataSourceAlias" name="quartzDataSourceAlias_local" />
+	-->
+	
+<!-- quartz -->
+	<!--  trigger definition -->
+	<bean id="quartzScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" autowire="no" lazy-init="true" >
+		<property name="dataSource" ref="mainDataSource" /> 
+		<property name="configLocation" value="${quartz.config.location}" />
+		<property name="waitForJobsToCompleteOnShutdown" value="true" />
+		<property name="autoStartup" value="false" /><!-- must be started explicitly during server initialization process -->
+		<property name="startupDelay" value="20" /><!-- seconds --> 
+		<property name="quartzProperties">
+			<props>
+				<!-- see http://wiki.opensymphony.com/display/QRTZ1/Configuration -->
+				<prop key="org.quartz.jobStore.isClustered">true</prop>
+				<prop key="org.quartz.scheduler.instanceId">${cluster.node.id}</prop>
+				<prop key="org.quartz.jobStore.driverDelegateClass">${quartz.driverDelegateClass}</prop>
+				<!-- default lock handler implementation (StdRowLockSemaphore) does not work on db2 and derby (CLO-19898) -->
+				<prop key="org.quartz.jobStore.lockHandler.class">org.quartz.impl.jdbcjobstore.UpdateLockRowSemaphore</prop>
+			</props>
+		</property>
+	    <property name="jobDetails">
+		    <!--  specify list of enabled jobs -->
+        	<list>
+            	<!-- <ref bean="graphTimeoutJob" /> -->
+        	</list>
+	    </property>
+	    <property name="triggers">
+		    <!--  specify list of enabled triggers -->
+        	<list/>
+	    </property>
+	    <!-- see setQuartzProperties org.quartz.threadPool.class -->
+	</bean>
+<!--  /quartz -->
+
+</beans>
