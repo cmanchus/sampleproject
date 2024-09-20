@@ -6,4 +6,9 @@
 </GraphParameters>
 <Dictionary/>
 </Global>
+<Phase number="0">
+<Node guiName="HadoopReader" guiX="760" guiY="386" id="HADOOP_READER" type="HADOOP_READER"/>
+<Node guiName="HL7Reader" guiX="817" guiY="235" id="HL7READER" type="HL7_READER"/>
+<Node guiName="JMSReader" guiX="606" guiY="285" id="JMSREADER" type="JMS_READER"/>
+</Phase>
 </Graph>
