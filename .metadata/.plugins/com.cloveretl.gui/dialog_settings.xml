@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="ExecutionView">
+		<section name="ColumnWidth">
+			<item key="Execution label" value="184"/>
+			<item key="Status" value="36"/>
+			<item key="Run ID" value="36"/>
+			<item key="Node ID" value="55"/>
+			<item key="Execution type" value="18"/>
+		</section>
+	</section>
+	<section name="WORKBENCH_WINDOW">
+		<item key="com.cloveretl.gui.windowMaximized" value="true"/>
+	</section>
+</section>

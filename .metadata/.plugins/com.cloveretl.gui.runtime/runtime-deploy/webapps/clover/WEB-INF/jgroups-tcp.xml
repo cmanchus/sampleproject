@@ -1,0 +1,69 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+<config>
+	<TCP_NIO2
+		bind_addr="${jgroups.bind_addr}"
+		bind_port="${jgroups.start_port:7800}"
+		external_addr="${jgroups.external_addr}"
+		external_port="${jgroups.external_port}"
+		recv_buf_size="20000000"
+		send_buf_size="640000"
+		max_bundle_size="64000"
+		sock_conn_timeout="6000"
+		enable_diagnostics="false"
+
+		thread_pool.enabled="true"
+		thread_pool.min_threads="1"
+		thread_pool.max_threads="8"
+		thread_pool.keep_alive_time="5000"
+		
+		logical_addr_cache_expiration="36000000" />
+
+	<TCPPING
+		initial_hosts="${jgroups.tcpping.initial_hosts:localhost[7800],localhost[7801]}"
+		port_range="1" />
+	
+	<!-- http://www.redhat.com/docs/manuals/jboss/jboss-eap-4.2/doc/Clustering_Guide/jbosscache-jgroups-other-merge.html -->
+	<MERGE3
+		max_interval="30000"
+		min_interval="10000"
+		max_participants_in_merge="0" />
+	
+	<!-- FD == Failure Detection -->
+	<!-- <FD_SOCK/> -->
+	<FD timeout="10000" max_tries="6" />
+
+	<VERIFY_SUSPECT timeout="6000" />
+
+	<!-- Negative AcKnowledgement - reliable multicast -->
+	<!-- required by GMS -->
+	<com.cloveretl.server.cluster.jgroups.NAKACKx
+		gc_lag="${jgroups.protocol.NAKACK.gc_lag:5000}"
+		use_mcast_xmit="false"
+		xmit_interval="2000"
+		xmit_max_retransmit_requests="200"
+		xmit_table_obsolete_member_timeout="${jgroups.protocol.NAKACK.xmit_table_obsolete_member_timeout:3600000}"
+		max_rebroadcast_timeout="6000"
+		discard_delivered_msgs="true"
+		suppress_time_non_member_warnings="0" />
+	
+	<!-- STABLE is required by NAKACK, otherwise the NAKACK would store all message instances sent -->
+	<pbcast.STABLE
+		stability_delay="1000"
+		desired_avg_gossip="50000"
+		max_bytes="400000" />
+	
+	<AUTH
+		auth_class="org.jgroups.auth.MD5Token"
+		auth_value="${jgroups.protocol.AUTH.value}"
+		token_hash="SHA" />
+
+	<!-- https://community.jboss.org/wiki/JGroupsPbcastGMS -->
+	<!-- GMS requires GET_DIGEST produced by NAKACK -->
+	<pbcast.GMS
+		print_local_addr="true"
+		join_timeout="6000"
+		view_ack_collection_timeout="10000" />
+	
+	<!-- message FRAGmentation -->
+	<FRAG3 frag_size="60000" />
+</config>

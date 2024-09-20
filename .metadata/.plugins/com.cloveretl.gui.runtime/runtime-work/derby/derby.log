@@ -1,0 +1,44 @@
+----------------------------------------------------------------
+Fri Sep 20 21:28:41 CST 2024:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0192-0f9e-d7b6-ffffcba54d86 
+on database directory memory:C:\Users\Christian\sampleproject\.metadata\.plugins\com.cloveretl.gui.runtime\runtime-work\derby\rdb with class loader ParallelWebappClassLoader
+  context: clover
+  delegate: false
+----------> Parent Classloader:
+jdk.internal.loader.ClassLoaders$AppClassLoader@659e0bfd
+ 
+Loaded from file:/C:/Users/Christian/sampleproject/.metadata/.plugins/com.cloveretl.gui.runtime/runtime-deploy/webapps/clover/WEB-INF/lib/derby-10.14.2.0.jar
+java.vendor=Eclipse Adoptium
+java.runtime.version=17.0.8+7
+user.dir=C:\Users\Christian\sampleproject\.metadata\.plugins\com.cloveretl.gui.runtime\runtime-work\temp
+os.name=Windows 11
+os.arch=amd64
+os.version=10.0
+derby.system.home=C:\Users\Christian\sampleproject\.metadata\.plugins\com.cloveretl.gui.runtime\runtime-work\derby
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Fri Sep 20 21:28:45 CST 2024:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance 062e42d2-0192-0f9e-d7b6-ffffcba54d86 
+on database directory C:\Users\Christian\sampleproject\.metadata\.plugins\com.cloveretl.gui.runtime\runtime-work\derby\databases\cloverDb103 with class loader ParallelWebappClassLoader
+  context: clover
+  delegate: false
+----------> Parent Classloader:
+jdk.internal.loader.ClassLoaders$AppClassLoader@659e0bfd
+ 
+Loaded from file:/C:/Users/Christian/sampleproject/.metadata/.plugins/com.cloveretl.gui.runtime/runtime-deploy/webapps/clover/WEB-INF/lib/derby-10.14.2.0.jar
+java.vendor=Eclipse Adoptium
+java.runtime.version=17.0.8+7
+user.dir=C:\Users\Christian\sampleproject\.metadata\.plugins\com.cloveretl.gui.runtime\runtime-work\temp
+os.name=Windows 11
+os.arch=amd64
+os.version=10.0
+derby.system.home=C:\Users\Christian\sampleproject\.metadata\.plugins\com.cloveretl.gui.runtime\runtime-work\derby
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Fri Sep 20 21:28:58 CST 2024:
+Shutting down instance a816c00e-0192-0f9e-d7b6-ffffcba54d86 on database directory memory:C:\Users\Christian\sampleproject\.metadata\.plugins\com.cloveretl.gui.runtime\runtime-work\derby\rdb with class loader ParallelWebappClassLoader
+  context: clover
+  delegate: false
+----------> Parent Classloader:
+jdk.internal.loader.ClassLoaders$AppClassLoader@659e0bfd
+ 

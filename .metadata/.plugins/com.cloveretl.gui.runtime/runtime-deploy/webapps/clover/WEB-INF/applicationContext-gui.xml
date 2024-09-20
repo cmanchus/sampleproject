@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd"
+	default-autowire="no">
+
+	<context:annotation-config />
+	
+	<import resource="applicationContext-setup.xml" />
+	
+	<!-- clover web GUI -->
+
+	<bean id="controllerEventProcessor" class="com.cloveretl.server.web.gui.d.c" scope="session" />
+
+	<bean abstract="true" id="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.f" >
+		<property name="controllerEventProcessor" ref="controllerEventProcessor" />
+	</bean>
+	
+	<bean id="menuCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.MenuController" scope="session" init-method="init">
+	</bean>
+
+	<bean id="guiCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.ag" scope="session">
+	</bean>
+
+	<!-- controller for values specific to current session -->
+	<bean id="loginCtrl" class="com.cloveretl.server.web.gui.LoginController" scope="session" />
+
+	<!-- controller for section Users -->
+	<bean id="usersCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.cl" scope="session"
+		init-method="init">
+	</bean>
+
+	<!-- controller for section me (editor of logged user's credentials) -->
+	<bean id="meCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.ay" scope="session">
+	</bean>
+
+	<!-- controller for section Groups -->
+	<bean id="scheduleCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.ScheduleController" scope="session"
+		init-method="init">
+	</bean>
+
+	<bean id="cronExpressionCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.l" scope="session">
+	</bean>
+	
+	<bean id="nodeAllocationCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.bc" scope="session" />
+
+	<bean id="groupsCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.ae" scope="session"
+		init-method="init">
+	</bean>
+	
+	<bean id="dataServiceJobCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.o" scope="session" init-method="init"/>
+	
+	<bean id="dataServiceJobRequestCtrl" class="com.cloveretl.server.web.gui.r" scope="request">
+		<aop:scoped-proxy/>
+	</bean>
+	
+	<bean id="abstractAlertsCtrl" abstract="true" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.a" scope="session" />
+	
+	<bean id="dsjAlertsCtrl" parent="abstractAlertsCtrl" class="com.cloveretl.server.web.gui.n" scope="session" />
+	
+	<bean id="scheduleAlertsCtrl" parent="abstractAlertsCtrl" class="com.cloveretl.server.web.gui.br" scope="session" />
+	
+	<bean id="eventListenerAlertsCtrl" parent="abstractAlertsCtrl" class="com.cloveretl.server.web.gui.v" scope="session" />
+	
+	<bean id="dsjHistoryCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.p" scope="session" />
+	
+	<bean id="sslConfigCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.bx" scope="session" />
+	
+	<bean id="sslConnectorStateCtrl" class="com.cloveretl.server.web.gui.bz" scope="request">
+		<aop:scoped-proxy />
+	</bean>
+
+	<bean id="sslConfigDsCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.by" scope="session" />
+
+	<bean id="executionsCtrl" parent="abstractSessionScopeCtrl"
+		class="com.cloveretl.server.web.gui.z" scope="session">
+	</bean>
+	
+	<bean id="executionTreeCtrl" parent="abstractSessionScopeCtrl"
+		class="com.cloveretl.server.web.gui.y" scope="session">
+	</bean>
+	
+	<bean id="statusSelector" class="com.cloveretl.server.web.gui.cb" scope="request">
+		<aop:scoped-proxy />
+	</bean>
+	
+	<bean id="timelineCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.ci" scope="session">
+	</bean>
+
+	<bean id="requestScopeController" class="com.cloveretl.server.web.gui.bk" scope="request" >
+		<aop:scoped-proxy />
+	</bean>
+	
+	<alias name="requestScopeController" alias="requestScopeCtrl" />
+
+	<bean id="sandboxCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.bo" scope="session"
+		init-method="init">
+	</bean>
+	
+	<bean id="libraryCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.aq" scope="session" />
+	<bean id="libraryRepositoryCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.at" scope="session" />
+	
+	<bean id="jobInspectorCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.al" scope="session" />
+
+	<bean
+		id="sandboxTreeCtrl" parent="abstractSessionScopeCtrl" scope="session"
+		class="com.cloveretl.server.web.gui.SandboxTreeController">
+	</bean>
+
+	<bean id="monitoringCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.ba" scope="session" />
+    
+    <bean id="jndiCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.ak" scope="session" init-method="init">
+        <property name="jndiBean">
+            <bean class="com.cloveretl.server.web.gui.jndi.a" init-method="init">
+                <property name="jndiConfiguration">
+                    <bean class="com.cloveretl.server.web.gui.jndi.JndiConfigurationBean" init-method="init" />
+                </property>
+            </bean>
+        </property>
+    </bean>
+    
+    <bean id="selectionJndiConfig" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.jndi.JndiConfigurationBean" scope="session"
+        init-method="init">
+    </bean>
+    <bean id="jndiSelector" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.jndi.a" scope="session"
+        init-method="init">
+    </bean>
+
+	<bean id="clusterMonitoringCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.i" scope="session">
+	</bean>
+
+	<bean id="abstractEventListenerCtrl" abstract="true"
+		parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.b"
+		scope="session" init-method="init">
+	</bean>
+		
+	<bean id="eventListenerCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.w" scope="session"/>
+	
+	<bean id="jobflowEventListenerCtrl" parent="abstractEventListenerCtrl" class="com.cloveretl.server.web.gui.am" scope="session"/>
+	<bean id="graphEventListenerCtrl" parent="abstractEventListenerCtrl" class="com.cloveretl.server.web.gui.ac" scope="session"/>
+	<bean id="fileEventListenerCtrl" parent="abstractEventListenerCtrl" class="com.cloveretl.server.web.gui.aa" scope="session"/>
+	<bean id="jmsEventListenerCtrl" parent="abstractEventListenerCtrl" class="com.cloveretl.server.web.gui.aj" scope="session"/>
+	<bean id="kafkaEventListenerCtrl" parent="abstractEventListenerCtrl" class="com.cloveretl.server.web.gui.an" scope="session"/>
+	<bean id="groovyEventListenerCtrl" parent="abstractEventListenerCtrl" class="com.cloveretl.server.web.gui.ad" scope="session"/>
+	<bean id="manualTaskExecutionCtrl" parent="abstractEventListenerCtrl" class="com.cloveretl.server.web.gui.ax" scope="session"/>
+	<bean id="taskEventListenerCtrl" parent="abstractEventListenerCtrl" class="com.cloveretl.server.web.gui.cf" scope="session" />
+
+	<bean id="taskCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.cd" scope="session">
+	</bean>
+
+	<bean id="dataSetsCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.s" scope="session"/>
+
+	<bean id="abstractTaskCtrl" abstract="true" 
+		parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.b.a.b" 
+		scope="session"/>
+	
+	<bean id="abstractJobTaskCtrl" abstract="true" 
+		parent="abstractTaskCtrl" class="com.cloveretl.server.web.gui.b.a.a" 
+		scope="session"/>
+	
+	<bean id="killJobTaskCtrl" parent="abstractTaskCtrl" class="com.cloveretl.server.web.gui.b.a.k" scope="session"/>
+	<bean id="archivatorTaskCtrl" parent="abstractTaskCtrl" class="com.cloveretl.server.web.gui.b.a.c" scope="session"/>
+	<bean id="dataManagerTaskCtrl" parent="abstractTaskCtrl" class="com.cloveretl.server.web.gui.b.a.d" scope="session"/>
+	<bean id="emailTaskCtrl" parent="abstractTaskCtrl" class="com.cloveretl.server.web.gui.b.a.e" scope="session"/>
+	<bean id="groovyTaskCtrl" parent="abstractTaskCtrl" class="com.cloveretl.server.web.gui.b.a.g" scope="session"/>
+	<bean id="jmsMessageTaskCtrl" parent="abstractTaskCtrl" class="com.cloveretl.server.web.gui.b.a.i" scope="session"/>
+	<bean id="shellCommandTaskCtrl" parent="abstractTaskCtrl" class="com.cloveretl.server.web.gui.b.a.l" scope="session"/>
+
+	<bean id="graphTaskCtrl" parent="abstractJobTaskCtrl" class="com.cloveretl.server.web.gui.b.a.f" scope="session"/>
+	<bean id="jobflowTaskCtrl" parent="abstractJobTaskCtrl" class="com.cloveretl.server.web.gui.b.a.j" scope="session"/>
+	<bean id="healthCheckTaskCtrl" parent="abstractJobTaskCtrl" class="com.cloveretl.server.web.gui.b.a.h" scope="session"/>
+
+	<bean id="taskPropertiesBean" class="com.cloveretl.server.web.gui.cg" scope="session"/>
+	
+	<bean id="cookieBean" class="com.cloveretl.server.web.gui.k" scope="request">
+		<aop:scoped-proxy />
+	</bean>
+
+	<bean id="tasksHistoryCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.ch" scope="session">
+	</bean>
+
+	<bean id="tempSpaceCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.tempmgr.e" scope="session">
+	</bean>
+	
+	<bean id="serverConfigCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.ServerConfigController" scope="session">
+	</bean>
+
+	<bean id="clusterNodeStatusCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.j" scope="session">
+	</bean>
+	
+	<bean id="serverLogsCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.bv" scope="session">
+	</bean>
+	
+	<bean id="secureParamsCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.bu" scope="session">
+	</bean>
+	
+	<bean id="licenseCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.au" scope="session">
+	</bean>
+
+	<bean id="diagCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.u" scope="session">
+	</bean>
+	
+	<bean id="workerMonitoringCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.cs" scope="session">
+	</bean>
+	
+	<bean id="tutorialCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.cj" scope="session">
+	</bean>
+	
+	<bean id="secretManagerCtrl" parent="abstractSessionScopeCtrl" class="com.cloveretl.server.web.gui.h.c" scope="session">
+	</bean>
+
+	<bean id="secretManagerDataTable" class="com.cloveretl.server.web.gui.h.d" scope="session">
+	</bean>
+
+	<!-- session scope bean for info/error messages -->
+	<bean id="messagesBean" class="com.cloveretl.server.web.gui.MessagesBean" scope="session" />
+	
+	<bean id="requestMessages" class="com.cloveretl.server.web.gui.MessagesBean$RequestMessages" scope="request">
+		<aop:scoped-proxy />
+	</bean>
+	
+	<bean id="runJobCtrl" class="com.cloveretl.server.web.gui.bn" scope="session" />
+<!-- /clover web GUI -->
+	
+</beans>

@@ -1,0 +1,1012 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions 
+        xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+        xmlns:tns="http://server.cloveretl.com/WsJdbcAdapter/" 
+        xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+        name="WsJdbcAdapter" 
+        targetNamespace="http://server.cloveretl.com/WsJdbcAdapter/">
+  <wsdl:types>
+    <xsd:schema
+            targetNamespace="http://server.cloveretl.com/WsJdbcAdapter/" 
+            xmlns:xmime="http://www.w3.org/2005/05/xmlmime">
+            
+            <xsd:complexType name="Property">
+                <xsd:sequence>
+                    <xsd:element name="name" type="xsd:string" />
+                    <xsd:element name="value" type="xsd:string" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="Properties">
+                <xsd:sequence>
+                    <xsd:element name="properties" type="tns:Property" minOccurs="0" maxOccurs="unbounded" />
+                </xsd:sequence>
+            </xsd:complexType>
+            
+            <xsd:element name="CreateAdapter">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="sessionToken" type="xsd:string" />
+                        <xsd:element name="properties" type="tns:Properties" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="CreateAdapterResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="handle" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="OpenJdbcConnection">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="sessionToken" type="xsd:string" />
+                        <xsd:element name="adapterHandle" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="OpenJdbcConnectionResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="handle" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="SqlFault">
+                <xsd:sequence>
+                    <xsd:element name="message" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="errorCode" type="xsd:int" />
+                    <xsd:element name="state" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="nextFault" type="tns:SqlFault" minOccurs="0" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="SqlFaultInfo" type="tns:SqlFault" />
+            <xsd:element name="DisposeAdapter">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="sessionToken" type="xsd:string" />
+                        <xsd:element name="adapterHandle" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="DisposeAdapterResponse">
+                <xsd:complexType />
+            </xsd:element>
+            <xsd:element name="CloseJdbcConnection">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="sessionToken" type="xsd:string" />
+                        <xsd:element name="adapterHandle" type="xsd:string" />
+                        <xsd:element name="connectionHandle" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="CloseJdbcConnectionResponse">
+                <xsd:complexType />
+            </xsd:element>
+            
+            <xsd:element name="ExecuteQuery">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="sessionToken" type="xsd:string" />
+                        <xsd:element name="adapterHandle" type="xsd:string" />
+                        <xsd:element name="connectionHandle" type="xsd:string" />
+                        <xsd:element name="query" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ExecuteQueryResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="result" type="tns:QueryResult" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="QueryResult">
+                <xsd:annotation>
+                    <xsd:documentation>
+                    This type describes result of execution of a SQL query: if the query was a select-type query, then
+                    "queryResultData" and "queryResultMetadata" will correspond to the ResultSet produced by the query and "hasData" flag will be set to "true";
+                    for an update-style query the "rowsAffected" will contain the number of table rows affected by the query; for other query types (DDL) the "hasData"
+                    field is "false" and "rowsAffected" is "null".
+                    </xsd:documentation>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="handle" type="xsd:string" />
+                    <xsd:element name="rowsAffected" type="xsd:int" minOccurs="0" />
+                    <xsd:element name="hasData" type="xsd:boolean" />
+                    <xsd:element name="queryResultMetadata" type="tns:QueryResultMetadata" minOccurs="0" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="QueryResultMetadata">
+                <xsd:sequence>
+                    <xsd:element name="columnsMetadata" type="tns:ColumnMetadata" minOccurs="0" maxOccurs="unbounded" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ColumnMetadata">
+                <xsd:sequence>
+                    <xsd:element name="label" type="xsd:string" />
+                    <xsd:element name="name" type="xsd:string" />
+                    <xsd:element name="typeName" type="xsd:string" />
+                    <xsd:element name="sqlType" type="xsd:int" />
+                    <xsd:element name="scale" type="xsd:int" />
+                    <xsd:element name="precision" type="xsd:int" />
+                    <xsd:element name="displaySize" type="xsd:int" />
+                    <xsd:element name="nullable" type="xsd:int" />
+                    <xsd:element name="tableName" type="xsd:string" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="QueryResultData">
+                <xsd:sequence>
+                    <xsd:element name="noMoreData" type="xsd:boolean" minOccurs="0" />
+                    <xsd:element name="rows" type="tns:ResultRow" minOccurs="0" maxOccurs="unbounded" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ResultRow">
+                <xsd:sequence>
+                    <xsd:element name="fields" type="tns:DataField" minOccurs="0" maxOccurs="unbounded" />
+                </xsd:sequence>
+            </xsd:complexType>
+            
+            <xsd:complexType name="DataField">
+                <xsd:sequence>
+                    <xsd:element name="value" type="xsd:anySimpleType" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="DateDataField">
+                <xsd:complexContent>
+                    <xsd:extension base="tns:DataField">
+                        <xsd:sequence>
+                            <xsd:element name="dateValue" type="xsd:dateTime" />
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+            
+            <xsd:element name="FetchNextResultData">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="sessionToken" type="xsd:string" />
+                        <xsd:element name="adapterHandle" type="xsd:string" />
+                        <xsd:element name="connectionHandle" type="xsd:string" />
+                        <xsd:element name="queryResultHandle" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="FetchNextResultDataResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="result" type="tns:QueryResultData" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <xsd:element name="DisposeQueryResult">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="sessionToken" type="xsd:string" />
+                        <xsd:element name="adapterHandle" type="xsd:string" />
+                        <xsd:element name="connectionHandle" type="xsd:string" />
+                        <xsd:element name="queryResultHandle" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="DisposeQueryResultResponse">
+                <xsd:complexType />
+            </xsd:element>
+            
+            <xsd:element name="GetSchemas">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="sessionToken" type="xsd:string" />
+                        <xsd:element name="adapterHandle" type="xsd:string" />
+                        <xsd:element name="connectionHandle" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetSchemasResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="out" type="xsd:string" minOccurs="0" maxOccurs="unbounded" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <xsd:element name="GetTables">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="sessionToken" type="xsd:string" />
+                        <xsd:element name="adapterHandle" type="xsd:string" />
+                        <xsd:element name="connectionHandle" type="xsd:string" />
+                        <xsd:element name="schema" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetTablesResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="out" type="tns:QueryResult" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <xsd:element name="GetColumns">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="sessionToken" type="xsd:string" />
+                        <xsd:element name="adapterHandle" type="xsd:string" />
+                        <xsd:element name="connectionHandle" type="xsd:string" />
+                        <xsd:element name="schema" type="xsd:string" />
+                        <xsd:element name="owner" type="xsd:string" />
+                        <xsd:element name="table" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetColumnsResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="out" type="tns:QueryResultMetadata" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetAllColumns">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="sessionToken" type="xsd:string" />
+                        <xsd:element name="adapterHandle" type="xsd:string" />
+                        <xsd:element name="connectionHandle" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetAllColumnsResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="out" type="tns:QueryResult" minOccurs="0" maxOccurs="unbounded" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <xsd:element name="PrepareQuery">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="sessionToken" type="xsd:string" />
+                        <xsd:element name="adapterHandle" type="xsd:string" />
+                        <xsd:element name="connectionHandle" type="xsd:string" />
+                        <xsd:element name="query" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="PrepareQueryResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="query" type="tns:PreparedQuery" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="PreparedQuery">
+                <xsd:sequence>
+                    <xsd:element name="handle" type="xsd:string" />
+                    <xsd:element name="resultMetadata" type="tns:QueryResultMetadata" minOccurs="0" />
+                    <xsd:element name="parametersMetadata" type="tns:ParameterMetadata" minOccurs="0" maxOccurs="unbounded" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ParameterMetadata">
+                <xsd:sequence>
+                    <xsd:element name="type" type="xsd:int" />
+                </xsd:sequence>
+            </xsd:complexType>
+            
+            <xsd:element name="ExecutePreparedQuery">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="sessionToken" type="xsd:string" />
+                        <xsd:element name="adapterHandle" type="xsd:string" />
+                        <xsd:element name="connectionHandle" type="xsd:string" />
+                        <xsd:element name="queryHandle" type="xsd:string" />
+                        <xsd:element name="parameters" type="tns:QueryParameter" minOccurs="0" maxOccurs="unbounded" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="QueryParameter">
+                <xsd:sequence>
+                    <xsd:element name="index" type="xsd:int" />
+                    <xsd:element name="value" type="tns:DataField" />
+                    <xsd:element name="type" type="xsd:int" minOccurs="0" />
+                </xsd:sequence>
+            </xsd:complexType>
+            
+            <xsd:element name="DisposePreparedQuery">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="sessionToken" type="xsd:string" />
+                        <xsd:element name="adapterHandle" type="xsd:string" />
+                        <xsd:element name="connectionHandle" type="xsd:string" />
+                        <xsd:element name="queryHandle" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="DisposePreparedQueryResponse">
+                <xsd:complexType />
+            </xsd:element>
+            
+            <xsd:element name="SetJdbcConnectionProperty">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="sessionToken" type="xsd:string" />
+                        <xsd:element name="adapterHandle" type="xsd:string" />
+                        <xsd:element name="connectionHandle" type="xsd:string" />
+                        <xsd:element name="property" type="tns:JdbcConnectionProperty" />
+                        <xsd:element name="propertyValue" type="xsd:anySimpleType" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:simpleType name="JdbcConnectionProperty">
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="autoCommit" />
+                    <xsd:enumeration value="readOnly" />
+                    <xsd:enumeration value="catalog" />
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:element name="SetJdbcConnectionPropertyResponse">
+                <xsd:complexType />
+            </xsd:element>
+            
+            <xsd:element name="GetJdbcConnectionProperty">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="sessionToken" type="xsd:string" />
+                        <xsd:element name="adapterHandle" type="xsd:string" />
+                        <xsd:element name="connectionHandle" type="xsd:string" />
+                        <xsd:element name="property" type="tns:JdbcConnectionProperty" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetJdbcConnectionPropertyResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="out" type="xsd:anySimpleType" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <xsd:element name="SetQueryResultProperty">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="sessionToken" type="xsd:string" />
+                        <xsd:element name="adapterHandle" type="xsd:string" />
+                        <xsd:element name="connectionHandle" type="xsd:string" />
+                        <xsd:element name="queryResultHandle" type="xsd:string" />
+                        <xsd:element name="property" type="tns:QueryResultProperty" />
+                        <xsd:element name="propertyValue" type="xsd:anySimpleType" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:simpleType name="QueryResultProperty">
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="fetchSize" />
+                    <xsd:enumeration value="fetchDirection" />
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:element name="SetQueryResultPropetyResponse">
+                <xsd:complexType />
+            </xsd:element>
+            
+            <xsd:element name="GetDatabaseColumns">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="sessionToken" type="xsd:string" />
+                        <xsd:element name="adapterHandle" type="xsd:string" />
+                        <xsd:element name="connectionHandle" type="xsd:string" />
+                        <xsd:element name="catalog" type="xsd:string" />
+                        <xsd:element name="schemaPattern" type="xsd:string" />
+                        <xsd:element name="tablePattern" type="xsd:string" />
+                        <xsd:element name="columnPattern" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetDatabaseColumnsResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="result" type="tns:QueryResult" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <xsd:element name="GetDatabaseMetadataStaticInfo">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="sessionToken" type="xsd:string" />
+                        <xsd:element name="adapterHandle" type="xsd:string" />
+                        <xsd:element name="connectionHandle" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="DatabaseMetadataStaticInfo">
+                <xsd:sequence>
+                    <xsd:element name="databaseProductName" type="xsd:string" />
+                    <xsd:element name="databaseProductVersion" type="xsd:string" />
+                    <xsd:element name="identifierQuoteString" type="xsd:string" />
+                    <xsd:element name="catalogTerm" type="xsd:string" />
+                    <xsd:element name="userName" type="xsd:string" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="GetDatabaseMetadataStaticInfoResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="staticInfo" type="tns:DatabaseMetadataStaticInfo" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <xsd:element name="IsAdapterReady">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="sessionToken" type="xsd:string" />
+                        <xsd:element name="adapterHandle" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="IsAdapterReadyResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="out" type="xsd:boolean" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <xsd:element name="GetAdaptersStats">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="sessionToken" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetAdaptersStatsResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="stats" type="tns:AdapterStats" minOccurs="0" maxOccurs="unbounded" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="AdapterStats">
+                <xsd:sequence>
+                    <xsd:element name="adapterHandle" type="xsd:string" />
+                    <xsd:element name="idleTime" type="xsd:long" />
+                </xsd:sequence>
+            </xsd:complexType>
+            
+    </xsd:schema>
+  </wsdl:types>
+    <wsdl:message name="CreateAdapterRequest">
+        <wsdl:part name="parameters" element="tns:CreateAdapter" />
+    </wsdl:message>
+    <wsdl:message name="CreateAdapterResponse">
+        <wsdl:part name="parameters" element="tns:CreateAdapterResponse" />
+    </wsdl:message>
+    <wsdl:message name="OpenJdbcConnectionRequest">
+        <wsdl:part name="parameters" element="tns:OpenJdbcConnection" />
+    </wsdl:message>
+    <wsdl:message name="OpenJdbcConnectionResponse">
+        <wsdl:part name="parameters" element="tns:OpenJdbcConnectionResponse" />
+    </wsdl:message>
+    <wsdl:message name="SqlFault">
+        <wsdl:documentation>SqlFault is a web service version of java.sql.SQLException.</wsdl:documentation>
+        <wsdl:part name="parameters" element="tns:SqlFaultInfo" />
+    </wsdl:message>
+    <wsdl:message name="DisposeAdapterRequest">
+        <wsdl:part name="parameters" element="tns:DisposeAdapter" />
+    </wsdl:message>
+    <wsdl:message name="DisposeAdapterResponse">
+        <wsdl:part name="parameters" element="tns:DisposeAdapterResponse" />
+    </wsdl:message>
+    <wsdl:message name="CloseJdbcConnectionRequest">
+        <wsdl:part name="parameters" element="tns:CloseJdbcConnection" />
+    </wsdl:message>
+    <wsdl:message name="CloseJdbcConnectionResponse">
+        <wsdl:part name="parameters" element="tns:CloseJdbcConnectionResponse" />
+    </wsdl:message>
+    <wsdl:message name="ExecuteQueryRequest">
+        <wsdl:part name="parameters" element="tns:ExecuteQuery" />
+    </wsdl:message>
+    <wsdl:message name="ExecuteQueryResponse">
+        <wsdl:part name="parameters" element="tns:ExecuteQueryResponse" />
+    </wsdl:message>
+    <wsdl:message name="FetchNextResultDataRequest">
+        <wsdl:part name="parameters" element="tns:FetchNextResultData" />
+    </wsdl:message>
+    <wsdl:message name="FetchNextResultDataResponse">
+        <wsdl:part name="parameters" element="tns:FetchNextResultDataResponse" />
+    </wsdl:message>
+    <wsdl:message name="DisposeQueryResultRequest">
+        <wsdl:part name="parameters" element="tns:DisposeQueryResult" />
+    </wsdl:message>
+    <wsdl:message name="DisposeQueryResultResponse">
+        <wsdl:part name="parameters" element="tns:DisposeQueryResultResponse" />
+    </wsdl:message>
+    <wsdl:message name="GetSchemasRequest">
+        <wsdl:part name="parameters" element="tns:GetSchemas" />
+    </wsdl:message>
+    <wsdl:message name="GetSchemasResponse">
+        <wsdl:part name="parameters" element="tns:GetSchemasResponse" />
+    </wsdl:message>
+    <wsdl:message name="GetTablesRequest">
+        <wsdl:part name="parameters" element="tns:GetTables" />
+    </wsdl:message>
+    <wsdl:message name="GetTablesResponse">
+        <wsdl:part name="parameters" element="tns:GetTablesResponse" />
+    </wsdl:message>
+    <wsdl:message name="GetColumnsRequest">
+        <wsdl:part name="parameters" element="tns:GetColumns" />
+    </wsdl:message>
+    <wsdl:message name="GetColumnsResponse">
+        <wsdl:part name="parameters" element="tns:GetColumnsResponse" />
+    </wsdl:message>
+    <wsdl:message name="GetAllColumnsRequest">
+        <wsdl:part name="parameters" element="tns:GetAllColumns" />
+    </wsdl:message>
+    <wsdl:message name="GetAllColumnsResponse">
+        <wsdl:part name="parameters" element="tns:GetAllColumnsResponse" />
+    </wsdl:message>
+    <wsdl:message name="PrepareQueryRequest">
+        <wsdl:part name="parameters" element="tns:PrepareQuery" />
+    </wsdl:message>
+    <wsdl:message name="PrepareQueryResponse">
+        <wsdl:part name="parameters" element="tns:PrepareQueryResponse" />
+    </wsdl:message>
+    <wsdl:message name="ExecutePreparedQueryRequest">
+        <wsdl:part name="parameters" element="tns:ExecutePreparedQuery" />
+    </wsdl:message>
+    <wsdl:message name="ExecutePreparedQueryResponse">
+        <wsdl:part name="parameters" element="tns:ExecuteQueryResponse" />
+    </wsdl:message>
+    <wsdl:message name="DisposePreparedQueryRequest">
+        <wsdl:part name="parameters" element="tns:DisposePreparedQuery" />
+    </wsdl:message>
+    <wsdl:message name="DisposePreparedQueryResponse">
+        <wsdl:part name="parameters" element="tns:DisposePreparedQueryResponse" />
+    </wsdl:message>
+    <wsdl:message name="SetJdbcConnectionPropertyRequest">
+        <wsdl:part name="parameters" element="tns:SetJdbcConnectionProperty" />
+    </wsdl:message>
+    <wsdl:message name="SetJdbcConnectionPropertyResponse">
+        <wsdl:part name="parameters" element="tns:SetJdbcConnectionPropertyResponse" />
+    </wsdl:message>
+    <wsdl:message name="GetJdbcConnectionPropertyRequest">
+        <wsdl:part name="parameters" element="tns:GetJdbcConnectionProperty" />
+    </wsdl:message>
+    <wsdl:message name="GetJdbcConnectionPropertyResponse">
+        <wsdl:part name="parameters" element="tns:GetJdbcConnectionPropertyResponse" />
+    </wsdl:message>
+    <wsdl:message name="SetQueryResultPropertyRequest">
+        <wsdl:part name="parameters" element="tns:SetQueryResultProperty" />
+    </wsdl:message>
+    <wsdl:message name="SetQueryResultPropertyResponse">
+        <wsdl:part name="parameters" element="tns:SetQueryResultPropetyResponse" />
+    </wsdl:message>
+    <wsdl:message name="GetDatabaseColumnsRequest">
+        <wsdl:part name="parameters" element="tns:GetDatabaseColumns" />
+    </wsdl:message>
+    <wsdl:message name="GetDatabaseColumnsResponse">
+        <wsdl:part name="parameters" element="tns:GetDatabaseColumnsResponse" />
+    </wsdl:message>
+    <wsdl:message name="GetDatabaseMetadataStaticInfoRequest">
+        <wsdl:part name="parameters" element="tns:GetDatabaseMetadataStaticInfo" />
+    </wsdl:message>
+    <wsdl:message name="GetDatabaseMetadataStaticInfoResponse">
+        <wsdl:part name="parameters" element="tns:GetDatabaseMetadataStaticInfoResponse" />
+    </wsdl:message>
+    <wsdl:message name="IsAdapterReadyRequest">
+        <wsdl:part name="parameters" element="tns:IsAdapterReady" />
+    </wsdl:message>
+    <wsdl:message name="IsAdapterReadyResponse">
+        <wsdl:part name="parameters" element="tns:IsAdapterReadyResponse" />
+    </wsdl:message>
+    <wsdl:message name="GetAdaptersStatsRequest">
+        <wsdl:part name="parameters" element="tns:GetAdaptersStats" />
+    </wsdl:message>
+    <wsdl:message name="GetAdaptersStatsResponse">
+        <wsdl:part name="parameters" element="tns:GetAdaptersStatsResponse" />
+    </wsdl:message>
+    <wsdl:portType name="WsJdbcAdapter">
+    <wsdl:documentation>WS-JDBC adapter it to provide WS-remoted access to JDBC connections on
+        the CloverDX Server. Only a subset of the JDBC features is available.</wsdl:documentation>
+    <wsdl:operation name="CreateAdapter">
+        <wsdl:documentation>Creates new JDBC adapter using given properties and answers its handle. The properties are
+        supposed to be org.jetel.connection.jdbc.AbstractDBConnection's XML configuration properties and must represent
+        valid connection configuration with respect to the CloverDX server environment.</wsdl:documentation>
+        <wsdl:input message="tns:CreateAdapterRequest" />
+        <wsdl:output message="tns:CreateAdapterResponse" />
+        <wsdl:fault name="fault" message="tns:SqlFault" />
+    </wsdl:operation>
+    <wsdl:operation name="DisposeAdapter">
+        <wsdl:documentation>Disposes JDBC adapter releasing all resources (Connections, ResultSets, PreparedStatements, ...) allocated
+        during adapter usage.</wsdl:documentation>
+        <wsdl:input message="tns:DisposeAdapterRequest" />
+        <wsdl:output message="tns:DisposeAdapterResponse" />
+        <wsdl:fault name="fault" message="tns:SqlFault" />
+    </wsdl:operation>
+    <wsdl:operation name="OpenJdbcConnection">
+        <wsdl:documentation>Opens new JDBC connection to the database and answers its handle.</wsdl:documentation>
+        <wsdl:input message="tns:OpenJdbcConnectionRequest" />
+        <wsdl:output message="tns:OpenJdbcConnectionResponse" />
+        <wsdl:fault name="fault" message="tns:SqlFault" />
+    </wsdl:operation>
+    <wsdl:operation name="CloseJdbcConnection">
+        <wsdl:documentation>Closes JDBC connection identified by given handle.</wsdl:documentation>
+        <wsdl:input message="tns:CloseJdbcConnectionRequest" />
+        <wsdl:output message="tns:CloseJdbcConnectionResponse" />
+        <wsdl:fault name="fault" message="tns:SqlFault" />
+    </wsdl:operation>
+    <wsdl:operation name="ExecuteQuery">
+        <wsdl:documentation>Executes given SQL query and answers it result, which is either
+        - JDBC ResultSet proxy for SELECT query
+        - number of rows affected by update query
+        - empty result for DDL query
+        </wsdl:documentation>
+        <wsdl:input message="tns:ExecuteQueryRequest" />
+        <wsdl:output message="tns:ExecuteQueryResponse" />
+        <wsdl:fault name="fault" message="tns:SqlFault" />
+    </wsdl:operation>
+    <wsdl:operation name="FetchNextResultData">
+        <wsdl:documentation>Answers next data page for given query ResultSet.</wsdl:documentation>
+        <wsdl:input message="tns:FetchNextResultDataRequest" />
+        <wsdl:output message="tns:FetchNextResultDataResponse" />
+        <wsdl:fault name="fault" message="tns:SqlFault" />
+    </wsdl:operation>
+    <wsdl:operation name="DisposeQueryResult">
+        <wsdl:documentation>Closes ResultSet corresponding to the given QueryResult handle.</wsdl:documentation>
+        <wsdl:input message="tns:DisposeQueryResultRequest" />
+        <wsdl:output message="tns:DisposeQueryResultResponse" />
+        <wsdl:fault name="fault" message="tns:SqlFault" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSchemas">
+        <wsdl:documentation>Answers database schemas for given JDBC adapter.</wsdl:documentation>
+        <wsdl:input message="tns:GetSchemasRequest" />
+        <wsdl:output message="tns:GetSchemasResponse" />
+        <wsdl:fault name="fault" message="tns:SqlFault" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTables">
+        <wsdl:documentation>Answers database tables for given database schema.</wsdl:documentation>
+        <wsdl:input message="tns:GetTablesRequest" />
+        <wsdl:output message="tns:GetTablesResponse" />
+        <wsdl:fault name="fault" message="tns:SqlFault" />
+    </wsdl:operation>
+    <wsdl:operation name="GetColumns">
+        <wsdl:documentation>Answers table columns for given table.</wsdl:documentation>
+        <wsdl:input message="tns:GetColumnsRequest" />
+        <wsdl:output message="tns:GetColumnsResponse" />
+        <wsdl:fault name="fault" message="tns:SqlFault" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllColumns">
+        <wsdl:documentation>Answers all table columns in database.</wsdl:documentation>
+        <wsdl:input message="tns:GetAllColumnsRequest" />
+        <wsdl:output message="tns:GetAllColumnsResponse" />
+        <wsdl:fault name="fault" message="tns:SqlFault" />
+    </wsdl:operation>
+    <wsdl:operation name="PrepareQuery">
+        <wsdl:documentation>Prepares JDBC PreparedStatement and answers its handle.</wsdl:documentation>
+        <wsdl:input message="tns:PrepareQueryRequest" />
+        <wsdl:output message="tns:PrepareQueryResponse" />
+        <wsdl:fault name="fault" message="tns:SqlFault" />
+    </wsdl:operation>
+    <wsdl:operation name="ExecutePreparedQuery">
+        <wsdl:documentation>Executes prepared query and answers its result.</wsdl:documentation>
+        <wsdl:input message="tns:ExecutePreparedQueryRequest" />
+        <wsdl:output message="tns:ExecutePreparedQueryResponse" />
+        <wsdl:fault name="fault" message="tns:SqlFault" />
+    </wsdl:operation>
+    <wsdl:operation name="DisposePreparedQuery">
+        <wsdl:documentation>Closes PreparedStatement corresponding to given query.</wsdl:documentation>
+        <wsdl:input message="tns:DisposePreparedQueryRequest" />
+        <wsdl:output message="tns:DisposePreparedQueryResponse" />
+        <wsdl:fault name="fault" message="tns:SqlFault" />
+    </wsdl:operation>
+    <wsdl:operation name="SetJdbcConnectionProperty">
+        <wsdl:documentation>Sets simple-valued property on JDBC connection with given handle.</wsdl:documentation>
+        <wsdl:input message="tns:SetJdbcConnectionPropertyRequest" />
+        <wsdl:output message="tns:SetJdbcConnectionPropertyResponse" />
+        <wsdl:fault name="fault" message="tns:SqlFault" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJdbcConnectionProperty">
+        <wsdl:documentation>Answers simple-valued property on JDBC connection with given handle.</wsdl:documentation>
+        <wsdl:input message="tns:GetJdbcConnectionPropertyRequest" />
+        <wsdl:output message="tns:GetJdbcConnectionPropertyResponse" />
+        <wsdl:fault name="fault" message="tns:SqlFault" />
+    </wsdl:operation>
+    <wsdl:operation name="SetQueryResultProperty">
+        <wsdl:documentation>Sets simple-valued property on JDBC ResultSet with given handle.</wsdl:documentation>
+        <wsdl:input message="tns:SetQueryResultPropertyRequest" />
+        <wsdl:output message="tns:SetQueryResultPropertyResponse" />
+        <wsdl:fault name="fault" message="tns:SqlFault" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDatabaseColumns">
+        <wsdl:documentation>Answers columns information as provided by JDBC DatabaseMetadata.</wsdl:documentation>
+        <wsdl:input message="tns:GetDatabaseColumnsRequest" />
+        <wsdl:output message="tns:GetDatabaseColumnsResponse" />
+        <wsdl:fault name="fault" message="tns:SqlFault" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDatabaseMetadataStaticInfo">
+        <wsdl:documentation>Answers RDBMS static metadata information (properties that do not change in time).</wsdl:documentation>
+        <wsdl:input message="tns:GetDatabaseMetadataStaticInfoRequest" />
+        <wsdl:output message="tns:GetDatabaseMetadataStaticInfoResponse" />
+        <wsdl:fault name="fault" message="tns:SqlFault" />
+    </wsdl:operation>
+    <wsdl:operation name="IsAdapterReady">
+        <wsdl:documentation>Answers true if the given adapter is available and ready.</wsdl:documentation>
+        <wsdl:input message="tns:IsAdapterReadyRequest" />
+        <wsdl:output message="tns:IsAdapterReadyResponse" />
+        <wsdl:fault name="fault" message="tns:SqlFault" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAdaptersStats">
+        <wsdl:documentation>Answers collection of status information for all adapters.</wsdl:documentation>
+        <wsdl:input message="tns:GetAdaptersStatsRequest" />
+        <wsdl:output message="tns:GetAdaptersStatsResponse" />
+        <wsdl:fault name="fault" message="tns:SqlFault" />
+    </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="WsJdbcAdapterPort"
+        type="tns:WsJdbcAdapter">
+
+        <soap:binding style="document"
+            transport="http://schemas.xmlsoap.org/soap/http" />
+        <wsdl:operation name="CreateAdapter">
+            <soap:operation soapAction="http://server.cloveretl.com/WsJdbcAdapter/CreateAdapter" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="DisposeAdapter">
+            <soap:operation soapAction="http://server.cloveretl.com/WsJdbcAdapter/DisposeAdapter" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="OpenJdbcConnection">
+            <soap:operation soapAction="http://server.cloveretl.com/WsJdbcAdapter/OpenJdbcConnection" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="CloseJdbcConnection">
+            <soap:operation soapAction="http://server.cloveretl.com/WsJdbcAdapter/CloseJdbcConnection" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="ExecuteQuery">
+            <soap:operation soapAction="http://server.cloveretl.com/WsJdbcAdapter/ExecuteQuery" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="FetchNextResultData">
+            <soap:operation soapAction="http://server.cloveretl.com/WsJdbcAdapter/FetchNextResultData" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="DisposeQueryResult">
+            <soap:operation soapAction="http://server.cloveretl.com/WsJdbcAdapter/DisposeQueryResult" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="GetSchemas">
+            <soap:operation soapAction="http://server.cloveretl.com/WsJdbcAdapter/GetSchemas" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="GetTables">
+            <soap:operation soapAction="http://server.cloveretl.com/WsJdbcAdapter/GetTables" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="GetColumns">
+            <soap:operation soapAction="http://server.cloveretl.com/WsJdbcAdapter/GetColumns" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="GetAllColumns">
+            <soap:operation soapAction="http://server.cloveretl.com/WsJdbcAdapter/GetAllColumns" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="PrepareQuery">
+            <soap:operation soapAction="http://server.cloveretl.com/WsJdbcAdapter/PrepareQuery" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="ExecutePreparedQuery">
+            <soap:operation soapAction="http://server.cloveretl.com/WsJdbcAdapter/ExecutePreparedQuery" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="DisposePreparedQuery">
+            <soap:operation soapAction="http://server.cloveretl.com/WsJdbcAdapter/DisposePreparedQuery" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="SetJdbcConnectionProperty">
+            <soap:operation soapAction="http://server.cloveretl.com/WsJdbcAdapter/SetJdbcConnectionProperty" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="GetJdbcConnectionProperty">
+            <soap:operation soapAction="http://server.cloveretl.com/WsJdbcAdapter/GetJdbcConnectionProperty" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="SetQueryResultProperty">
+            <soap:operation soapAction="http://server.cloveretl.com/WsJdbcAdapter/SetQueryResultProperty" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="GetDatabaseColumns">
+            <soap:operation soapAction="http://server.cloveretl.com/WsJdbcAdapter/GetDatabaseColumns" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="GetDatabaseMetadataStaticInfo">
+            <soap:operation soapAction="http://server.cloveretl.com/WsJdbcAdapter/GetDatabaseMetadataStaticInfo" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="IsAdapterReady">
+            <soap:operation soapAction="http://server.cloveretl.com/WsJdbcAdapter/IsAdapterReady" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="GetAdaptersStats">
+            <soap:operation soapAction="http://server.cloveretl.com/WsJdbcAdapter/GetAdaptersStats" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="WsJdbcAdapterService">
+        <wsdl:port binding="tns:WsJdbcAdapterPort" name="WsJdbcAdapterPort">
+          <soap:address location="http://any"/>
+        </wsdl:port>
+   </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bindings version="2.1"
+    xmlns="http://java.sun.com/xml/ns/jaxb"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <bindings schemaLocation="DebugModel.xsd">
+        <bindings node="//xsd:complexType[@name='CompositeVariable']/xsd:complexContent/xsd:extension/xsd:sequence/xsd:element[@name='value']">
+            <property collectionType="indexed" />
+        </bindings>
+    </bindings>
+</bindings>

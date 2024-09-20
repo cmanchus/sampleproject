@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+	default-autowire="no">
+
+	<context:annotation-config />
+
+	<bean id="containerInfo"
+		class="com.cloveretl.server.ContainerInfoProvider" />
+
+	<bean id="setupCtrl"
+		class="com.cloveretl.server.web.gui.setup.k"
+		scope="session" parent="abstractSessionScopeCtrl" />
+
+	<bean id="configFileCtrl"
+		class="com.cloveretl.server.web.gui.setup.b"
+		scope="session" parent="abstractSessionScopeCtrl" init-method="init" />
+
+	<bean id="setupSandboxCtrl"
+		class="com.cloveretl.server.web.gui.setup.h"
+		scope="session" parent="abstractSessionScopeCtrl" init-method="init" />
+
+	<bean id="systemDbConfigCtrl"
+		class="com.cloveretl.server.web.gui.setup.r"
+		scope="session" parent="abstractSessionScopeCtrl" init-method="init">
+	</bean>
+
+	<bean id="dataManagerDbConfigCtrl"
+		class="com.cloveretl.server.web.gui.setup.c"
+		scope="session" parent="abstractSessionScopeCtrl" init-method="init">
+	</bean>
+
+	<bean id="clusterCtrl"
+		class="com.cloveretl.server.web.gui.setup.a"
+		scope="session" parent="abstractSessionScopeCtrl" init-method="init" />
+
+	<bean id="smtpCtrl"
+		class="com.cloveretl.server.web.gui.setup.SmtpController"
+		scope="session" parent="abstractSessionScopeCtrl" init-method="init" />
+
+	<bean id="smtpOAuth2Ctrl"
+		class="com.cloveretl.server.web.gui.setup.p"
+		scope="session" parent="abstractSessionScopeCtrl" />
+
+	<bean id="ldapCtrl"
+		class="com.cloveretl.server.web.gui.setup.g"
+		scope="session" parent="abstractSessionScopeCtrl" init-method="init" />
+
+	<bean id="ldapTreeCtrl"
+		class="com.cloveretl.server.web.gui.ldap.LdapController"
+		scope="session" parent="abstractSessionScopeCtrl" />
+
+	<bean name="ldapRequestCtrl"
+		class="com.cloveretl.server.web.gui.ldap.a"
+		scope="request">
+		<aop:scoped-proxy />
+	</bean>
+
+	<bean id="encryptionCtrl"
+		class="com.cloveretl.server.web.gui.setup.e"
+		scope="session" parent="abstractSessionScopeCtrl" init-method="init" />
+
+	<bean id="workerCtrl"
+		class="com.cloveretl.server.web.gui.setup.s"
+		scope="session" parent="abstractSessionScopeCtrl" init-method="init" />
+</beans>

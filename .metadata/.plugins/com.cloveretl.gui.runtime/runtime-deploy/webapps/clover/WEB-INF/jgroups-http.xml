@@ -1,0 +1,56 @@
+<!--
+    TCP based stack, with flow control and message bundling. This is usually used when IP
+    multicasting cannot be used in a network, e.g. because it is disabled (routers discard multicast).
+    Note that TCP.bind_addr and TCPPING.initial_hosts should be set, possibly via system properties, e.g.
+    -Djgroups.bind_addr=192.168.5.2 and -Djgroups.tcpping.initial_hosts=192.168.5.2[7800]
+    author: Bela Ban
+    version: $Id: tcp.xml,v 1.18.2.5 2008/06/17 08:22:36 belaban Exp $
+-->
+<config>
+	<!--
+	http://www.redhat.com/docs/manuals/jboss/jboss-eap-4.2/doc/Clustering_Guide/jbosscache-jgroups-transport-tcp.html 
+	-->
+    <com.cloveretl.server.cluster.j />
+	<!-- 
+    http://www.redhat.com/docs/manuals/jboss/jboss-eap-4.2/doc/Clustering_Guide/jbosscache-jgroups-discovery-tcpping.html
+	 -->                         
+    <TCPPING timeout="3000"
+             initial_hosts="${jgroups.tcpping.initial_hosts:localhost[7800],localhost[7801]}"
+             port_range="1"
+             num_initial_members="3"/>
+	<!--
+	http://www.redhat.com/docs/manuals/jboss/jboss-eap-4.2/doc/Clustering_Guide/jbosscache-jgroups-other-merge.html 
+	 -->
+    <MERGE2 max_interval="100000"
+              min_interval="20000"/>
+    <FD_SOCK/>
+    <FD timeout="10000" max_tries="5" shun="true"/>
+    <VERIFY_SUSPECT timeout="1500"  />
+    <BARRIER />
+    <pbcast.NAKACK
+                   use_mcast_xmit="false" gc_lag="0"
+                   retransmit_timeout="300,600,1200,2400,4800"
+                   discard_delivered_msgs="true"/>
+	<!--
+	http://www.redhat.com/docs/manuals/jboss/jboss-eap-4.2/doc/Clustering_Guide/jbosscache-jgroups-reliable-unicast.html 
+	 -->
+    <UNICAST timeout="300,600,1200" />
+    <!--
+    http://www.redhat.com/docs/manuals/jboss/jboss-eap-4.2/doc/Clustering_Guide/jbosscache-jgroups-other-gc.html 
+     -->
+    <pbcast.STABLE stability_delay="1000" desired_avg_gossip="50000"
+                   max_bytes="400000"/>
+    <VIEW_SYNC avg_send_interval="60000"/>
+    <pbcast.GMS print_local_addr="true" join_timeout="3000"
+                shun="true"
+                view_bundling="true"/>
+	<!--
+	FC == Flow Control
+	http://www.redhat.com/docs/manuals/jboss/jboss-eap-4.2/doc/Clustering_Guide/jbosscache-jgroups-other-fc.html 
+    -->
+    <FC max_credits="2000000"
+        min_threshold="0.10"/>
+    <FRAG2 frag_size="60000"  />
+    <pbcast.STREAMING_STATE_TRANSFER/>
+    <!-- <pbcast.STATE_TRANSFER/> -->  
+</config>

@@ -1,0 +1,4 @@
+//the message is refused by returning Boolean.False, otherwise it is acknowledged
+//change the message by modifying the "properties" and "data" containers
+/*properties.put("receivedDate", (new Date()).getDateTimeString());
+return Boolean.TRUE;*/

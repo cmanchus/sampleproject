@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+	default-autowire="no">
+
+	<!-- Data source - JDBC -->
+	<bean id="dataManagerDataSource_JDBC" class="com.cloveretl.server.datasource.c" destroy-method="close" lazy-init="true">
+		<property name="driverClassName" value="${datamanager.jdbc.driverClassName}" />
+		<property name="url" value="${datamanager.jdbc.url}" />
+		<property name="username" value="${datamanager.jdbc.username}" />
+		<property name="password" value="${datamanager.jdbc.password}" />
+
+		<property name="cloverName" value="Data Manager pool" />
+
+		<!-- uncomment following line to register data manager data source as managed bean -->
+		<!-- property name="jmxName" value="com.cloveretl.server.db:name=DataManagerJdbcDataSourceMBean" /-->
+
+		<property name="initialSize" value="1" />
+		<!-- max 50 connection may be borrowed at the time -->
+		<property name="maxTotal" value="50" />
+		<!-- wait max 30s until the pool can borrow the next connection -->
+		<property name="maxWaitMillis" value="30000" />
+
+		<property name="minIdle" value="0" />
+		<!-- max 50 connection may be idle in the pool, same as maxTotal -->
+		<property name="maxIdle" value="50" />
+		<!-- connection will idle only 20s in the pool -->
+		<property name="minEvictableIdleTimeMillis" value="20000" />
+		<!-- eviction thread will be activated each 10s -->
+		<property name="timeBetweenEvictionRunsMillis" value="10000" />
+		<!-- abandon inactive connections after each eviction run -->
+		<property name="removeAbandonedOnMaintenance" value="true" />
+		<!-- connections which weren't active for 40 minutes are considered as lost and will be abandoned -->
+		<property name="removeAbandonedTimeout" value="2400" />
+
+		<!-- enable autoCommit for new connections -->
+		<property name="defaultAutoCommit" value="true" />
+		<!-- enable autoCommit for returned connections -->
+		<property name="enableAutoCommitOnReturn" value="true" />
+		<!-- cache autoCommit and readOnly flags to prevent unnecessary db queries -->
+		<property name="cacheState" value="true" />
+
+		<!-- do not validate connection before being borrowed -->
+		<property name="testOnBorrow" value="false" />
+	</bean>
+
+	<!-- Data source - JNDI -->
+	<bean id="dataManagerDataSource_JNDI" class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="true">
+		<property name="lookupOnStartup" value="false" /> <!-- lazy init - thus JNDI is completely ignored when simple JDBC DS is configured -->
+		<property name="jndiName" value="${datamanager.datasource.jndiName}" />
+		<property name="proxyInterface" value="javax.sql.DataSource" />
+	</bean>
+
+	<!-- Data source - selects JDBC or JNDI based on server configuration -->
+	<bean id="dataManagerDataSource" class="com.cloveretl.server.datasource.d" lazy-init="true" init-method="init">
+		<constructor-arg ref="dataManagerDataSource_${datamanager.datasource.type}" />
+		<constructor-arg value="${datamanager.datasource.tries}" />
+		<constructor-arg value="${datamanager.datasource.tries.delay}" />
+	</bean>
+
+	<!-- Persistence class wrapped in all our proxies -->
+	<bean id="dataManagerPersistence" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="interceptorNames">
+			<list>
+				<value>dataManagerPersistenceConfiguredInterceptor</value>
+				<value>dataManagerInterruptSentinelInterceptor</value>
+			</list>
+		</property>
+		<property name="proxyInterfaces">
+			<list>
+				<value>com.cloveretl.server.datamanager.DataManagerPersistence</value>
+			</list>
+		</property>
+		<property name="targetName" value="dataManagerPersistenceTxProxy" />
+	</bean>
+
+	<bean id="dataManagerPersistenceConfiguredInterceptor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice" ref="dataManagerPersistenceConfiguredAdvice" />
+		<property name="pointcut">
+			<bean class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+				<property name="pattern" value=".*" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="dataManagerInterruptSentinelInterceptor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice" ref="dataManagerInterruptSentinelAdvice" />
+		<property name="pointcut">
+			<bean class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+				<property name="pattern" value=".*" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean name="dataManagerPersistenceConfiguredAdvice" class="com.cloveretl.server.datamanager.DataManagerPersistenceConfiguredAdvice" />
+	<bean name="dataManagerInterruptSentinelAdvice" class="com.cloveretl.server.aop.InterruptSentinelAdvice">
+		<constructor-arg ref="dataManagerDataSource" />
+	</bean>
+
+	<!-- Persistence class itself (without all the proxies) -->
+	<bean id="dataManagerPersistenceNoTx" class="com.cloveretl.server.datamanager.DataManagerPersistenceImpl" lazy-init="true" init-method="init" />
+
+	<!-- Persistence class wrapped by a proxy that handles transactions -->
+	<bean id="dataManagerPersistenceTxProxy" parent="dataManagerTxProxy" lazy-init="true">
+		<property name="target">
+			<bean class="org.springframework.aop.target.LazyInitTargetSource">
+				<property name="targetBeanName">
+					<idref bean="dataManagerPersistenceNoTx" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+
+	<!-- Transaction manager -->
+	<bean id="dataManagerTxManager" class="org.springframework.jdbc.support.JdbcTransactionManager" lazy-init="true">
+		<property name="dataSource" ref="dataManagerDataSource" />
+	</bean>
+
+	<!-- Abstract bean that adds transaction behavior on methods of child bean -->
+	<bean id="dataManagerTxProxy" abstract="true" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" lazy-init="true">
+		<property name="transactionManager" ref="dataManagerTxManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+				<prop key="isConfigured">PROPAGATION_SUPPORTS</prop> <!-- Do not create transaction/connection for this method -->
+			</props>
+		</property>
+	</bean>
+
+</beans>

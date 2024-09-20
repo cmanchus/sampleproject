@@ -1,0 +1,496 @@
+2024-09-20 21:28:08,880 Defaults          INFO  [main] - Loading default properties from: defaultProperties
+2024-09-20 21:28:11,019 Defaults          INFO  [main] - Loading default properties from: defaultProperties
+2024-09-20 21:28:11,767 Plugins           DEBUG [main] - Plugin org.jetel.azure loaded.
+	id - org.jetel.azure
+	version - 6.5.1.5
+	provider-name - CloverDX
+		urlResolver { className = org.jetel.util.protocols.azure.AzureBlobPathResolver; type = Azure; }
+		secretManager { className = org.jetel.graph.runtime.secrets.AzureImplicitManager; type = AZURE_IMPLICIT; }
+		secretManager { className = org.jetel.graph.runtime.secrets.AzureClientSecretManager; type = AZURE_CLIENT_SECRET; }
+
+2024-09-20 21:28:11,768 Plugins           DEBUG [main] - Plugin org.jetel.connection loaded.
+	id - org.jetel.connection
+	version - 6.5.1.5
+	provider-name - CloverDX
+		connection { className = org.jetel.connection.jdbc.DBConnectionImpl; type = JDBC; }
+		connection { className = org.jetel.connection.jms.JmsConnection; type = JMS; }
+		connection { className = org.jetel.connection.oauth2.OAuth2Connection; type = OAUTH2; }
+
+2024-09-20 21:28:11,768 Plugins           DEBUG [main] - Plugin org.jetel.ctlfunction loaded.
+	id - org.jetel.ctlfunction
+	version - 6.5.1.5
+	provider-name - CloverDX
+		ctlfunction { libraryName = math; className = org.jetel.ctl.extensions.MathLib; }
+		ctlfunction { libraryName = date; className = org.jetel.ctl.extensions.DateLib; }
+		ctlfunction { libraryName = string; className = org.jetel.ctl.extensions.StringLib; }
+		ctlfunction { libraryName = convert; className = org.jetel.ctl.extensions.ConvertLib; }
+		ctlfunction { libraryName = container; className = org.jetel.ctl.extensions.ContainerLib; }
+		ctlfunction { libraryName = random; className = org.jetel.ctl.extensions.RandomLib; }
+		ctlfunction { libraryName = anonymization; className = org.jetel.ctl.extensions.AnonymizationLib; }
+		ctlfunction { libraryName = util; className = org.jetel.ctl.extensions.UtilLib; }
+		ctlfunction { libraryName = dynamic; className = org.jetel.ctl.extensions.DynamicLib; }
+		ctlfunction { libraryName = string; className = org.jetel.ctl.extensions.StringLibExt; }
+		ctlfunction { libraryName = mapping; className = org.jetel.ctl.extensions.MappingLib; }
+		ctlfunction { libraryName = dynamic; className = org.jetel.ctl.extensions.DynamicLibExt; }
+		ctlfunction { libraryName = avro; className = org.jetel.ctl.extensions.AvroLib; }
+		ctlfunction { libraryName = wrangler; className = org.jetel.ctl.extensions.WranglerLib; }
+
+2024-09-20 21:28:11,768 Plugins           DEBUG [main] - Plugin org.jetel.engine loaded.
+	id - org.jetel.engine
+	version - 6.5.1.5
+	provider-name - CloverDX
+		dictionaryType { className = org.jetel.graph.dictionary.StringDictionaryType; type = string; }
+		dictionaryType { className = org.jetel.graph.dictionary.ObjectDictionaryType; type = object; }
+		dictionaryType { className = org.jetel.graph.dictionary.ReadableChannelDictionaryType; type = readable.channel; }
+		dictionaryType { className = org.jetel.graph.dictionary.WritableChannelDictionaryType; type = writable.channel; }
+		dictionaryType { className = org.jetel.graph.dictionary.IntegerDictionaryType; type = integer; }
+		dictionaryType { className = org.jetel.graph.dictionary.LongDictionaryType; type = long; }
+		dictionaryType { className = org.jetel.graph.dictionary.DecimalDictionaryType; type = decimal; }
+		dictionaryType { className = org.jetel.graph.dictionary.NumberDictionaryType; type = number; }
+		dictionaryType { className = org.jetel.graph.dictionary.DateDictionaryType; type = date; }
+		dictionaryType { className = org.jetel.graph.dictionary.BooleanDictionaryType; type = boolean; }
+		dictionaryType { className = org.jetel.graph.dictionary.ByteDictionaryType; type = byte; }
+		dictionaryType { className = org.jetel.graph.dictionary.ListDictionaryType; type = list; }
+		dictionaryType { className = org.jetel.graph.dictionary.MapDictionaryType; type = map; }
+		dictionaryType { className = org.jetel.graph.dictionary.VariantDictionaryType; type = variant; }
+		tlCompiler { className = org.jetel.ctl.TLCompiler; type = simple.compiler; }
+		ctlfunction { libraryName = record; className = org.jetel.ctl.extensions.IntegralLib; }
+		urlResolver { className = org.jetel.util.file.SMBPathResolver; type = SMB; }
+		urlResolver { className = org.jetel.util.protocols.amazon.S3PathResolver; type = S3; }
+		urlResolver { className = org.jetel.util.protocols.azure.AzureBlobPathResolver; type = AZURE-BLOB; }
+		authorityProxy { className = org.jetel.graph.runtime.PrimitiveAuthorityProxy; type = PrimitiveAuthorityProxy; priority = 0; }
+
+2024-09-20 21:28:11,768 Plugins           DEBUG [main] - Plugin org.jetel.jdbc loaded.
+	id - org.jetel.jdbc
+	version - 6.5.1.5
+	provider-name - CloverDX
+		jdbcSpecific { database = GENERIC; name = Generic; class = org.jetel.connection.jdbc.specific.impl.DefaultJdbcSpecific; }
+		jdbcSpecific { database = REDSHIFT; name = Amazon Redshift; class = org.jetel.connection.jdbc.specific.impl.RedshiftSpecific; }
+		jdbcSpecific { database = DB2; name = DB2; class = org.jetel.connection.jdbc.specific.impl.DB2Specific; }
+		jdbcSpecific { database = DERBY; name = Derby; class = org.jetel.connection.jdbc.specific.impl.DerbySpecific; productName = Apache Derby; }
+		jdbcSpecific { database = EXASOLUTION; name = EXASolution; class = org.jetel.connection.jdbc.specific.impl.ExasolSpecific; }
+		jdbcSpecific { database = FIREBIRD; name = Firebird; class = org.jetel.connection.jdbc.specific.impl.FirebirdSpecific; }
+		jdbcSpecific { database = HIVE; name = Hive; class = org.jetel.connection.jdbc.specific.impl.HiveSpecific; }
+		jdbcSpecific { database = INFORMIX; name = Informix; class = org.jetel.connection.jdbc.specific.impl.InformixSpecific; }
+		jdbcSpecific { database = MSACCESSJAVA; name = Microsoft Access; class = org.jetel.connection.jdbc.specific.impl.MSAccessPureJavaSpecific; }
+		jdbcSpecific { database = MSSQL; name = MS SQL Server 2008 or newer; class = org.jetel.connection.jdbc.specific.impl.MSSQLSpecific; productName = Microsoft SQL Server; }
+		jdbcSpecific { database = MSSQL2005; name = MS SQL Server 2000-2005; class = org.jetel.connection.jdbc.specific.impl.MSSQLSpecific2005; }
+		jdbcSpecific { database = MYSQL; name = MySQL; class = org.jetel.connection.jdbc.specific.impl.MySQLSpecific; productName = MySQL; }
+		jdbcSpecific { database = ORACLE; name = Oracle; class = org.jetel.connection.jdbc.specific.impl.OracleSpecific; productName = Oracle; }
+		jdbcSpecific { database = PERVASIVE; name = Pervasive; class = org.jetel.connection.jdbc.specific.impl.PervasiveSpecific; }
+		jdbcSpecific { database = POSTGRE; name = PostgreSQL; class = org.jetel.connection.jdbc.specific.impl.PostgreSpecific; }
+		jdbcSpecific { database = SNOWFLAKE; name = Snowflake; class = org.jetel.connection.jdbc.specific.impl.SnowflakeSpecific; }
+		jdbcSpecific { database = SYBASE; name = Sybase; class = org.jetel.connection.jdbc.specific.impl.SybaseSpecific; }
+		jdbcSpecific { database = SQLITE; name = SQLite; class = org.jetel.connection.jdbc.specific.impl.SQLiteSpecific; }
+		jdbcSpecific { database = VERTICA; name = Vertica; class = org.jetel.connection.jdbc.specific.impl.VerticaSpecific; }
+		jdbcDriver { database = MYSQL; urlHint = jdbc:mysql://hostname:3306/database; jdbc.zeroDateTimeBehavior = convertToNull; name = MySQL; driverLibrary = lib/mysql/mysql-connector-j-8.2.0.jar; jdbcSpecific = MYSQL; dbDriver = com.mysql.cj.jdbc.Driver; }
+		jdbcDriver { database = ORACLE; urlHint = jdbc:oracle:thin:@host:1521:SID,jdbc:oracle:thin:@cluster-alias:1521/service_name,jdbc:oracle:thin:@(DESCRIPTION=(LOAD_BALANCE=on)(ADDRESS=(PROTOCOL=TCP)(HOST=host1)(PORT=1521))(ADDRESS=(PROTOCOL=TCP)(HOST=host2)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=service_name))),jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=cluster_alias)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=service_name))),jdbc:oracle:thin:@host:1521/service_name; name = Oracle; driverLibrary = lib/oracle/ojdbc11-23.3.0.23.09.jar; jdbcSpecific = ORACLE; dbDriver = oracle.jdbc.OracleDriver; }
+		jdbcDriver { database = POSTGRE; urlHint = jdbc:postgresql://hostname/database; name = PostgreSQL; driverLibrary = lib/postgre/postgresql-42.7.3.jar; jdbcSpecific = POSTGRE; dbDriver = org.postgresql.Driver; }
+		jdbcDriver { database = REDSHIFT; urlHint = jdbc:redshift://cluster_id.redshift.amazonaws.com:5439/database; name = Amazon Redshift; driverLibrary = lib/redshift/RedshiftJDBC41-1.1.17.1017.jar; jdbcSpecific = REDSHIFT; dbDriver = com.amazon.redshift.jdbc41.Driver; }
+		jdbcDriver { database = MSSQL; urlHint = jdbc:jtds:sqlserver://hostname:1433/database;instance=instanceName,jdbc:jtds:sqlserver://hostname:1433/database; name = Microsoft SQL Server Legacy; driverLibrary = lib/jtds/jtds-1.2.8.jar; jdbcSpecific = MSSQL; dbDriver = net.sourceforge.jtds.jdbc.Driver; }
+		jdbcDriver { database = MSSQLSERVER; urlHint = jdbc:sqlserver://hostname:1433;databaseName=databaseName; name = Microsoft SQL Server; driverLibrary = lib/mssql/mssql-jdbc-12.4.2.jre11.jar;lib/mssql/antlr4-runtime-4.9.3.jar; jdbcSpecific = MSSQL; dbDriver = com.microsoft.sqlserver.jdbc.SQLServerDriver; }
+		jdbcDriver { database = MSACCESSJAVA; urlHint = jdbc:ucanaccess://database_file,jdbc:ucanaccess://database_file;newdatabaseversion=V2010; name = Microsoft Access; driverLibrary = lib/msaccess/ucanaccess-5.0.1.jar;lib/msaccess/jackcess-3.0.1.jar;lib/msaccess/hsqldb-2.7.1.jar; jdbcSpecific = MSACCESSJAVA; dbDriver = net.ucanaccess.jdbc.UcanaccessDriver; }
+		jdbcDriver { database = SYBASE; urlHint = jdbc:jtds:sybase://hostname:7100/database; name = Sybase; driverLibrary = lib/jtds/jtds-1.2.8.jar; jdbcSpecific = SYBASE; dbDriver = net.sourceforge.jtds.jdbc.Driver; }
+		jdbcDriver { database = SQLITE; urlHint = jdbc:sqlite:C:/database; name = SQLite; driverLibrary = lib/sqlite/sqlite-jdbc-3.42.0.0.jar; jdbcSpecific = SQLITE; dbDriver = org.sqlite.JDBC; }
+		jdbcDriver { database = DERBY; urlHint = jdbc:derby://hostname:1527/derby.db; name = Derby; driverLibrary = lib/derby/derbyclient-10.14.2.0.jar; jdbcSpecific = DERBY; dbDriver = org.apache.derby.jdbc.ClientDriver; }
+		jdbcDriver { database = VERTICA; urlHint = jdbc:vertica://hostname:5433/database; name = Vertica; driverLibrary = lib/vertica/vertica-jdbc-11.1.1-0.jar; jdbcSpecific = VERTICA; dbDriver = com.vertica.jdbc.Driver; }
+		jdbcDriver { database = SNOWFLAKE; urlHint = jdbc:snowflake://[account_identifier].snowflakecomputing.com/?[connection_params]; name = Snowflake; driverLibrary = lib/snowflake/snowflake-jdbc-3.13.29.jar;lib/snowflake/jaxb-api-2.3.1.jar; jdbcSpecific = SNOWFLAKE; dbDriver = net.snowflake.client.jdbc.SnowflakeDriver; }
+
+2024-09-20 21:28:11,768 Plugins           DEBUG [main] - Plugin org.jetel.license loaded.
+	id - org.jetel.license
+	version - 6.5.1.5
+	provider-name - CloverDX
+
+2024-09-20 21:28:11,769 Plugins           DEBUG [main] - Plugin org.jetel.lookup loaded.
+	id - org.jetel.lookup
+	version - 6.5.1.5
+	provider-name - CloverDX
+		lookup { className = org.jetel.lookup.SimpleLookupTable; type = simpleLookup; }
+		lookup { className = org.jetel.lookup.DBLookupTable; type = dbLookup; }
+		lookup { className = org.jetel.lookup.RangeLookupTable; type = rangeLookup; }
+
+2024-09-20 21:28:11,769 Plugins           DEBUG [main] - Plugin org.jetel.sequence loaded.
+	id - org.jetel.sequence
+	version - 6.5.1.5
+	provider-name - CloverDX
+		sequence { className = org.jetel.sequence.SimpleSequence; type = SIMPLE_SEQUENCE; }
+		sequence { className = org.jetel.sequence.PrimitiveSequence; type = PRIMITIVE_SEQUENCE; }
+
+2024-09-20 21:28:11,769 Plugins           DEBUG [main] - Plugin org.jetel.component loaded.
+	id - org.jetel.component
+	version - 6.5.1.5
+	provider-name - CloverDX
+		component { className = org.jetel.component.DataReader; name = UniversalDataReader; type = DATA_READER; }
+		component { className = org.jetel.component.DataWriter; name = UniversalDataWriter; type = DATA_WRITER; }
+		component { className = org.jetel.component.DataReader; name = FlatFileReader; type = FLAT_FILE_READER; }
+		component { className = org.jetel.component.DataWriter; name = FlatFileWriter; type = FLAT_FILE_WRITER; }
+		component { className = org.jetel.component.DelimitedDataReader; name = DelimitedDataReader; type = DELIMITED_DATA_READER; }
+		component { className = org.jetel.component.DelimitedDataWriter; name = DelimitedDataWriter; type = DELIMITED_DATA_WRITER; }
+		component { className = org.jetel.component.SimpleCopy; name = SimpleCopy; type = SIMPLE_COPY; }
+		component { className = org.jetel.component.Concatenate; name = Concatenate; type = CONCATENATE; }
+		component { className = org.jetel.component.SimpleGather; name = SimpleGather; type = SIMPLE_GATHER; }
+		component { className = org.jetel.component.Reformat; name = Map; type = REFORMAT; }
+		component { className = org.jetel.component.DBInputTable; name = DatabaseReader; type = DB_INPUT_TABLE; }
+		component { className = org.jetel.component.Sort; name = Sort; type = SORT; }
+		component { className = org.jetel.component.DBOutputTable; name = DatabaseWriter; type = DB_OUTPUT_TABLE; }
+		component { className = org.jetel.component.FixLenDataWriter; name = FixLenDataWriter; type = FIXLEN_DATA_WRITER; }
+		component { className = org.jetel.component.Dedup; name = Dedup; type = DEDUP; }
+		component { className = org.jetel.component.FixLenDataReader; name = FixLenDataReader; type = FIXLEN_DATA_READER; }
+		component { className = org.jetel.component.Merge; name = Merge; type = MERGE; }
+		component { className = org.jetel.component.CrossJoin; name = CrossJoin; type = CROSS_JOIN; }
+		component { className = org.jetel.component.MergeJoin; name = MergeJoin; type = MERGE_JOIN; }
+		component { className = org.jetel.component.MergeJoin; name = ExtMergeJoin; type = EXT_MERGE_JOIN; }
+		component { className = org.jetel.component.MergeJoin; type = SORTED_JOIN; }
+		component { className = org.jetel.component.Trash; name = Trash; type = TRASH; }
+		component { className = org.jetel.component.Trashifier; type = TRASHIFIER; }
+		component { className = org.jetel.component.DBExecute; name = DBExecute; type = DB_EXECUTE; }
+		component { className = org.jetel.component.HashJoin; name = HashJoin; type = HASH_JOIN; }
+		component { className = org.jetel.component.HashJoin; name = ExtHashJoin; type = EXT_HASH_JOIN; }
+		component { className = org.jetel.component.CheckForeignKey; name = CheckForeignKey; type = CHECK_FOREIGN_KEY; }
+		component { className = org.jetel.component.DBFDataReader; name = DBFDataReader; type = DBF_DATA_READER; }
+		component { className = org.jetel.component.DBFDataWriter; name = DBFDataWriter; type = DBF_DATA_WRITER; }
+		component { className = org.jetel.component.ExtFilter; name = Filter; type = EXT_FILTER; }
+		component { className = org.jetel.component.ExtSort; name = ExtSort; type = EXT_SORT; }
+		component { className = org.jetel.component.SortWithinGroups; name = SortWithinGroups; type = SORT_WITHIN_GROUPS; }
+		component { className = org.jetel.component.Partition; name = Partition; type = PARTITION; }
+		component { className = org.jetel.component.DataIntersection; name = DataIntersection; type = DATA_INTERSECTION; }
+		component { className = org.jetel.component.Aggregate; name = Aggregate; type = AGGREGATE; }
+		component { className = org.jetel.component.SystemExecute; name = SystemExecute; type = SYS_EXECUTE; }
+		component { className = org.jetel.component.RunGraph; name = RunGraph; type = RUN_GRAPH; }
+		component { className = org.jetel.component.HttpConnector; name = HTTPConnector; type = HTTP_CONNECTOR; }
+		component { className = org.jetel.component.KeyGenerator; name = KeyGenerator; type = KEY_GEN; }
+		component { className = org.jetel.component.AproxMergeJoin; name = ApproximativeJoin; type = APROX_MERGE_JOIN; }
+		component { className = org.jetel.component.DBJoin; name = DBJoin; type = DBJOIN; }
+		component { className = org.jetel.component.CloverDataWriter; name = CloverDataWriter; type = CLOVER_WRITER; }
+		component { className = org.jetel.component.CloverDataReader; name = CloverDataReader; type = CLOVER_READER; }
+		component { className = org.jetel.component.StructureWriter; name = StructuredDataWriter; type = STRUCTURE_WRITER; }
+		component { className = org.jetel.component.Normalizer; name = Normalizer; type = NORMALIZER; }
+		component { className = org.jetel.component.Denormalizer; name = Denormalizer; type = DENORMALIZER; }
+		component { className = org.jetel.component.Rollup; name = Rollup; type = ROLLUP; }
+		component { className = org.jetel.component.JmsReader; name = JMSReader; type = JMS_READER; }
+		component { className = org.jetel.component.JmsWriter; name = JMSWriter; type = JMS_WRITER; }
+		component { className = org.jetel.component.LookupJoin; name = LookupJoin; type = LOOKUP_JOIN; }
+		component { className = org.jetel.component.LookupTableReaderWriter; name = LookupTableReaderWriter; type = LOOKUP_TABLE_READER_WRITER; }
+		component { className = org.jetel.component.DataGenerator; name = DataGenerator; type = DATA_GENERATOR; }
+		component { className = org.jetel.component.SequenceChecker; name = SequenceChecker; type = SEQUENCE_CHECKER; }
+		component { className = org.jetel.component.TextTableWriter; type = TEXT_TABLE_WRITER; }
+		component { className = org.jetel.component.XmlXPathReader; name = XMLXPathReader; type = XML_XPATH_READER; }
+		component { className = org.jetel.component.XMLExtract; name = XMLExtract; type = XML_EXTRACT; }
+		component { className = org.jetel.component.JsonExtract; name = JSONExtract; type = JSON_EXTRACT; }
+		component { className = org.jetel.component.XmlReader; name = XMLReader; type = XML_READER; }
+		component { className = org.jetel.component.SpeedLimiter; name = SpeedLimiter; type = SPEED_LIMITER; }
+		component { className = org.jetel.component.SpeedLimiter; name = Sleep; type = SLEEP; }
+		component { className = org.jetel.component.JavaExecute; name = JavaExecute; type = JAVA_EXECUTE; }
+		component { className = org.jetel.component.GenericComponent; name = CustomJavaReader; type = GENERIC_READER; }
+		component { className = org.jetel.component.GenericComponent; name = CustomJavaWriter; type = GENERIC_WRITER; }
+		component { className = org.jetel.component.GenericComponent; name = CustomJavaTransformer; type = GENERIC_TRANSFORMER; }
+		component { className = org.jetel.component.GenericComponent; name = CustomJavaComponent; type = GENERIC_COMPONENT; }
+		component { className = org.jetel.component.XmlWriter; name = XMLWriter (deprecated); type = XML_WRITER; }
+		component { className = org.jetel.component.ExtXmlWriter; name = XMLWriter; type = EXT_XML_WRITER; }
+		component { className = org.jetel.component.XSLDataTransformer; name = XSLTransformer; type = XSL_TRANSFORMER; }
+		metadata { id = UniversalDataReader_Error; }
+		metadata { id = HTTPConnector_Request; }
+		metadata { id = HTTPConnector_Response; }
+		metadata { id = HTTPConnector_Error; }
+		metadata { id = RunGraph_Input; }
+		metadata { id = RunGraph_Output; }
+
+2024-09-20 21:28:11,769 Plugins           DEBUG [main] - Plugin org.jetel.bulkloader loaded.
+	id - org.jetel.bulkloader
+	version - 6.5.1.5
+	provider-name - CloverDX
+		component { className = org.jetel.component.OracleDataWriter; name = OracleBulkWriter; type = ORACLE_DATA_WRITER; }
+		component { className = org.jetel.component.DB2DataWriter; name = DB2BulkWriter; type = DB2_DATA_WRITER; }
+		component { className = org.jetel.component.InformixDataWriter; name = InformixBulkWriter; type = INFORMIX_DATA_WRITER; }
+		component { className = org.jetel.component.MsSqlDataWriter; name = MSSQLBulkWriter; type = MS_SQL_DATA_WRITER; }
+		component { className = org.jetel.component.MysqlDataWriter; name = MySQLBulkWriter; type = MYSQL_DATA_WRITER; }
+		component { className = org.jetel.component.PostgreSqlDataWriter; name = PostgreSQLBulkWriter; type = POSTGRESQL_DATA_WRITER; }
+		component { className = org.jetel.component.InfobrightDataWriter; name = InfobrightBulkWriter; type = INFOBRIGHT_DATA_WRITER; }
+		component { className = org.jetel.component.SnowflakeBulkWriter; name = SnowflakeBulkWriter; type = SNOWFLAKE_BULK_WRITER; }
+		metadata { id = SnowflakeBulkWriter_Output; }
+
+2024-09-20 21:28:11,769 Plugins           DEBUG [main] - Plugin org.jetel.hadoop loaded.
+	id - org.jetel.hadoop
+	version - 6.5.1.5
+	provider-name - CloverDX
+		connection { className = org.jetel.hadoop.connection.HadoopConnection; type = HADOOP; }
+		component { className = org.jetel.hadoop.component.HadoopWriter; name = HadoopWriter; type = HADOOP_WRITER; }
+		component { className = org.jetel.hadoop.component.HadoopReader; name = HadoopReader; type = HADOOP_READER; }
+		urlResolver { className = org.jetel.hadoop.service.filesystem.HadoopPathResolver; type = HADOOP_HDFS; }
+
+2024-09-20 21:28:11,770 Plugins           DEBUG [main] - Plugin org.jetel.smb2 loaded.
+	id - org.jetel.smb2
+	version - 6.5.1.5
+	provider-name - CloverDX
+		urlResolver { className = org.jetel.util.protocols.smb2.SMB2PathResolver; type = SMB2; }
+
+2024-09-20 21:28:11,770 Plugins           DEBUG [main] - Plugin com.cloveretl.tableau.TableauWriter loaded.
+	id - com.cloveretl.tableau.TableauWriter
+	version - 6.5.1.5
+	provider-name - CloverDX
+		component { className = com.cloveretl.tableau.TableauWriter; name = TableauWriter; type = TABLEAU_WRITER; }
+
+2024-09-20 21:28:11,770 Plugins           DEBUG [main] - Plugin org.jetel.thirdparty loaded.
+	id - org.jetel.thirdparty
+	version - 6.5.1.5
+	provider-name - CloverDX
+		component { className = org.jetel.component.Filter; name = Filter; type = FILTER; }
+		component { className = com.linagora.component.LdapReader; name = LDAPReader; type = LDAP_READER; }
+		component { className = com.linagora.component.LdapWriter; name = LDAPWriter; type = LDAP_WRITER; }
+
+2024-09-20 21:28:11,770 Plugins           DEBUG [main] - Plugin com.opensys.clover.validator loaded.
+	id - com.opensys.clover.validator
+	version - 6.5.1.5
+	provider-name - CloverDX
+		component { className = com.opensys.cloveretl.validator.component.Validator; name = Validator; type = VALIDATOR; }
+		metadata { id = Validator_InvalidRecords; }
+
+2024-09-20 21:28:11,770 Plugins           DEBUG [main] - Plugin com.opensys.clover.subgraph loaded.
+	id - com.opensys.clover.subgraph
+	version - 6.5.1.5
+	provider-name - CloverDX
+		component { className = com.opensys.cloveretl.component.Subgraph; name = Subgraph; type = SUBGRAPH; }
+		component { className = com.opensys.cloveretl.component.SubgraphInput; name = SubgraphInput; type = SUBGRAPH_INPUT; }
+		component { className = com.opensys.cloveretl.component.SubgraphOutput; name = SubgraphOutput; type = SUBGRAPH_OUTPUT; }
+
+2024-09-20 21:28:11,770 Plugins           DEBUG [main] - Plugin com.opensys.clover.spreadsheet loaded.
+	id - com.opensys.clover.spreadsheet
+	version - 6.5.1.5
+	provider-name - CloverDX
+		component { className = com.opensys.cloveretl.component.SpreadsheetReader; name = SpreadsheetDataReader; type = SPREADSHEET_READER; }
+		component { className = com.opensys.cloveretl.component.SpreadsheetWriter; name = SpreadsheetDataWriter; type = SPREADSHEET_WRITER; }
+		metadata { id = SpreadsheetReader_Error; }
+
+2024-09-20 21:28:11,770 Plugins           DEBUG [main] - Plugin com.opensys.cloveretl.quickbase loaded.
+	id - com.opensys.cloveretl.quickbase
+	version - 6.5.1.5
+	provider-name - CloverDX
+		connection { className = com.opensys.cloveretl.quickbase.connection.QuickBaseConnection; type = QUICKBASE; }
+		component { className = com.opensys.cloveretl.quickbase.component.QuickBaseRecordReader; name = QuickBase Record Reader; type = QUICKBASE_RECORD_READER; }
+		component { className = com.opensys.cloveretl.quickbase.component.QuickBaseQueryReader; name = QuickBase Query Reader; type = QUICKBASE_QUERY_READER; }
+		component { className = com.opensys.cloveretl.quickbase.component.QuickBaseRecordWriter; name = QuickBase Record Writer; type = QUICKBASE_RECORD_WRITER; }
+		component { className = com.opensys.cloveretl.quickbase.component.QuickBaseImportCSV; name = QuickBase Import CSV; type = QUICKBASE_IMPORT_CSV; }
+
+2024-09-20 21:28:11,770 Plugins           DEBUG [main] - Plugin com.opensys.clover.parquet loaded.
+	id - com.opensys.clover.parquet
+	version - 6.5.1.5
+	provider-name - CloverDX
+		component { className = com.opensys.cloveretl.component.ParquetReader; name = ParquetReader; type = PARQUET_READER; }
+		component { className = com.opensys.cloveretl.component.ParquetWriter; name = ParquetWriter; type = PARQUET_WRITER; }
+		metadata { id = ParquetReader_Error; }
+		metadata { id = ParquetWriter_output; }
+
+2024-09-20 21:28:11,770 Plugins           DEBUG [main] - Plugin com.opensys.clover.mongodb loaded.
+	id - com.opensys.clover.mongodb
+	version - 6.5.1.5
+	provider-name - CloverDX
+		connection { className = com.opensys.cloveretl.connection.nosql.mongo.MongoDBConnection; type = MONGODB; }
+		component { className = com.opensys.cloveretl.component.MongoDBReader; name = MongoDBReader; type = MONGODB_READER; }
+		component { className = com.opensys.cloveretl.component.MongoDBWriter; name = MongoDBWriter; type = MONGODB_WRITER; }
+		component { className = com.opensys.cloveretl.component.MongoDBExecute; name = MongoDBExecute; type = MONGODB_EXECUTE; }
+		metadata { id = MongoDBReader_Attributes; }
+		metadata { id = MongoDBWriter_Attributes; }
+		metadata { id = MongoDBExecute_Attributes; }
+		metadata { id = MongoDBReader_Result; }
+		metadata { id = MongoDBWriter_Result; }
+		metadata { id = MongoDBExecute_Result; }
+		metadata { id = MongoDBReader_Error; }
+		metadata { id = MongoDBWriter_Error; }
+		metadata { id = MongoDBExecute_Error; }
+
+2024-09-20 21:28:11,770 Plugins           DEBUG [main] - Plugin com.opensys.cloveretl.compiler loaded.
+	id - com.opensys.cloveretl.compiler
+	version - 6.5.1.5
+	provider-name - CloverDX
+		tlCompiler { className = com.opensys.cloveretl.ctl.BytecodeCompiler; type = bytecode.compiler; priority = 1; }
+
+2024-09-20 21:28:11,771 Plugins           DEBUG [main] - Plugin com.opensys.clover.component loaded.
+	id - com.opensys.clover.component
+	version - 6.5.1.5
+	provider-name - CloverDX
+		component { className = com.opensys.cloveretl.component.EmailFilter; name = EmailFilter; type = EMAIL_FILTER; }
+		component { className = com.opensys.cloveretl.component.EmailSender; name = EmailSender; type = EMAIL_SENDER; }
+		component { className = com.opensys.cloveretl.component.EmailReader; name = EmailReader; type = EMAIL_READER; }
+		component { className = com.opensys.cloveretl.component.FastSort; name = FastSort; type = FAST_SORT; }
+		component { className = com.opensys.cloveretl.component.MetaPivot; name = MetaPivot; type = META_PIVOT; }
+		component { className = com.opensys.cloveretl.component.MultiLevelReader; name = MultiLevelReader; type = MULTI_LEVEL_READER; }
+		component { className = com.opensys.cloveretl.component.RelationalJoin; name = RelationalJoin; type = RELATIONAL_JOIN; }
+		component { className = com.opensys.cloveretl.component.ParallelReader; name = ParallelReader; type = PARALLEL_READER; }
+		component { className = com.opensys.cloveretl.component.ClusterPartition; name = ParallelPartition; type = CLUSTER_PARTITION; }
+		component { className = com.opensys.cloveretl.component.ClusterSimpleGather; name = ParallelSimpleGather; type = CLUSTER_SIMPLE_GATHER; }
+		component { className = com.opensys.cloveretl.component.ClusterMerge; name = ParallelMerge; type = CLUSTER_MERGE; }
+		component { className = com.opensys.cloveretl.component.ClusterSimpleCopy; name = ParallelSimpleCopy; type = CLUSTER_SIMPLE_COPY; }
+		component { className = com.opensys.cloveretl.component.WebServiceClient; name = WebServiceClient; type = WEB_SERVICE_CLIENT; }
+		component { className = com.opensys.cloveretl.component.complexdatareader.ComplexDataReader; name = ComplexDataReader; type = COMPLEX_DATA_READER; }
+		component { className = com.opensys.cloveretl.component.DataSampler; name = DataSampler; type = DATA_SAMPLER; }
+		component { className = com.opensys.cloveretl.component.Pivot; name = Pivot; type = PIVOT; }
+		component { className = com.opensys.cloveretl.component.BeanReader; name = JavaBeanReader; type = BEAN_READER; }
+		component { className = com.opensys.cloveretl.component.BeanWriter; name = JavaBeanWriter; type = BEAN_WRITER; }
+		component { className = com.opensys.cloveretl.component.MapWriter; name = JavaMapWriter; type = MAP_WRITER; }
+		component { className = com.opensys.cloveretl.component.JsonReader; name = JSONReader; type = JSON_READER; }
+		component { className = com.opensys.cloveretl.component.JsonWriter; name = JSONWriter; type = JSON_WRITER; }
+		component { className = com.opensys.cloveretl.component.ExecuteGraph; name = ExecuteGraph; type = EXECUTE_GRAPH; }
+		component { className = com.opensys.cloveretl.component.ExecuteJobflow; name = ExecuteJobflow; type = EXECUTE_JOBFLOW; }
+		component { className = com.opensys.cloveretl.component.ExecuteWranglerJob; name = ExecuteWranglerJob; type = EXECUTE_WRANGLER_JOB; }
+		component { className = com.opensys.cloveretl.component.MonitorGraph; name = MonitorGraph; type = MONITOR_GRAPH; }
+		component { className = com.opensys.cloveretl.component.MonitorJobflow; name = MonitorJobflow; type = MONITOR_JOBFLOW; }
+		component { className = com.opensys.cloveretl.component.ExecuteScript; name = ExecuteScript; type = EXECUTE_SCRIPT; }
+		component { className = com.opensys.cloveretl.component.KillGraph; name = KillGraph; type = KILL_GRAPH; }
+		component { className = com.opensys.cloveretl.component.KillJobflow; name = KillJobflow; type = KILL_JOBFLOW; }
+		component { className = com.opensys.cloveretl.component.Fail; name = Fail; type = FAIL; }
+		component { className = com.opensys.cloveretl.component.SetJobOutput; name = SetJobOutput; type = SET_JOB_OUTPUT; }
+		component { className = com.opensys.cloveretl.component.GetJobInput; name = GetJobInput; type = GET_JOB_INPUT; }
+		component { className = com.opensys.cloveretl.component.TokenGather; name = TokenGather; type = TOKEN_GATHER; }
+		component { className = com.opensys.cloveretl.component.Barrier; name = Barrier; type = BARRIER; }
+		component { className = com.opensys.cloveretl.component.Condition; name = Condition; type = CONDITION; }
+		component { className = com.opensys.cloveretl.component.Success; name = Success; type = SUCCESS; }
+		component { className = com.opensys.cloveretl.component.Combine; name = Combine; type = COMBINE; }
+		component { className = com.opensys.cloveretl.component.ListFiles; name = ListFiles; type = LIST_FILES; }
+		component { className = com.opensys.cloveretl.component.CreateFiles; name = CreateFiles; type = CREATE_FILES; }
+		component { className = com.opensys.cloveretl.component.DeleteFiles; name = DeleteFiles; type = DELETE_FILES; }
+		component { className = com.opensys.cloveretl.component.CopyFiles; name = CopyFiles; type = COPY_FILES; }
+		component { className = com.opensys.cloveretl.component.MoveFiles; name = MoveFiles; type = MOVE_FILES; }
+		component { className = com.opensys.cloveretl.component.LoadBalancingPartition; name = LoadBalancingPartition; type = LOAD_BALANCING_PARTITION; }
+		component { className = com.opensys.cloveretl.component.ClusterLoadBalancingPartition; name = ParallelLoadBalancingPartition; type = CLUSTER_LOAD_BALANCING_PARTITION; }
+		component { className = com.opensys.cloveretl.component.ClusterRepartition; name = ParallelRepartition; type = CLUSTER_REPARTITION; }
+		component { className = com.opensys.cloveretl.component.ClusterRegather; type = CLUSTER_REGATHER; }
+		component { className = com.opensys.cloveretl.component.ExecuteMapReduce; name = ExecuteMapReduce; type = EXECUTE_MAPREDUCE; }
+		component { className = com.opensys.cloveretl.component.Loop; name = Loop; type = LOOP; }
+		component { className = com.opensys.cloveretl.component.SalesforceReader; name = SalesforceReader; type = SALESFORCE_READER; }
+		component { className = com.opensys.cloveretl.component.SalesforceWriter; name = SalesforceWriter; type = SALESFORCE_WRITER; }
+		component { className = com.opensys.cloveretl.component.SalesforceBulkReader; name = SalesforceBulkReader; type = SALESFORCE_BULK_READER; }
+		component { className = com.opensys.cloveretl.component.SalesforceBulkWriter; name = SalesforceBulkWriter; type = SALESFORCE_BULK_WRITER; }
+		component { className = com.opensys.cloveretl.component.SalesforceEinsteinWriter; name = SalesforceEinsteinWriter; type = SALESFORCE_WAVE_WRITER; }
+		component { className = com.opensys.cloveretl.component.dataservice.RestJobInput; name = Input; type = RESTJOB_INPUT; }
+		component { className = com.opensys.cloveretl.component.dataservice.RestJobOutput; name = Output; type = RESTJOB_OUTPUT; }
+		component { className = com.opensys.cloveretl.component.KafkaReader; name = KafkaReader; type = KAFKA_READER; }
+		component { className = com.opensys.cloveretl.component.KafkaWriter; name = KafkaWriter; type = KAFKA_WRITER; }
+		component { className = com.opensys.cloveretl.component.KafkaCommit; name = KafkaCommit; type = KAFKA_COMMIT; }
+		component { className = com.opensys.cloveretl.component.EDIFACTReader; name = EDIFACTReader; type = EDIFACT_READER; }
+		component { className = com.opensys.cloveretl.component.X12Reader; name = X12Reader; type = X12_READER; }
+		component { className = com.opensys.cloveretl.component.EDIFACTWriter; name = EDIFACTWriter; type = EDIFACT_WRITER; }
+		component { className = com.opensys.cloveretl.component.X12Writer; name = X12Writer; type = X12_WRITER; }
+		component { className = com.opensys.cloveretl.component.HL7Reader; name = HL7Reader; type = HL7_READER; }
+		component { className = com.opensys.cloveretl.component.DataSetWriter; name = DataSetWriter; type = DATA_SET_WRITER; }
+		component { className = com.opensys.cloveretl.component.DataSetCommit; name = DataSetCommit; type = DATA_SET_COMMIT; }
+		component { className = com.opensys.cloveretl.component.DataSetReader; name = DataSetReader; type = DATA_SET_READER; }
+		metadata { id = ExecuteGraph_RunStatus; }
+		metadata { id = ExecuteWranglerJob_RunStatus; }
+		metadata { id = ExecuteGraph_RunConfig; }
+		metadata { id = ExecuteWranglerJob_RunConfig; }
+		metadata { id = MonitorGraph_RunConfig; }
+		metadata { id = ExecuteScript_RunConfig; }
+		metadata { id = ExecuteScript_RunResult; }
+		metadata { id = KillGraph_RunConfig; }
+		metadata { id = CopyFiles_Attributes; }
+		metadata { id = CreateFiles_Attributes; }
+		metadata { id = DeleteFiles_Attributes; }
+		metadata { id = ListFiles_Attributes; }
+		metadata { id = MoveFiles_Attributes; }
+		metadata { id = CopyFiles_Result; }
+		metadata { id = CreateFiles_Result; }
+		metadata { id = DeleteFiles_Result; }
+		metadata { id = ListFiles_Result; }
+		metadata { id = MoveFiles_Result; }
+		metadata { id = CopyFiles_Error; }
+		metadata { id = CreateFiles_Error; }
+		metadata { id = DeleteFiles_Error; }
+		metadata { id = ListFiles_Error; }
+		metadata { id = MoveFiles_Error; }
+		metadata { id = ExecuteMapReduce_JobResult; }
+		metadata { id = ParallelReader_Error; }
+		metadata { id = MetaPivot_Output; }
+		metadata { id = RecordToKeyValues_Output; }
+		metadata { id = KeyValuesToRecord_Input; }
+		metadata { id = EmailReader_Message; }
+		metadata { id = EmailReader_Attachment; }
+		metadata { id = SalesforceEinstein_Success; }
+		metadata { id = SalesforceEinstein_Error; }
+		metadata { id = DataSetCommit_Input; }
+		metadata { id = DataSetCommit_Output; }
+		metadata { id = DataSetCommit_Error; }
+		connection { className = com.opensys.cloveretl.connection.SalesforceConnection; type = SALESFORCE; }
+		connection { className = com.opensys.cloveretl.connection.KafkaConnection; type = KAFKA; }
+		graphAnalyzerParticipant { className = com.opensys.cloveretl.component.dataservice.b; type = restjob.graphAnalyzerParticipant; }
+
+2024-09-20 21:28:11,771 Plugins           DEBUG [main] - Plugin com.opensys.cloveretl.ctlfunction loaded.
+	id - com.opensys.cloveretl.ctlfunction
+	version - 6.5.1.5
+	provider-name - CloverDX
+		ctlfunction { libraryName = string; className = com.opensys.cloveretl.ctl.extensions.StringLib; }
+		ctlfunction { libraryName = HTTP; className = com.opensys.cloveretl.ctl.extensions.HttpLib; }
+
+2024-09-20 21:28:11,771 Plugins           DEBUG [main] - Plugin com.opensys.clover.lookup loaded.
+	id - com.opensys.clover.lookup
+	version - 6.5.1.5
+	provider-name - CloverDX
+		lookup { className = com.opensys.cloveretl.lookup.PersistentLookupTable; type = persistentLookup; }
+		lookup { className = com.opensys.cloveretl.lookup.AspellLookupTable; type = aspellLookup; }
+
+2024-09-20 21:28:11,771 Plugins           DEBUG [main] - Plugin org.jetel.profiler loaded.
+	id - org.jetel.profiler
+	version - 6.5.1.5
+	provider-name - CloverDX
+		generalObject { className = com.cloveretl.profiler.engine.ProfilerLauncherImpl; id = ProfilerLauncher; }
+		generalObject { className = com.cloveretl.profiler.engine.PreviewGraphGeneratorImpl; id = ProfilerPreviewGraphGenerator; }
+		component { className = com.cloveretl.profiler.engine.components.Profiler; name = ProfilerProbe; type = PROFILER_PROBE; }
+
+2024-09-20 21:28:11,780 EngineInitializer DEBUG [main] - License location: ./licenses
+2024-09-20 21:28:11,780 EngineInitializer DEBUG [main] - ======= Licenses =======
+2024-09-20 21:28:11,781 EngineInitializer DEBUG [main] - ======= License =======
+2024-09-20 21:28:11,781 EngineInitializer DEBUG [main] - Company : PERSONAL
+2024-09-20 21:28:11,781 EngineInitializer DEBUG [main] - No. : CLP1DPERSO75885942EX
+2024-09-20 21:28:11,781 EngineInitializer DEBUG [main] - Type : EVALUATION
+2024-09-20 21:28:11,781 EngineInitializer DEBUG [main] - Note : 
+2024-09-20 21:28:11,781 EngineInitializer DEBUG [main] - Person : Christian Manchus
+2024-09-20 21:28:11,781 EngineInitializer DEBUG [main] - Vendor : 
+2024-09-20 21:28:11,781 EngineInitializer DEBUG [main] - Valid from date : 30 Aug 2024
+2024-09-20 21:28:11,782 EngineInitializer DEBUG [main] - Expiration date : 15 Oct 2024
+2024-09-20 21:28:11,782 EngineInitializer DEBUG [main] - Upgrade valid until : Unlimited
+2024-09-20 21:28:11,782 EngineInitializer DEBUG [main] - ==== Products ====
+2024-09-20 21:28:11,782 EngineInitializer DEBUG [main] - Product Id : com.cloveretl.gui
+2024-09-20 21:28:11,784 EngineInitializer DEBUG [main] - Product info : Designer v6.5.x
+2024-09-20 21:28:11,784 EngineInitializer DEBUG [main] - Product name : Designer
+2024-09-20 21:28:11,786 EngineInitializer DEBUG [main] - Version : 6.5.0
+2024-09-20 21:28:11,786 EngineInitializer DEBUG [main] - Product Id : com.cloveretl.runtime
+2024-09-20 21:28:11,786 EngineInitializer DEBUG [main] - Product info : Runtime Environment v6.5.x
+2024-09-20 21:28:11,786 EngineInitializer DEBUG [main] - Product name : Runtime Environment
+2024-09-20 21:28:11,786 EngineInitializer DEBUG [main] - Version : 6.5.0
+2024-09-20 21:28:11,786 EngineInitializer DEBUG [main] - Product Id : com.cloveretl.profiler
+2024-09-20 21:28:11,786 EngineInitializer DEBUG [main] - Product info : Data Quality v6.5.x
+2024-09-20 21:28:11,786 EngineInitializer DEBUG [main] - Product name : Data Quality
+2024-09-20 21:28:11,786 EngineInitializer DEBUG [main] - Version : 6.5.0
+2024-09-20 21:28:11,786 EngineInitializer DEBUG [main] - ======= END Licenses =======
+2024-09-20 21:28:13,432 GuiPlugin         DEBUG [main] - License 'com.cloveretl.gui.edi or com.cloveretl.gui.edi.edifact' is not available, component [EDIFACTReader:EDIFACT_READER] is hidden.
+2024-09-20 21:28:13,433 GuiPlugin         DEBUG [main] - License 'com.cloveretl.gui.edi' is not available, component [X12Reader:X12_READER] is hidden.
+2024-09-20 21:28:13,434 GuiPlugin         DEBUG [main] - License 'com.cloveretl.gui.edi or com.cloveretl.gui.edi.edifact' is not available, component [EDIFACTWriter:EDIFACT_WRITER] is hidden.
+2024-09-20 21:28:13,434 GuiPlugin         DEBUG [main] - License 'com.cloveretl.gui.edi' is not available, component [X12Writer:X12_WRITER] is hidden.
+2024-09-20 21:28:21,328 GuiPlugin         DEBUG [Worker-6: Start CloverDX Runtime] - Checking ETL runtime status: http://localhost:54956/clover/accessibilityTest.jsp
+2024-09-20 21:28:39,196 GuiPlugin         DEBUG [Worker-6: Start CloverDX Runtime] - ETL runtime responded: HTTP/1.1 503 , Response content: CloverDX Server not initialized yet
+2024-09-20 21:28:40,204 GuiPlugin         DEBUG [Worker-6: Start CloverDX Runtime] - Checking ETL runtime status: http://localhost:54956/clover/accessibilityTest.jsp
+2024-09-20 21:28:40,222 GuiPlugin         DEBUG [Worker-6: Start CloverDX Runtime] - ETL runtime responded: HTTP/1.1 503 , Response content: CloverDX Server not initialized yet
+2024-09-20 21:28:41,223 GuiPlugin         DEBUG [Worker-6: Start CloverDX Runtime] - Checking ETL runtime status: http://localhost:54956/clover/accessibilityTest.jsp
+2024-09-20 21:28:41,226 GuiPlugin         DEBUG [Worker-6: Start CloverDX Runtime] - ETL runtime responded: HTTP/1.1 503 , Response content: CloverDX Server not initialized yet
+2024-09-20 21:28:42,227 GuiPlugin         DEBUG [Worker-6: Start CloverDX Runtime] - Checking ETL runtime status: http://localhost:54956/clover/accessibilityTest.jsp
+2024-09-20 21:28:42,232 GuiPlugin         DEBUG [Worker-6: Start CloverDX Runtime] - ETL runtime responded: HTTP/1.1 503 , Response content: CloverDX Server not initialized yet
+2024-09-20 21:28:43,232 GuiPlugin         DEBUG [Worker-6: Start CloverDX Runtime] - Checking ETL runtime status: http://localhost:54956/clover/accessibilityTest.jsp
+2024-09-20 21:28:43,236 GuiPlugin         DEBUG [Worker-6: Start CloverDX Runtime] - ETL runtime responded: HTTP/1.1 503 , Response content: CloverDX Server not initialized yet
+2024-09-20 21:28:44,238 GuiPlugin         DEBUG [Worker-6: Start CloverDX Runtime] - Checking ETL runtime status: http://localhost:54956/clover/accessibilityTest.jsp
+2024-09-20 21:28:44,242 GuiPlugin         DEBUG [Worker-6: Start CloverDX Runtime] - ETL runtime responded: HTTP/1.1 503 , Response content: CloverDX Server not initialized yet
+2024-09-20 21:28:45,244 GuiPlugin         DEBUG [Worker-6: Start CloverDX Runtime] - Checking ETL runtime status: http://localhost:54956/clover/accessibilityTest.jsp
+2024-09-20 21:28:45,248 GuiPlugin         DEBUG [Worker-6: Start CloverDX Runtime] - ETL runtime responded: HTTP/1.1 503 , Response content: CloverDX Server not initialized yet
+2024-09-20 21:28:46,248 GuiPlugin         DEBUG [Worker-6: Start CloverDX Runtime] - Checking ETL runtime status: http://localhost:54956/clover/accessibilityTest.jsp
+2024-09-20 21:28:46,253 GuiPlugin         DEBUG [Worker-6: Start CloverDX Runtime] - ETL runtime responded: HTTP/1.1 503 , Response content: CloverDX Server not initialized yet
+2024-09-20 21:28:47,255 GuiPlugin         DEBUG [Worker-6: Start CloverDX Runtime] - Checking ETL runtime status: http://localhost:54956/clover/accessibilityTest.jsp
+2024-09-20 21:28:47,259 GuiPlugin         DEBUG [Worker-6: Start CloverDX Runtime] - ETL runtime responded: HTTP/1.1 503 , Response content: CloverDX Server not initialized yet
+2024-09-20 21:28:48,260 GuiPlugin         DEBUG [Worker-6: Start CloverDX Runtime] - Checking ETL runtime status: http://localhost:54956/clover/accessibilityTest.jsp
+2024-09-20 21:28:48,264 GuiPlugin         DEBUG [Worker-6: Start CloverDX Runtime] - ETL runtime responded: HTTP/1.1 503 , Response content: CloverDX Server not initialized yet
+2024-09-20 21:28:49,266 GuiPlugin         DEBUG [Worker-6: Start CloverDX Runtime] - Checking ETL runtime status: http://localhost:54956/clover/accessibilityTest.jsp
+2024-09-20 21:28:49,270 GuiPlugin         DEBUG [Worker-6: Start CloverDX Runtime] - ETL runtime responded: HTTP/1.1 503 , Response content: CloverDX Server not initialized yet
+2024-09-20 21:28:50,271 GuiPlugin         DEBUG [Worker-6: Start CloverDX Runtime] - Checking ETL runtime status: http://localhost:54956/clover/accessibilityTest.jsp
+2024-09-20 21:28:50,275 GuiPlugin         DEBUG [Worker-6: Start CloverDX Runtime] - ETL runtime responded: HTTP/1.1 503 , Response content: CloverDX Server not initialized yet
+2024-09-20 21:28:51,276 GuiPlugin         DEBUG [Worker-6: Start CloverDX Runtime] - Checking ETL runtime status: http://localhost:54956/clover/accessibilityTest.jsp
+2024-09-20 21:28:51,288 GuiPlugin         DEBUG [Worker-6: Start CloverDX Runtime] - ETL runtime responded: HTTP/1.1 503 , Response content: STARTING
+2024-09-20 21:28:52,289 GuiPlugin         DEBUG [Worker-6: Start CloverDX Runtime] - Checking ETL runtime status: http://localhost:54956/clover/accessibilityTest.jsp
+2024-09-20 21:28:52,344 GuiPlugin         DEBUG [Worker-6: Start CloverDX Runtime] - ETL runtime responded: HTTP/1.1 200 , Response content: OK
+2024-09-20 21:28:53,360 ServerGUIPlugin   DEBUG [Worker-6: Start CloverDX Runtime] - Server (http://localhost:54956/clover) call #1 duration=24ms getSandboxes()
