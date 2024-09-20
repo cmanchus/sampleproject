@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Graph author="Christian" created="Fri Sep 20 19:48:38 CST 2024" guiVersion="6.5.1.5" id="1726833662784" licenseCode="CLP1DPERSO75885942EX" name="new-graph" showComponentDetails="true">
 <Global>
+<Metadata id="Metadata0">
+<Record fieldDelimiter="," name="sample" previewAttachment="C:/Users/Christian/OneDrive/Desktop/sample.csv" previewAttachmentCharset="UTF-8" quoteChar="both" quotedStrings="false" recordDelimiter="\r\n" skipSourceRows="0" type="delimited">
+<Field name="Field1" type="string"/>
+<Field eofAsDelimiter="true" name="Field2" type="string"/>
+</Record>
+</Metadata>
 <GraphParameters>
 <GraphParameterFile fileURL="workspace.prm"/>
 </GraphParameters>
 <Dictionary/>
 </Global>
+<Phase number="0">
+<Node guiName="Dedup" guiX="909" guiY="227" id="DEDUP" type="DEDUP"/>
+<Node guiName="Filter" guiX="691" guiY="293" id="FILTER" type="EXT_FILTER"/>
+<Node fileURL="C:/Users/Christian/OneDrive/Desktop/sample.csv" guiName="FlatFileReader" guiX="379" guiY="231" id="FLAT_FILE_READER" type="FLAT_FILE_READER"/>
+<Node guiName="Partition" guiX="942" guiY="359" id="PARTITION" type="PARTITION"/>
+<Edge fromNode="FLAT_FILE_READER:0" guiBendpoints="" guiRouter="Manhattan" id="Edge0" inPort="Port 0 (in)" metadata="Metadata0" outPort="Port 0 (output)" toNode="FILTER:0"/>
+</Phase>
 </Graph>
