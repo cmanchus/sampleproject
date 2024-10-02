@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Graph author="Christian" created="Wed Oct 02 10:06:28 CST 2024" guiVersion="6.5.1.5" id="1727845507796" licenseCode="CLP1DPERSO75885942EX" name="new-jobflow" nature="jobflow" showComponentDetails="true">
+<Global>
+<GraphParameters>
+<GraphParameterFile fileURL="workspace.prm"/>
+</GraphParameters>
+<Dictionary/>
+</Global>
+<Phase number="0">
+<Node guiName="new-graph" guiX="363" guiY="246" id="NEW_GRAPH" jobURL="${GRAPH_DIR}/new-graph.grf" type="EXECUTE_GRAPH"/>
+<Node guiName="wwww" guiX="593" guiY="246" id="WWWW" jobURL="${GRAPH_DIR}/wwww.grf" type="EXECUTE_GRAPH"/>
+</Phase>
+</Graph>
