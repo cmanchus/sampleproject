@@ -6,4 +6,7 @@
 </GraphParameters>
 <Dictionary/>
 </Global>
+<Phase number="0">
+<Node guiName="Aggregate" guiX="484" guiY="230" id="AGGREGATE" type="AGGREGATE"/>
+</Phase>
 </Graph>
