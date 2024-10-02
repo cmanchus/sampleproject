@@ -1,4 +1,4 @@
-#Fri Sep 20 21:28:20 CST 2024
+#Wed Oct 02 10:10:16 CST 2024
 jobqueue.enabled=false
 engine.lib.dirs=C\:\\Program Files\\CloverDX\\CloverDX Designer 6.5.1\\plugins\\com.cloveretl.gui_6.5.1.5\\lib,C\:\\Program Files\\CloverDX\\CloverDX Designer 6.5.1\\plugins\\com.cloveretl.gui_6.5.1.5\\lib\\lib
 buildNum=6.5.1.5
@@ -7,5 +7,5 @@ dblocker.enabled=false
 license.dir=C\:\\Users\\Christian\\.eclipse\\org.eclipse.platform_4.28.0_83938069_win32_win32_x86_64\\configuration\\com.cloveretl.gui
 engine.plugins.core.src=C\:\\Program Files\\CloverDX\\CloverDX Designer 6.5.1\\plugins\\com.cloveretl.gui_6.5.1.5\\lib\\plugins,C\:\\Program Files\\CloverDX\\CloverDX Designer 6.5.1\\plugins\\com.cloveretl.gui.validator_6.5.1.5\\lib\\plugins,C\:\\Program Files\\CloverDX\\CloverDX Designer 6.5.1\\plugins\\com.cloveretl.gui.subgraph_6.5.1.5\\lib\\plugins,C\:\\Program Files\\CloverDX\\CloverDX Designer 6.5.1\\plugins\\com.cloveretl.gui.spreadsheet_6.5.1.5\\lib\\plugins,C\:\\Program Files\\CloverDX\\CloverDX Designer 6.5.1\\plugins\\com.cloveretl.gui.quickbase_6.5.1.5\\lib\\plugins,C\:\\Program Files\\CloverDX\\CloverDX Designer 6.5.1\\plugins\\com.cloveretl.gui.parquet_6.5.1.5\\lib\\plugins,C\:\\Program Files\\CloverDX\\CloverDX Designer 6.5.1\\plugins\\com.cloveretl.gui.mongodb_6.5.1.5\\lib\\plugins,C\:\\Program Files\\CloverDX\\CloverDX Designer 6.5.1\\plugins\\com.cloveretl.gui.commercial_6.5.1.5\\lib\\plugins,C\:\\Program Files\\CloverDX\\CloverDX Designer 6.5.1\\plugins\\com.cloveretl.profiler.gui_6.5.1.5\\lib\\plugins
 runtime.embedded.enabled=true
-sandboxes.home=C\:\\Users\\Christian\\sampleproject\\.metadata\\.plugins\\com.cloveretl.gui.runtime\\runtime-work\\temp\\sandboxes
-timestamp=1920f9e84d1
+sandboxes.home=C\:\\Users\\Christian\\git\\latest\\.metadata\\.plugins\\com.cloveretl.gui.runtime\\runtime-work\\temp\\sandboxes
+timestamp=1924afe0d98
