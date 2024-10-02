@@ -20,10 +20,3 @@ GO
 
 ALTER TABLE [sales].[staffs]  WITH CHECK ADD FOREIGN KEY([manager_id])
 REFERENCES [sales].[staffs] ([staff_id])
-GO
-
-ALTER TABLE [sales].[staffs]  WITH CHECK ADD FOREIGN KEY([store_id])
-REFERENCES [sales].[stores] ([store_id])
-ON UPDATE CASCADE
-ON DELETE CASCADE
-GO
