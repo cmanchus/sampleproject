@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Graph author="Christian" created="Wed Oct 02 10:06:28 CST 2024" guiVersion="6.5.1.5" id="1727870495739" licenseCode="CLP1DPERSO75885942EX" name="dddddd" nature="subgraph" showComponentDetails="true">
+<Global>
+<GraphParameters>
+<GraphParameterFile fileURL="workspace.prm"/>
+</GraphParameters>
+<Dictionary/>
+</Global>
+<Phase number="0">
+<Node attachments="${path}" connSecurity="SSL" guiName="EMAIL_SENDER" guiX="214" guiY="145" id="EMAIL_SENDER" message="From=christianmanchus@gmail.com&#10;To=manchuschristian@gmail.com&#10;Subject=aaa&#10;MessageBody=aaaa&#10;" smtpPassword="jnfk mjky muhz rdgv" smtpPort="465" smtpServer="smtp.gmail.com" smtpUser="christianmanchus@gmail.com" type="EMAIL_SENDER"/>
+<Node guiName="SubgraphInput" guiX="50" guiY="10" id="SUBGRAPH_INPUT" type="SUBGRAPH_INPUT">
+<Port guiY="110" name="0"/>
+</Node>
+<Node guiName="SubgraphOutput" guiX="442" guiY="10" id="SUBGRAPH_OUTPUT" type="SUBGRAPH_OUTPUT">
+<Port guiY="110" name="0"/>
+</Node>
+</Phase>
+</Graph>

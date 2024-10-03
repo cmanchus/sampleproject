@@ -7,7 +7,8 @@
 <Dictionary/>
 </Global>
 <Phase number="0">
-<Node guiName="new-graph" guiX="363" guiY="246" id="NEW_GRAPH" jobURL="${GRAPH_DIR}/new-graph.grf" type="EXECUTE_GRAPH"/>
-<Node guiName="wwww" guiX="593" guiY="246" id="WWWW" jobURL="${GRAPH_DIR}/wwww.grf" type="EXECUTE_GRAPH"/>
+<Node guiName="dddddd" guiX="234" guiY="161" id="DDDDDD" jobURL="${GRAPH_DIR}/dddddd.grf" type="EXECUTE_GRAPH"/>
+<Node attachments="${path}" guiName="" guiX="607" guiY="187" id="EMAIL_SENDER" message="From=christianmanchus@gmail.com&#10;To=manchuschristian@gmail.com&#10;Subject=aaa&#10;MessageBody=aaaa&#10;" smtpPassword="wilabaliw67" smtpServer="smtp.gmail.com" smtpUser="christianmanchus@gmail.com" type="EMAIL_SENDER"/>
+<Edge fromNode="DDDDDD:0" guiBendpoints="" guiRouter="Manhattan" id="Edge0" inPort="Port 0 (in)" outPort="Port 0 (out)" toNode="EMAIL_SENDER:0"/>
 </Phase>
 </Graph>
