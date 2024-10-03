@@ -42,4 +42,13 @@
 <GraphParameter name="TRANS_DIR" value="${PROJECT}/trans">
 <attr name="description"><![CDATA[Default folder for java and CTL transformations]]></attr>
 </GraphParameter>
+<GraphParameter name="path">
+<attr name="dynamicValue"><![CDATA[//#CTL2
+
+function string getValue() {
+	return "C:\\Users\\Christian\\Downloads\\sample_"+getYear(today())+""+getMonth(today())+""+getDay(today())+".csv";
+}
+
+]]></attr>
+</GraphParameter>
 </GraphParameters>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GraphParameters>
+<GraphParameter name="date" public="true">
+<attr name="dynamicValue"><![CDATA[//#CTL2
+
+function string getValue() {
+	return getYear(today())+""+getMonth(today())+""+getDay(today());
+}
+]]></attr>
+</GraphParameter>
+</GraphParameters>
