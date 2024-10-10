@@ -72,17 +72,20 @@
 <GraphParameterFile fileURL="workspace.prm"/>
 <GraphParameterFile fileURL="date.prm"/>
 </GraphParameters>
+<RichTextNote backgroundColor="FAF6D6" folded="false" fontSize="medium" height="471" id="Note0" textColor="444444" width="671" x="137" y="58">
+<attr name="text"><![CDATA[h3. New Note]]></attr>
+</RichTextNote>
 <Dictionary/>
 </Global>
 <Phase number="0">
-<Node dbConnection="JDBC0" guiName="DatabaseReader" guiX="194" guiY="152" id="DATABASE_READER" type="DB_INPUT_TABLE">
+<Node dbConnection="JDBC0" guiName="DatabaseReader" guiX="222" guiY="156" id="DATABASE_READER" type="DB_INPUT_TABLE">
 <attr name="sqlQuery"><![CDATA[select * from [sample].[sales].[orders]]]></attr>
 </Node>
-<Node dbConnection="JDBC0" guiName="DatabaseReader" guiX="183" guiY="381" id="DATABASE_READER1" type="DB_INPUT_TABLE">
+<Node dbConnection="JDBC0" guiName="DatabaseReader" guiX="211" guiY="385" id="DATABASE_READER1" type="DB_INPUT_TABLE">
 <attr name="sqlQuery"><![CDATA[select * from [sample].[sales].[stores]]]></attr>
 </Node>
-<Node guiName="dddddd" guiX="991" guiY="309" id="DDDDDD" jobURL="${PROJECT}/dddddd.sgrf" type="SUBGRAPH"/>
-<Node guiName="ExtHashJoin" guiX="598" guiY="283" id="EXT_HASH_JOIN" joinKey="$store_id=$store_id" type="EXT_HASH_JOIN">
+<Node enabled="disabled" guiName="dddddd" guiX="953" guiY="152" id="DDDDDD" jobURL="${PROJECT}/dddddd.sgrf" type="SUBGRAPH"/>
+<Node guiName="ExtHashJoin" guiX="554" guiY="293" id="EXT_HASH_JOIN" joinKey="$store_id=$store_id" type="EXT_HASH_JOIN">
 <attr name="transform"><![CDATA[//#CTL2
 
 // Transforms input record into output record.
@@ -121,9 +124,12 @@ function integer transform() {
 // function string getMessage() {}
 ]]></attr>
 </Node>
-<Node fileURL="C:/Users/Christian/Downloads/sample_${date}.csv" guiName="FlatFileWriter" guiX="615" guiY="106" id="FLAT_FILE_WRITER" type="FLAT_FILE_WRITER"/>
+<Node fileURL="C:/Users/Christian/Downloads/sample_${date}.csv" guiName="FlatFileWriter" guiX="587" guiY="111" id="FLAT_FILE_WRITER" makeDirs="true" type="FLAT_FILE_WRITER"/>
 <Edge fromNode="DATABASE_READER:0" guiBendpoints="" guiRouter="Manhattan" id="Edge3" inPort="Port 0 (driver)" metadata="Metadata3" outPort="Port 0 (out)" toNode="EXT_HASH_JOIN:0"/>
 <Edge fromNode="DATABASE_READER1:0" guiBendpoints="" guiRouter="Manhattan" id="Edge4" inPort="Port 1 (slave)" metadata="Metadata1" outPort="Port 0 (out)" toNode="EXT_HASH_JOIN:1"/>
 <Edge fromNode="EXT_HASH_JOIN:0" guiBendpoints="" guiRouter="Manhattan" id="Edge5" inPort="Port 0 (in)" metadata="Metadata4" outPort="Port 0 (out)" toNode="FLAT_FILE_WRITER:0"/>
+</Phase>
+<Phase number="5">
+<Node guiName="dddddd1" guiX="976" guiY="317" id="DDDDDD1" jobURL="${PROJECT}/dddddd1.sgrf" type="SUBGRAPH"/>
 </Phase>
 </Graph>
